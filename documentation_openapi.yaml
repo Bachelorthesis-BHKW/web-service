@@ -5,7 +5,7 @@ info:
   version: 1.0.0
 servers:
   - url: http://api.bhkw.de
-    description: Main production server
+    description: Main server
 security:
   - BearerAuth: []
 paths:
