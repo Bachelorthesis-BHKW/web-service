@@ -1,0 +1,516 @@
+openapi: 3.0.0
+info:
+  title: BHKW web-service API
+  description: Documentation for the web-service controlling various energy systems (ES) with the help of an Monte-Carlo based python algorithm 
+  version: 1.0.0
+servers:
+  - url: http://api.bhkw.de
+    description: Main production server
+security:
+  - BearerAuth: []
+paths:
+  /users:
+    post:
+      security: []
+      summary: Create a new User able to make various API calls
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '200':
+          description: The created User
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/UserOutput'
+    get:
+      summary: Get the current User
+      tags:
+        - Users
+      responses:
+        '200':
+          description: The current User
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/UserOutput'
+    patch:
+      summary: Change specific data of the User
+      tags:
+        - Users
+      description: Will return the patched User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '200':
+          description: The patched User
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/UserOutput'
+    delete:
+      summary: Delete the User
+      description: Will also delete all connected EnergySystems and ES Components!
+      tags:
+        - Users
+      responses:
+        '200':
+          description: success
+
+  /energy-systems:
+    post:
+      summary: Create a new Energy System, empty without any components
+      tags:
+        - Energy Systems
+      description: Will create a new empty Energy System, ready to attach new components like CHPs, batteries, heat stroages, etc...
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnergySystemInput'
+      responses:
+        '200':
+          description: The created Energy System
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/EnergySystem'
+                
+  /energy-systems/{id}:
+    get:
+      summary: Get the complete EnergySystem with all components
+      tags:
+        - Energy Systems
+      description: Will return a new EnergySystem with all components attached, name, user and id
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The Energy System ID
+      responses:
+        '200':
+          description: The complete EnergySystem with all componentes and user
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/EnergySystem'
+    patch:
+      summary: Change specific data of the Energy System
+      tags:
+        - Energy Systems
+      description: Will return the patched Energy System
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The Energy System ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnergySystemInput'
+      responses:
+        '200':
+          description: The complete EnergySystem with all componentes and user
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/EnergySystem'
+    delete:
+      summary: Delete the Energy System
+      tags:
+        - Energy Systems
+      description: Deletes the Energy System with all connected components
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The Energy System ID
+      responses:
+        '200':
+          description: success
+          
+  /energy-systems/{id}/schedule:
+    get:
+      summary: Get the schedule for the Energy System
+      tags:
+        - Energy Systems
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The Energy System ID
+      responses:
+        '200':
+          description: The schedule for the EnergySystem
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ESSchedule'
+
+  /energy-systems/{id}/consumption:
+    post:
+      summary: Post new Energy System consumption data
+      tags:
+        - Energy Systems
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The Energy System ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ESConsumption'
+      responses:
+        '200':
+          description: Consumption data successfully created
+      
+  /es-components:
+    post:
+      summary: Create a new component and add it to the specified Energy System, also creates empty ES Component Current
+      tags:
+        - Energy System Components
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ESComponentInput'
+      responses:
+        '200':
+          description: The created Energy System
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ESComponent'
+  
+  /es-components/{id}:
+    get:
+      summary: Get the ES Component
+      tags:
+        - Energy System Components
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The ES Component ID
+      responses:
+        '200':
+          description: The complete EnergySystem with all componentes and user
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ESComponent'
+    patch:
+      summary: Change specific data of the ES Component
+      tags:
+        - Energy System Components
+      description: Will return the patched ES Component
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The Energy System ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ESComponentInput'
+      responses:
+        '200':
+          description: The patched ES Component
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ESComponent'
+    delete:
+      summary: Delete the ES Component
+      tags:
+        - Energy System Components
+      description: Will remove the ES Component form the connected Energy Systems and deletes the component 
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The ES Component ID
+      responses:
+        '200':
+          description: success
+          
+  /es-components/{id}/current:
+    put:
+      summary: Replace the current ES Component data
+      tags:
+        - Energy System Components
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The ES Component ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ESComponentCurrent'
+      responses:
+        '200':
+          description: success
+    
+components:                  
+  schemas:
+  
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Hans Peter
+        username:
+          type: string
+          example: H.Perter
+        company:
+          type: string
+          example: Hochschule Reutlingen
+        email:
+          type: string
+          example: peter@reutlingen-university.de
+        
+    EnergySystem:
+      allOf:
+        - $ref: '#/components/schemas/EnergySystemInput'
+      type: object
+      properties:
+        energySystemId:
+          type: integer
+          minimum: 1
+          example: 42
+        userId:
+          type: integer
+          minimum: 1
+        user:
+          $ref: '#/components/schemas/UserOutput'
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/ESComponent'
+            
+    ESSchedule:
+      type: object
+      properties:
+        energySystemId:
+          type: integer
+          minimum: 1
+          example: 42
+        timeIntervall:
+          type: integer
+          example: 15
+        schedule:
+          type: string
+          example: "101010101010100...111100010101010101"
+            
+    ESConsumption:
+      type: object
+      properties:
+        energySystemId:
+          type: integer
+          minimum: 1
+          example: 42
+        time:
+          type: string
+          example: 2021-05-06T16:14:40+0000
+        electricityDemand:
+          type: number
+        heatingDemand:
+          type: number
+        dhwDemand:
+          type: number
+        
+    ESComponent:
+      allOf:
+        - $ref: '#/components/schemas/ESComponentInput'
+      type: object
+      properties:
+        esComponentId:
+          type: integer
+    
+    ESComponentCurrent:
+      type: object
+      properties:
+        date:
+          type: string
+          example: 2021-05-06T16:14:40+0000
+        state:
+          type: object
+        
+    
+    ESComponentInput:
+      type: object
+      properties:
+        energySystemId:
+          type: integer
+          example: 42
+        name:
+          type: string
+          example: BHKW1
+        type:
+          $ref: '#/components/schemas/ComponentType'
+        properties:
+          oneOf:
+            - $ref: '#/components/schemas/CHP'
+            - $ref: '#/components/schemas/HeatPump'
+            - $ref: '#/components/schemas/Battery'
+            - $ref: '#/components/schemas/PV'
+            - $ref: '#/components/schemas/HeatStorage'
+            - $ref: '#/components/schemas/PeakBoiler'
+          
+    EnergySystemInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Test-BHKW Hochschule Reutlingen
+        optimizationSize:
+          type: integer
+          minimum: 1
+          maximum: 3
+        optimizationHorizon:
+          type: integer
+          default: 24
+        optimizationIntervall:
+          type: integer
+          default: 15
+        consumptionDataIntervall:
+          type: integer
+          default: 15
+        numberOfPlans:
+          type: integer
+          default: 2000
+        numberOfBestPlans:
+          type: integer
+          default: 10
+        continuityFactor:
+          type: integer
+          default: 5
+        forecastingMethod:
+          type: integer
+          minimum: 1
+          maximum: 3
+      required:
+        - name
+        - optimizationSize
+        - forecastingMethod
+        
+    UserInput:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/User'
+      properties:
+        password:
+          type: string
+          
+    UserOutput:
+      allOf:
+        - $ref: '#/components/schemas/User'
+      type: object
+      properties:
+        energySystemIds:
+          type: array
+          items:
+            type: integer
+            example:
+              - 42
+              - 12
+        
+    ComponentType:
+      type: string
+      enum:
+        - chp
+        - heatpump
+        - battery
+        - pv
+        - heatstorage
+        - peakboiler
+    CHP:
+      type: object
+      properties:
+        parameters:
+          type: object
+    
+    HeatPump:
+      type: object
+      properties:
+        parameters:
+          type: object
+      
+    Battery:
+      type: object
+      properties:
+        parameters:
+          type: object
+      
+    PV:
+      type: object
+      properties:
+        parameters:
+          type: object
+      
+    HeatStorage:
+      type: object
+      properties:
+        parameters:
+          type: object
+      
+    PeakBoiler:
+      type: object
+      properties:
+        parameters:
+          type: object
+  
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+        
