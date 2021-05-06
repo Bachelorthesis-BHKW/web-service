@@ -438,10 +438,16 @@ components:
           type: integer
           minimum: 1
           maximum: 3
+        latitude:
+          type: number
+        longitude:
+          type: number
       required:
         - name
         - optimizationSize
         - forecastingMethod
+        - latitude
+        - longitude
         
     UserInput:
       type: object
