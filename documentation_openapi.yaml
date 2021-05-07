@@ -383,7 +383,10 @@ components:
           type: string
           example: 2021-05-06T16:14:40+0000
         state:
-          type: object
+          oneOf:
+            - $ref: '#/components/schemas/CHPCurrent'
+            - $ref: '#/components/schemas/BatteryCurrent'
+            - $ref: '#/components/schemas/HeatStorageCurrent'
         
     
     ESComponentInput:
@@ -479,11 +482,33 @@ components:
         - pv
         - heatstorage
         - peakboiler
+    
     CHP:
       type: object
       properties:
-        parameters:
-          type: object
+        p_el_max:
+          type: integer
+        qdot_th_max:
+          type: integer
+        mindestlaufzeit:
+          type: integer
+        mindestruhezeit:
+          type: integer
+        anlaufzeit:
+          type: integer
+        modulation:
+          type: boolean
+        anz_modulationsstufen:
+          type: integer
+        modulationsstufen_el:
+          type: array
+          items:
+            type: integer
+        modulationsstufen_th:
+          type: array
+          items:
+            type: integer
+          
     
     HeatPump:
       type: object
@@ -506,14 +531,54 @@ components:
     HeatStorage:
       type: object
       properties:
-        parameters:
-          type: object
+        v_sp:
+          type: integer
+        h_sp:
+          type: integer
+        rho:
+          type: integer
+        cp:
+          type: integer
+        ua_sp:
+          type: integer
+        h_sensoren:
+          type: array
+          items:
+            type: integer
+        ruecklauftemperatur_heizkreis:
+          type: integer
+          
       
     PeakBoiler:
       type: object
       properties:
-        parameters:
-          type: object
+        qdot_slk_max:
+          type: integer
+          
+    CHPCurrent:
+      type: object
+      properties:
+        motordrehzahl:
+          type: integer
+        laufzeit:
+          type: integer
+        ruhezeit:
+          type: integer
+        
+    HeatStorageCurrent:
+      type: object
+      properties:
+        t:
+          type: array
+          items:
+            type: integer
+    
+    BatteryCurrent:
+      type: object
+      properties:
+        soc:
+          type: integer
+        
   
   securitySchemes:
     BearerAuth:
