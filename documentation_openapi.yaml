@@ -189,7 +189,12 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ESConsumption'
+              oneOf:
+                - $ref: '#/components/schemas/ESConsumption'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/ESConsumption'
+                      
       responses:
         '200':
           description: Consumption data successfully created
@@ -278,7 +283,30 @@ paths:
           
   /es-components/{id}/current:
     put:
-      summary: Replace the current ES Component data
+      summary: Replace all the current ES Component data
+      description: Will delete all continious data posted
+      tags:
+        - Energy System Components
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The ES Component ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ESComponentCurrent'
+      responses:
+        '200':
+          description: success
+          
+    post:
+      summary: Create new ES Component data for continious data
       tags:
         - Energy System Components
       parameters:
@@ -445,12 +473,24 @@ components:
           type: number
         longitude:
           type: number
+        consumptionTransmitVariant:
+          type: string
+          enum: [single, bulk]
+        scheduleReadVariant:
+          type: string
+          enum: [single, bulk]
+        scheduleGenerationInterval:
+          type: integer
+          minimum: 1
+          maximum: 24
       required:
         - name
         - optimizationSize
         - forecastingMethod
         - latitude
         - longitude
+        - consumptionTransmitVariant
+        - scheduleReadVariant
         
     UserInput:
       type: object
