@@ -1,0 +1,5 @@
+*.json
+.vscode
+*.log
+dist
+node_modules
