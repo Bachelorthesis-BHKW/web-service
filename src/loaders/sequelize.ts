@@ -5,6 +5,7 @@ import initEnergySystem from "../models/EnergySystem";
 import setupAssociations from "../models/associations";
 import initESSchedule from "../models/ESSchedule";
 import initWeatherForecast from "../models/WeatherForecast";
+import initESComponent from "../models/ESComponent";
 
 export async function sequelizeLoader(): Promise<Sequelize> {
   if (config.dbUri == undefined) throw new Error("No DB URI defined!");
@@ -19,6 +20,7 @@ export async function sequelizeLoader(): Promise<Sequelize> {
   initEnergySystem(sequelize);
   initESSchedule(sequelize);
   initWeatherForecast(sequelize);
+  initESComponent(sequelize);
   setupAssociations();
 
   await sequelize.sync();

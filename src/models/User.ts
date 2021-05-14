@@ -34,7 +34,7 @@ export class User
   getEnergySystems!: HasManyGetAssociationsMixin<EnergySystem>;
   addEnergySystem!: HasManyAddAssociationsMixin<EnergySystem, number>;
   hasEnergySystem!: HasManyHasAssociationMixin<EnergySystem, number>;
-  countEnergySystem!: HasManyCountAssociationsMixin;
+  countEnergySystems!: HasManyCountAssociationsMixin;
   createEnergySystem!: HasManyCreateAssociationMixin<EnergySystem>;
 
   static associations: {
