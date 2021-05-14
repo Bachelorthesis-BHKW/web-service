@@ -5,7 +5,7 @@ import express from "express";
 async function startServer() {
   const app = express();
 
-  await loaders();
+  await loaders(app);
 
   app
     .listen(config.port, () => {
