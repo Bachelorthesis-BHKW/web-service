@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: es_web_service
     ports:
-    - '5432:5432'
+      - "5432:5432"
     volumes:
       - es-db:/var/lib/postgresql/data
 
@@ -22,7 +22,7 @@ services:
     depends_on:
       - postgres
     ports:
-    - '1337:1337'
+      - "1337:1337"
 
 volumes:
   es-db:
