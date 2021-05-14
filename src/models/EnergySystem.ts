@@ -16,6 +16,7 @@ import {
 import { ESSchedule } from "./ESSchedule";
 import { WeatherForecast } from "./WeatherForecast";
 import { ESComponent } from "./ESComponent";
+import { ESConsumption } from "./ESConsumption";
 
 interface EnergySystemAttributes {
   energySystemId: number;
@@ -74,7 +75,14 @@ export class EnergySystem
   countESComponents!: HasManyCountAssociationsMixin;
   createESComponent!: HasManyCreateAssociationMixin<ESComponent>;
 
+  getESConsumptions!: HasManyGetAssociationsMixin<ESConsumption>;
+  addESConsumption!: HasManyAddAssociationsMixin<ESConsumption, number>;
+  hasESConsumption!: HasManyHasAssociationMixin<ESConsumption, number>;
+  countESConsumptions!: HasManyCountAssociationsMixin;
+  createESConsumption!: HasManyCreateAssociationMixin<ESConsumption>;
+
   static associations: {
+    esConsumptions: Association<EnergySystem, ESConsumption>;
     esComponents: Association<EnergySystem, ESComponent>;
     esSchedule: Association<EnergySystem, ESSchedule>;
     weatherForecasts: Association<EnergySystem, WeatherForecast>;

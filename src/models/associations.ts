@@ -3,6 +3,7 @@ import { User } from "./User";
 import { ESSchedule } from "./ESSchedule";
 import { WeatherForecast } from "./WeatherForecast";
 import { ESComponent } from "./ESComponent";
+import { ESConsumption } from "./ESConsumption";
 
 export default function setupAssociations(): void {
   User.hasMany(EnergySystem, {
@@ -30,6 +31,13 @@ export default function setupAssociations(): void {
     sourceKey: "energySystemId",
     foreignKey: "energySystemId",
     as: "esComponents",
+    onDelete: "cascade",
+  });
+
+  EnergySystem.hasMany(ESConsumption, {
+    sourceKey: "energySystemId",
+    foreignKey: "energySystemId",
+    as: "esConsumptions",
     onDelete: "cascade",
   });
 }
