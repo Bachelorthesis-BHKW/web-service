@@ -15,6 +15,8 @@ import { EnergySystem } from "./EnergySystem";
 interface UserAttributes {
   userId: number;
   name: string;
+  email: string;
+  company: string;
   password: string;
 }
 
@@ -26,6 +28,8 @@ export class User
 {
   userId!: number;
   name!: string;
+  email!: string;
+  company!: string;
   password!: string;
 
   readonly createdAt!: Date;
@@ -53,6 +57,15 @@ export default function initUser(sequelize: Sequelize): void {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      company: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "",
       },
       password: {
         type: DataTypes.STRING,
