@@ -27,6 +27,7 @@ interface EnergySystemAttributes {
   deltaT: number;
   stetigkeitsfaktor: number;
   prognosemethodeTh: number;
+  qThZaehler: boolean;
 
   latitude: number;
   longitude: number;
@@ -49,6 +50,7 @@ export class EnergySystem
   deltaT!: number;
   stetigkeitsfaktor!: number;
   prognosemethodeTh!: number;
+  qThZaehler!: boolean;
 
   latitude!: number;
   longitude!: number;
@@ -117,6 +119,10 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       },
       prognosemethodeTh: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      qThZaehler: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       latitude: {
