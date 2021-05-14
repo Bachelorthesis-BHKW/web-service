@@ -1,12 +1,16 @@
 import dotenv from "dotenv";
 
-const dotenvConfigOutput = dotenv.config();
+if (process.env.NODE_ENV != "production") {
+  const dotenvConfigOutput = dotenv.config();
 
-if (dotenvConfigOutput.error != undefined) {
-  throw dotenvConfigOutput.error;
+  if (dotenvConfigOutput.error != undefined) {
+    throw dotenvConfigOutput.error;
+  }
 }
 
 export default {
   port: process.env.PORT,
   dbUri: process.env.DB_URI,
+  dbName: process.env.DB_NAME,
+  nodeEnv: process.env.NODE_ENV,
 };
