@@ -1,12 +1,5 @@
 import { Model, Optional, Sequelize, DataTypes } from "sequelize";
-
-export enum ESComponentType {
-  CHP = "chp",
-  Battery = "battery",
-  PV = "pv",
-  HeatStorage = "heatStorage",
-  PeakBoiler = "peakBoiler",
-}
+import { ESComponentType } from "../es_components/Type";
 
 interface ESComponentAttributes {
   esComponentId: number;
