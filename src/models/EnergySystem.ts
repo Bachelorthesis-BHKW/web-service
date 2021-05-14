@@ -6,6 +6,7 @@ interface EnergySystemAttributes {
   name: string;
   nFahrplan: number;
   optimierungshorizontMin: number;
+  optimierungsgroesse: number;
   deltaT: number;
   stetigkeitsfaktor: number;
   prognosemethodeTh: number;
@@ -27,6 +28,7 @@ export class EnergySystem
 
   nFahrplan!: number;
   optimierungshorizontMin!: number;
+  optimierungsgroesse!: number;
   deltaT!: number;
   stetigkeitsfaktor!: number;
   prognosemethodeTh!: number;
@@ -59,6 +61,10 @@ export default function initEnergySystem(sequelize: Sequelize): void {
         allowNull: false,
       },
       optimierungshorizontMin: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      optimierungsgroesse: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
