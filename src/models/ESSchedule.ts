@@ -3,7 +3,7 @@ import { Model, Optional, Sequelize, DataTypes } from "sequelize";
 interface ESScheduleAttributes {
   esScheduleId: number;
   energySystemId: number;
-  timeIntervall: number;
+  timeInterval: number;
   schedule: string;
 }
 
@@ -16,7 +16,7 @@ export class ESSchedule
 {
   esScheduleId!: number;
   energySystemId!: number;
-  timeIntervall!: number;
+  timeInterval!: number;
   schedule!: string;
 
   readonly createdAt!: Date;
@@ -35,7 +35,7 @@ export default function initESSchedule(sequelize: Sequelize): void {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      timeIntervall: {
+      timeInterval: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
