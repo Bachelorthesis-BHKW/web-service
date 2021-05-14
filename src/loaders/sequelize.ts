@@ -16,13 +16,18 @@ export async function sequelizeLoader(): Promise<Sequelize> {
     define: { underscored: true },
     logging: false,
   });
+
+  initializeModels(sequelize);
+  await sequelize.sync();
+
+  return sequelize;
+}
+
+function initializeModels(sequelize: Sequelize): void {
   initUser(sequelize);
   initEnergySystem(sequelize);
   initESSchedule(sequelize);
   initWeatherForecast(sequelize);
   initESComponent(sequelize);
   setupAssociations();
-
-  await sequelize.sync();
-  return sequelize;
 }
