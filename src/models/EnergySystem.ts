@@ -9,8 +9,12 @@ import {
   HasManyCountAssociationsMixin,
   HasManyCreateAssociationMixin,
   Association,
+  HasOneCreateAssociationMixin,
+  HasOneSetAssociationMixin,
+  HasOneGetAssociationMixin,
 } from "sequelize";
 import { ESSchedule } from "./ESSchedule";
+import { WeatherForecast } from "./WeatherForecast";
 
 interface EnergySystemAttributes {
   energySystemId: number;
@@ -51,14 +55,19 @@ export class EnergySystem
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  getESSchedule!: HasManyGetAssociationsMixin<ESSchedule>;
-  addESSchedule!: HasManyAddAssociationsMixin<ESSchedule, number>;
-  hasESSchedule!: HasManyHasAssociationMixin<ESSchedule, number>;
-  countESSchedule!: HasManyCountAssociationsMixin;
-  createESSchedule!: HasManyCreateAssociationMixin<ESSchedule>;
+  getESSchedule!: HasOneGetAssociationMixin<ESSchedule>;
+  addESSchedule!: HasOneSetAssociationMixin<ESSchedule, number>;
+  createESSchedule!: HasOneCreateAssociationMixin<ESSchedule>;
+
+  getWeatherForecasts!: HasManyGetAssociationsMixin<WeatherForecast>;
+  addWeatherForecast!: HasManyAddAssociationsMixin<WeatherForecast, number>;
+  hasWeatherForecast!: HasManyHasAssociationMixin<WeatherForecast, number>;
+  countWeatherForecast!: HasManyCountAssociationsMixin;
+  createWeatherForecast!: HasManyCreateAssociationMixin<WeatherForecast>;
 
   static associations: {
     esSchedule: Association<EnergySystem, ESSchedule>;
+    weatherForecasts: Association<EnergySystem, WeatherForecast>;
   };
 }
 
