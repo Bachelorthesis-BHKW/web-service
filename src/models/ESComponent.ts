@@ -1,11 +1,20 @@
 import { Model, Optional, Sequelize, DataTypes } from "sequelize";
 
+export enum ESComponentType {
+  CHP = "chp",
+  Battery = "battery",
+  PV = "pv",
+  HeatStorage = "heatStorage",
+  PeakBoiler = "peakBoiler",
+}
+
 interface ESComponentAttributes {
   esComponentId: number;
   energySystemId: number;
   name: string;
-  type: string;
+  type: ESComponentType;
   kenngroessen: Record<string, unknown>;
+  current: Record<string, unknown>;
 }
 
 interface ESComponentCreateAttributes
@@ -18,8 +27,9 @@ export class ESComponent
   esScheduleId!: number;
   energySystemId!: number;
   name!: string;
-  type!: string;
+  type!: ESComponentType;
   kenngroessen!: Record<string, unknown>;
+  current!: Record<string, unknown>;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;
@@ -48,6 +58,9 @@ export default function initESComponent(sequelize: Sequelize): void {
       kenngroessen: {
         type: DataTypes.JSONB,
         allowNull: false,
+      },
+      current: {
+        type: DataTypes.JSONB,
       },
     },
     { sequelize }
