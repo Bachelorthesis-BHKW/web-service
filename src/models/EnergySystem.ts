@@ -1,4 +1,16 @@
-import { Optional, Model, Sequelize, DataTypes } from "sequelize";
+import {
+  Optional,
+  Model,
+  Sequelize,
+  DataTypes,
+  HasManyGetAssociationsMixin,
+  HasManyAddAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  Association,
+} from "sequelize";
+import { ESSchedule } from "./ESSchedule";
 
 interface EnergySystemAttributes {
   energySystemId: number;
@@ -38,6 +50,16 @@ export class EnergySystem
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  getESSchedule!: HasManyGetAssociationsMixin<ESSchedule>;
+  addESSchedule!: HasManyAddAssociationsMixin<ESSchedule, number>;
+  hasESSchedule!: HasManyHasAssociationMixin<ESSchedule, number>;
+  countESSchedule!: HasManyCountAssociationsMixin;
+  createESSchedule!: HasManyCreateAssociationMixin<ESSchedule>;
+
+  static associations: {
+    esSchedule: Association<EnergySystem, ESSchedule>;
+  };
 }
 
 export default function initEnergySystem(sequelize: Sequelize): void {

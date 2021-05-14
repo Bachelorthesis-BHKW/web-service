@@ -37,7 +37,7 @@ export class User
   countEnergySystem!: HasManyCountAssociationsMixin;
   createEnergySystem!: HasManyCreateAssociationMixin<EnergySystem>;
 
-  public static associations: {
+  static associations: {
     energySystems: Association<User, EnergySystem>;
   };
 }
