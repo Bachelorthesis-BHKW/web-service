@@ -1,4 +1,4 @@
-export function setupErrorHandling(): void {
+export function crashProcessOnExceptionOrError(): void {
   process.on("uncaughtException", (err: Error) => {
     console.error("------------------------------------");
     console.error(
@@ -6,8 +6,6 @@ export function setupErrorHandling(): void {
     );
     console.error(err.stack);
     console.error("------------------------------------\n");
-    // reason: this is the error handling
-    /* eslint-disable-next-line no-process-exit*/
     process.exit(1);
   });
 
@@ -20,8 +18,6 @@ export function setupErrorHandling(): void {
     );
     console.error(reason);
     console.error("------------------------------------\n");
-    // reason: this is the error handling
-    /* eslint-disable-next-line no-process-exit*/
     process.exit(1);
   });
 }

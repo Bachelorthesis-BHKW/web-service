@@ -1,7 +1,7 @@
 import config from "./config";
 import loaders from "./loaders";
 import express from "express";
-import { setupErrorHandling } from "./error";
+import { crashProcessOnExceptionOrError } from "./error";
 
 async function startServer() {
   const app = express();
@@ -17,5 +17,5 @@ async function startServer() {
     });
 }
 
-setupErrorHandling();
+crashProcessOnExceptionOrError();
 startServer().then(() => console.log("Ready!"));
