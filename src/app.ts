@@ -1,3 +1,4 @@
+import "express-async-errors";
 import config from "./config";
 import loaders from "./loaders";
 import express from "express";
