@@ -37,7 +37,7 @@ interface EnergySystemAttributes {
   longitude: number;
 }
 
-interface EnergySystemCreateAttributes
+export interface EnergySystemCreateAttributes
   extends Optional<EnergySystemAttributes, "energySystemId"> {}
 
 export class EnergySystem
