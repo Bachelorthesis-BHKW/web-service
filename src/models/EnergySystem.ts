@@ -17,6 +17,7 @@ import { ESSchedule } from "./ESSchedule";
 import { WeatherForecast } from "./WeatherForecast";
 import { ESComponent } from "./ESComponent";
 import { ESConsumption } from "./ESConsumption";
+import { CircularBufferPointer } from "./CircularBufferPointer";
 
 interface EnergySystemAttributes {
   energySystemId: number;
@@ -67,6 +68,13 @@ export class EnergySystem
   addESSchedule!: HasOneSetAssociationMixin<ESSchedule, number>;
   createESSchedule!: HasOneCreateAssociationMixin<ESSchedule>;
 
+  getCircularBufferPointer!: HasOneGetAssociationMixin<CircularBufferPointer>;
+  addCircularBufferPointer!: HasOneSetAssociationMixin<
+    CircularBufferPointer,
+    number
+  >;
+  createCircularBufferPointer!: HasOneCreateAssociationMixin<CircularBufferPointer>;
+
   getWeatherForecasts!: HasManyGetAssociationsMixin<WeatherForecast>;
   addWeatherForecast!: HasManyAddAssociationsMixin<WeatherForecast, number>;
   hasWeatherForecast!: HasManyHasAssociationMixin<WeatherForecast, number>;
@@ -87,6 +95,7 @@ export class EnergySystem
 
   static associations: {
     esConsumptions: Association<EnergySystem, ESConsumption>;
+    circularBufferPointer: Association<EnergySystem, CircularBufferPointer>;
     esComponents: Association<EnergySystem, ESComponent>;
     esSchedule: Association<EnergySystem, ESSchedule>;
     weatherForecasts: Association<EnergySystem, WeatherForecast>;

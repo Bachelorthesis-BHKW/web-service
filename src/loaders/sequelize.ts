@@ -7,6 +7,7 @@ import initESSchedule from "../models/ESSchedule";
 import initWeatherForecast from "../models/WeatherForecast";
 import initESComponent from "../models/ESComponent";
 import initESConsumption from "../models/ESConsumption";
+import initCircularBufferPointer from "../models/CircularBufferPointer";
 
 export async function sequelizeLoader(): Promise<Sequelize> {
   if (config.dbUri == undefined) throw new Error("No DB URI defined!");
@@ -28,6 +29,7 @@ function initializeModels(sequelize: Sequelize): void {
   initUser(sequelize);
   initEnergySystem(sequelize);
   initESSchedule(sequelize);
+  initCircularBufferPointer(sequelize);
   initWeatherForecast(sequelize);
   initESComponent(sequelize);
   initESConsumption(sequelize);
