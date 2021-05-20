@@ -9,5 +9,8 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
     .patch(EnergySystemController.patchEnergySystem)
     .delete(EnergySystemController.deleteEnergySystem);
   energySystemRouter.route("/").post(EnergySystemController.postEnergySystem);
+  energySystemRouter
+    .route("/:energySystemId/consumption")
+    .post(EnergySystemController.postEnergySystemConsumption);
   mainRouter.use("/energy-system", energySystemRouter);
 }

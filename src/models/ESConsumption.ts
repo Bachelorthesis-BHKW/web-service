@@ -10,7 +10,7 @@ interface ESConsumptionAttributes {
   aussentemperatur: number;
 }
 
-interface ESConsumptionCreateAttributes
+export interface ESConsumptionCreateAttributes
   extends Optional<ESConsumptionAttributes, "esConsumptionId"> {}
 
 export class ESConsumption

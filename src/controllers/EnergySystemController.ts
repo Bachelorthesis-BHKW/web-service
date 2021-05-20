@@ -1,7 +1,9 @@
 import express from "express";
 import * as EnergySystemService from "../services/EnergySystemService";
+import * as ESConsumptionService from "../services/ESConsumptionService";
 import respondAsJson from "../helper/respondAsJson";
 import { EnergySystemCreateAttributes } from "../models/EnergySystem";
+import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
 
 export async function postEnergySystem(
   req: express.Request,
@@ -48,5 +50,16 @@ export async function deleteEnergySystem(
   const energySystemId = +req.params.energySystemId;
 
   await EnergySystemService.deleteEnergySystemById(energySystemId);
+  res.status(200).end();
+}
+
+export async function postEnergySystemConsumption(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const energySystemId = +req.params.energySystemId;
+  const consumptionIN: ESConsumptionCreateAttributes = req.body;
+
+  await ESConsumptionService.addConsumptionToES(consumptionIN, energySystemId);
   res.status(200).end();
 }
