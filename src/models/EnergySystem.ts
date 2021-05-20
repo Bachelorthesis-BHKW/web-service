@@ -23,12 +23,14 @@ interface EnergySystemAttributes {
   userId: number;
   name: string;
   nFahrplan: number;
+  untermengeNFahrplan: number;
   optimierungshorizontMin: number;
   optimierungsgroesse: number;
   deltaT: number;
   stetigkeitsfaktor: number;
   prognosemethodeTh: number;
-  qThZaehler: boolean;
+  qThZaehlerGesamt: boolean;
+  qThZaehlerGetrennt: boolean;
 
   latitude: number;
   longitude: number;
@@ -46,12 +48,14 @@ export class EnergySystem
   name!: string;
 
   nFahrplan!: number;
+  untermengeNFahrplan!: number;
   optimierungshorizontMin!: number;
   optimierungsgroesse!: number;
   deltaT!: number;
   stetigkeitsfaktor!: number;
   prognosemethodeTh!: number;
-  qThZaehler!: boolean;
+  qThZaehlerGesamt!: boolean;
+  qThZaehlerGetrennt!: boolean;
 
   latitude!: number;
   longitude!: number;
@@ -109,6 +113,10 @@ export default function initEnergySystem(sequelize: Sequelize): void {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      untermengeNFahrplan: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       optimierungshorizontMin: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -129,7 +137,11 @@ export default function initEnergySystem(sequelize: Sequelize): void {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      qThZaehler: {
+      qThZaehlerGesamt: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      qThZaehlerGetrennt: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
       },
