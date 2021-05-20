@@ -1,6 +1,7 @@
 import express from "express";
 import * as EnergySystemService from "../services/EnergySystemService";
 import * as ESConsumptionService from "../services/ESConsumptionService";
+import * as ESScheduleService from "../services/ESScheduleService";
 import respondAsJson from "../helper/respondAsJson";
 import { EnergySystemCreateAttributes } from "../models/EnergySystem";
 import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
@@ -62,4 +63,16 @@ export async function postEnergySystemConsumption(
 
   await ESConsumptionService.addConsumptionToES(consumptionIN, energySystemId);
   res.status(200).end();
+}
+
+export async function getEnergySystemSchedule(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const energySystemId = +req.params.energySystemId;
+
+  const schedule = await ESScheduleService.getESScheduleByEnergySystemId(
+    energySystemId
+  );
+  respondAsJson(schedule, res);
 }

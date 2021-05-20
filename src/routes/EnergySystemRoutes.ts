@@ -12,5 +12,8 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
   energySystemRouter
     .route("/:energySystemId/consumption")
     .post(EnergySystemController.postEnergySystemConsumption);
+  energySystemRouter
+    .route("/:energySystemId/schedule")
+    .get(EnergySystemController.getEnergySystemSchedule);
   mainRouter.use("/energy-system", energySystemRouter);
 }
