@@ -1,14 +1,8 @@
-import { UserIN } from "../in_interfaces/User";
-import { User } from "../models/User";
+import { User, UserCreateAttributes } from "../models/User";
 import ExpressError, { ErrorCode } from "../error";
 
-export async function createNewUser(user: UserIN): Promise<User> {
-  return User.create({
-    name: user.name,
-    email: user.email,
-    company: user.company,
-    password: user.password,
-  });
+export async function createNewUser(user: UserCreateAttributes): Promise<User> {
+  return User.create(user);
 }
 
 export async function getUserById(userId: number): Promise<User> {
@@ -19,7 +13,7 @@ export async function getUserById(userId: number): Promise<User> {
 
 export async function patchUserById(
   userId: number,
-  user: UserIN
+  user: UserCreateAttributes
 ): Promise<void> {
   const [updateCount] = await User.update(user, { where: { userId } });
   if (!updateCount) throw new ExpressError(ErrorCode.NOT_FOUND_404);

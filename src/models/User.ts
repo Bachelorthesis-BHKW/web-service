@@ -20,7 +20,8 @@ interface UserAttributes {
   password: string;
 }
 
-interface UserCreateAttributes extends Optional<UserAttributes, "userId"> {}
+export interface UserCreateAttributes
+  extends Optional<UserAttributes, "userId"> {}
 
 export class User
   extends Model<UserAttributes, UserCreateAttributes>

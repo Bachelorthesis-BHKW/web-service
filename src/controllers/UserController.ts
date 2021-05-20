@@ -1,13 +1,13 @@
 import express from "express";
 import * as UserService from "../services/UserService";
 import respondAsJson from "../helper/respondAsJson";
-import { UserIN } from "../in_interfaces/User";
+import { UserCreateAttributes } from "../models/User";
 
 export async function postUsers(
   req: express.Request,
   res: express.Response
 ): Promise<void> {
-  const userIn: UserIN = req.body;
+  const userIn: UserCreateAttributes = req.body;
 
   const newUser = await UserService.createNewUser(userIn);
   respondAsJson(newUser, res);
@@ -28,7 +28,7 @@ export async function patchUsersId(
   res: express.Response
 ): Promise<void> {
   const userId = +req.params.userId;
-  const userIn: UserIN = req.body;
+  const userIn: UserCreateAttributes = req.body;
 
   await UserService.patchUserById(userId, userIn);
   res.status(200).end();
