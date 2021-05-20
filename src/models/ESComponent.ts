@@ -1,5 +1,17 @@
-import { Model, Optional, Sequelize, DataTypes } from "sequelize";
+import {
+  Model,
+  Optional,
+  Sequelize,
+  DataTypes,
+  HasManyGetAssociationsMixin,
+  HasManyAddAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  Association,
+} from "sequelize";
 import { ESComponentType } from "../es_components/Type";
+import { ESComponentCurrent } from "./ESComponentCurrent";
 
 interface ESComponentAttributes {
   esComponentId: number;
@@ -7,7 +19,6 @@ interface ESComponentAttributes {
   name: string;
   type: ESComponentType;
   kenngroessen: Record<string, unknown>;
-  current: Record<string, unknown>;
 }
 
 interface ESComponentCreateAttributes
@@ -17,15 +28,30 @@ export class ESComponent
   extends Model<ESComponentAttributes, ESComponentCreateAttributes>
   implements ESComponentCreateAttributes
 {
-  esScheduleId!: number;
+  esComponentId!: number;
   energySystemId!: number;
   name!: string;
   type!: ESComponentType;
   kenngroessen!: Record<string, unknown>;
-  current!: Record<string, unknown>;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;
+
+  getESComponentCurrents!: HasManyGetAssociationsMixin<ESComponentCurrent>;
+  addESComponentCurrent!: HasManyAddAssociationsMixin<
+    ESComponentCurrent,
+    number
+  >;
+  hasESComponentCurrent!: HasManyHasAssociationMixin<
+    ESComponentCurrent,
+    number
+  >;
+  countESComponentCurrents!: HasManyCountAssociationsMixin;
+  createESComponentCurrent!: HasManyCreateAssociationMixin<ESComponentCurrent>;
+
+  static associations: {
+    esConsumptions: Association<ESComponent, ESComponentCurrent>;
+  };
 }
 
 export default function initESComponent(sequelize: Sequelize): void {
@@ -51,9 +77,6 @@ export default function initESComponent(sequelize: Sequelize): void {
       kenngroessen: {
         type: DataTypes.JSONB,
         allowNull: false,
-      },
-      current: {
-        type: DataTypes.JSONB,
       },
     },
     { sequelize }

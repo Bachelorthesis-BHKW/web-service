@@ -5,6 +5,7 @@ import { WeatherForecast } from "./WeatherForecast";
 import { ESComponent } from "./ESComponent";
 import { ESConsumption } from "./ESConsumption";
 import { CircularBufferPointer } from "./CircularBufferPointer";
+import { ESComponentCurrent } from "./ESComponentCurrent";
 
 export default function setupAssociations(): void {
   User.hasMany(EnergySystem, {
@@ -46,6 +47,13 @@ export default function setupAssociations(): void {
     sourceKey: "energySystemId",
     foreignKey: "energySystemId",
     as: "esConsumptions",
+    onDelete: "cascade",
+  });
+
+  ESComponent.hasMany(ESComponentCurrent, {
+    sourceKey: "esComponentId",
+    foreignKey: "esComponentId",
+    as: "esComponentCurrents",
     onDelete: "cascade",
   });
 }
