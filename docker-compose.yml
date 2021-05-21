@@ -17,6 +17,7 @@ services:
       PORT: 1337
       DB_URI: postgres://postgres:postgres@postgres:5432
       DB_NAME: es_web_service
+      JWT_SECRET: secure
 
     depends_on:
       - postgres

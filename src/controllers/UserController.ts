@@ -52,5 +52,5 @@ export async function postUserLogin(
   const password = req.body.password;
 
   const jwt = await UserService.getJWTForUser(email, password);
-  respondAsJson(jwt, res);
+  respondAsJson({ token: jwt }, res);
 }

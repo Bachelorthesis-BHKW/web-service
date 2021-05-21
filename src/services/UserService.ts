@@ -1,6 +1,7 @@
 import { User, UserCreateAttributes } from "../models/User";
 import ExpressError, { ErrorCode } from "../error";
 import BcryptHelper from "../helper/BcryptHelper";
+import JWTHelper from "../helper/JWTHelper";
 
 export async function createNewUser(user: UserCreateAttributes): Promise<User> {
   user.password = await BcryptHelper.hashPassword(user.password);
@@ -44,5 +45,5 @@ export async function getJWTForUser(
   const user = await getUserByEmail(email);
   if (!(await BcryptHelper.comparePassword(password, user.password)))
     throw new ExpressError(ErrorCode.UNAUTHORIZED_401);
-  return "";
+  return JWTHelper.getInstance().generateJWT(user.userId);
 }
