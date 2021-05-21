@@ -15,9 +15,11 @@ export async function postEnergySystem(
   res: express.Response
 ): Promise<void> {
   const energySystemIN: EnergySystemCreateAttributes = req.body;
+  const user = req.user;
 
   const newEnergySystem = await EnergySystemService.createEnergySystem(
-    energySystemIN
+    energySystemIN,
+    user.userId
   );
   respondAsJson(newEnergySystem, res);
 }
