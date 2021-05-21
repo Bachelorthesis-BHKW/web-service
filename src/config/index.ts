@@ -13,4 +13,5 @@ export default {
   dbUri: process.env.DB_URI,
   dbName: process.env.DB_NAME,
   nodeEnv: process.env.NODE_ENV,
+  jwtSecret: process.env.JWT_SECRET,
 };

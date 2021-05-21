@@ -3,6 +3,7 @@ import {
   ESComponentCreateAttributes,
 } from "../models/ESComponent";
 import ExpressError, { ErrorCode } from "../error";
+import { ESComponentCurrent } from "../models/ESComponentCurrent";
 
 export async function addComponentToES(
   energySystemId: number,
@@ -19,10 +20,24 @@ export async function getComponentById(
   return esComponent;
 }
 
+export async function getComponentsByEnergySystemId(
+  energySystemId: number
+): Promise<ESComponent[]> {
+  return ESComponent.findAll({
+    where: { energySystemId },
+    include: ESComponentCurrent,
+  });
+}
+
 export async function patchComponent(
   esComponentId: number,
   esComponent: ESComponentCreateAttributes
 ): Promise<void> {
+  const component = await getComponentById(esComponentId);
+  esComponent.kenngroessen = {
+    ...component.kenngroessen,
+    ...esComponent.kenngroessen,
+  };
   const [updateCount] = await ESComponent.update(esComponent, {
     where: { esComponentId },
   });

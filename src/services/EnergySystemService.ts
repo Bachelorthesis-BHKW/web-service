@@ -5,9 +5,10 @@ import {
 import ExpressError, { ErrorCode } from "../error";
 
 export async function createEnergySystem(
-  energySystem: EnergySystemCreateAttributes
+  energySystem: EnergySystemCreateAttributes,
+  userId: number
 ): Promise<EnergySystem> {
-  return EnergySystem.create(energySystem);
+  return EnergySystem.create({ ...energySystem, userId });
 }
 
 export async function getEnergySystemById(

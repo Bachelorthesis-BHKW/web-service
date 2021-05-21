@@ -3,7 +3,7 @@ import * as EnergySystemService from "../services/EnergySystemService";
 import * as ESConsumptionService from "../services/ESConsumptionService";
 import * as ESScheduleService from "../services/ESScheduleService";
 import * as ESComponentService from "../services/ESComponentService";
-import * as ESComponentcurrentService from "../services/ESComponentCurrentService";
+import * as ESComponentCurrentService from "../services/ESComponentCurrentService";
 import respondAsJson from "../helper/respondAsJson";
 import { EnergySystemCreateAttributes } from "../models/EnergySystem";
 import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
@@ -15,9 +15,11 @@ export async function postEnergySystem(
   res: express.Response
 ): Promise<void> {
   const energySystemIN: EnergySystemCreateAttributes = req.body;
+  const user = req.user;
 
   const newEnergySystem = await EnergySystemService.createEnergySystem(
-    energySystemIN
+    energySystemIN,
+    user.userId
   );
   respondAsJson(newEnergySystem, res);
 }
@@ -95,7 +97,19 @@ export async function postEnergySystemComponent(
   respondAsJson(component, res);
 }
 
-export async function getEnergySystemComponent(
+export async function getEnergySystemComponents(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const energySystemId = +req.params.energySystemId;
+
+  const esComponents = await ESComponentService.getComponentsByEnergySystemId(
+    energySystemId
+  );
+  respondAsJson(esComponents, res);
+}
+
+export async function getEnergySystemComponentId(
   req: express.Request,
   res: express.Response
 ): Promise<void> {
@@ -134,7 +148,7 @@ export async function postEnergySystemComponentCurrent(
   const esComponentCurrentIN: ESComponentCurrentCreateAttributes = req.body;
 
   const esComponentCurrent =
-    await ESComponentcurrentService.addESComponentCurrentToESComponent(
+    await ESComponentCurrentService.addESComponentCurrentToESComponent(
       esComponentId,
       esComponentCurrentIN
     );
