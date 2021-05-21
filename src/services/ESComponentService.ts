@@ -23,6 +23,11 @@ export async function patchComponent(
   esComponentId: number,
   esComponent: ESComponentCreateAttributes
 ): Promise<void> {
+  const component = await getComponentById(esComponentId);
+  esComponent.kenngroessen = {
+    ...component.kenngroessen,
+    ...esComponent.kenngroessen,
+  };
   const [updateCount] = await ESComponent.update(esComponent, {
     where: { esComponentId },
   });
