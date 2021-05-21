@@ -11,8 +11,7 @@ services:
       - es-db:/var/lib/postgresql/data
 
   web-service:
-    build:
-      context: .
+    image: jsteegmueller/bachelorthesis-bhkw
     environment:
       NODE_ENV: production
       PORT: 1337
