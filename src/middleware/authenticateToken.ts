@@ -14,10 +14,10 @@ export async function authenticateToken(
   let userId: number;
   try {
     userId = JWTHelper.getInstance().verifyJWT(token);
+    req.user = await UserService.getUserById(userId);
   } catch (e) {
     throw new ExpressError(ErrorCode.UNAUTHORIZED_401);
   }
-  req.user = await UserService.getUserById(userId);
   next();
 }
 
