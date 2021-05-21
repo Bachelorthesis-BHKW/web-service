@@ -3,7 +3,7 @@ import * as EnergySystemService from "../services/EnergySystemService";
 import * as ESConsumptionService from "../services/ESConsumptionService";
 import * as ESScheduleService from "../services/ESScheduleService";
 import * as ESComponentService from "../services/ESComponentService";
-import * as ESComponentcurrentService from "../services/ESComponentCurrentService";
+import * as ESComponentCurrentService from "../services/ESComponentCurrentService";
 import respondAsJson from "../helper/respondAsJson";
 import { EnergySystemCreateAttributes } from "../models/EnergySystem";
 import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
@@ -134,7 +134,7 @@ export async function postEnergySystemComponentCurrent(
   const esComponentCurrentIN: ESComponentCurrentCreateAttributes = req.body;
 
   const esComponentCurrent =
-    await ESComponentcurrentService.addESComponentCurrentToESComponent(
+    await ESComponentCurrentService.addESComponentCurrentToESComponent(
       esComponentId,
       esComponentCurrentIN
     );
