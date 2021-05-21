@@ -3,7 +3,7 @@ import * as UserService from "../services/UserService";
 import respondAsJson from "../helper/respondAsJson";
 import { UserCreateAttributes } from "../models/User";
 
-export async function postUsers(
+export async function postUser(
   req: express.Request,
   res: express.Response
 ): Promise<void> {
@@ -13,7 +13,7 @@ export async function postUsers(
   respondAsJson(newUser, res);
 }
 
-export async function getUsersId(
+export async function getUserId(
   req: express.Request,
   res: express.Response
 ): Promise<void> {
@@ -23,7 +23,7 @@ export async function getUsersId(
   respondAsJson(user, res);
 }
 
-export async function patchUsersId(
+export async function patchUserId(
   req: express.Request,
   res: express.Response
 ): Promise<void> {
@@ -34,7 +34,7 @@ export async function patchUsersId(
   res.status(200).end();
 }
 
-export async function deleteUsersId(
+export async function deleteUserId(
   req: express.Request,
   res: express.Response
 ): Promise<void> {

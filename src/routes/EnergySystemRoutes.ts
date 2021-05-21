@@ -1,8 +1,10 @@
 import express, { Router } from "express";
 import * as EnergySystemController from "../controllers/EnergySystemController";
+import { authenticateToken } from "../middleware/authenticateToken";
 
 export function setEnergySystemRoutes(mainRouter: Router): void {
   const energySystemRouter = express.Router();
+  energySystemRouter.use(authenticateToken);
   energySystemRouter
     .route("/:energySystemId")
     .get(EnergySystemController.getEnergySystem)
