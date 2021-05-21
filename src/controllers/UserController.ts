@@ -43,3 +43,14 @@ export async function deleteUsersId(
   await UserService.deleteUserById(userId);
   res.status(200).end();
 }
+
+export async function postUserLogin(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  const jwt = await UserService.getJWTForUser(email, password);
+  respondAsJson(jwt, res);
+}

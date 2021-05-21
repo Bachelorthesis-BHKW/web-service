@@ -62,6 +62,7 @@ export default function initUser(sequelize: Sequelize): void {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       company: {
         type: DataTypes.STRING,

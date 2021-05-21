@@ -9,6 +9,6 @@ export function setUserRoutes(mainRouter: Router): void {
     .patch(UserController.patchUsersId)
     .delete(UserController.deleteUsersId);
   userRouter.route("/").post(UserController.postUsers);
-  userRouter.route("/login").post();
+  userRouter.route("/login").post(UserController.postUserLogin);
   mainRouter.use("/users", userRouter);
 }
