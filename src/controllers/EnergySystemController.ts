@@ -97,7 +97,19 @@ export async function postEnergySystemComponent(
   respondAsJson(component, res);
 }
 
-export async function getEnergySystemComponent(
+export async function getEnergySystemComponents(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const energySystemId = +req.params.energySystemId;
+
+  const esComponents = await ESComponentService.getComponentsByEnergySystemId(
+    energySystemId
+  );
+  respondAsJson(esComponents, res);
+}
+
+export async function getEnergySystemComponentId(
   req: express.Request,
   res: express.Response
 ): Promise<void> {

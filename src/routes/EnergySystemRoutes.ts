@@ -27,12 +27,13 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
   energySystemRouter
     .route("/:energySystemId/components")
     .all(matchEnergySystemId)
+    .get(EnergySystemController.getEnergySystemComponents)
     .post(EnergySystemController.postEnergySystemComponent);
   energySystemRouter
     .route("/:energySystemId/components/:esComponentId")
     .all(matchEnergySystemId)
     .all(matchESComponentId)
-    .get(EnergySystemController.getEnergySystemComponent)
+    .get(EnergySystemController.getEnergySystemComponentId)
     .patch(EnergySystemController.patchEnergySystemComponent)
     .delete(EnergySystemController.deleteEnergySystemComponent);
   energySystemRouter

@@ -3,6 +3,7 @@ import {
   ESComponentCreateAttributes,
 } from "../models/ESComponent";
 import ExpressError, { ErrorCode } from "../error";
+import { ESComponentCurrent } from "../models/ESComponentCurrent";
 
 export async function addComponentToES(
   energySystemId: number,
@@ -17,6 +18,15 @@ export async function getComponentById(
   const esComponent = await ESComponent.findByPk(esComponentId);
   if (!esComponent) throw new ExpressError(ErrorCode.NOT_FOUND_404);
   return esComponent;
+}
+
+export async function getComponentsByEnergySystemId(
+  energySystemId: number
+): Promise<ESComponent[]> {
+  return ESComponent.findAll({
+    where: { energySystemId },
+    include: ESComponentCurrent,
+  });
 }
 
 export async function patchComponent(
