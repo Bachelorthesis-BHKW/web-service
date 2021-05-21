@@ -1,0 +1,499 @@
+{
+	"info": {
+		"_postman_id": "07724d1e-698e-412f-af6e-657c7026e3f5",
+		"name": "Web-Service-BA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "/users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Müller\",\n    \"email\": \"max@asdf.de\",\n    \"company\": \"Uni Reutlingen\",\n    \"password\": \"secure123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/users",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Tom\",\n    \"company\": \"Uni Reutlingen\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:1337/api/v1/users/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1337",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/users/:userId",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/users/:userId",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "EnergySystem",
+			"item": [
+				{
+					"name": "/energy-systems",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Reutlingen BHKW 1\",\n    \"userId\": 1,\n    \"nFahrplan\": 2,\n    \"untermengeNFahrplan\": 1,\n    \"optimierungshorizontMin\": 10,\n    \"optimierungsgroesse\": 22,\n    \"deltaT\": 1,\n    \"stetigkeitsfaktor\": 11,\n    \"prognosemethodeTh\": 0,\n    \"qThZaehlerGesamt\": true,\n    \"qThZaehlerGetrennt\": false,\n    \"latitude\": 2.33,\n    \"longitude\": 2.44\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/energy-systems",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Reutlingen BHKW 2\",\n    \"stetigkeitsfaktor\": 11,\n    \"prognosemethodeTh\": 0,\n    \"qThZaehlerGesamt\": true,\n    \"qThZaehlerGetrennt\": true,\n    \"latitude\": 9,\n    \"longitude\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/energy-system/:energySystemId",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-system",
+								":energySystemId"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id/components",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"chp\",\n    \"name\": \"bhkw1\",\n    \"kenngroessen\": {\n        \"p_el_max_kW\": 10,\n        \"qDot_th_max_kW\": 20,\n        \"mindestlaufzeit_min\": 1,\n        \"mindestruhezeit_min\": 2,\n        \"anlaufzeit_th90_min\": 3,\n        \"verzugszeit_th_min\": 2,\n        \"anlaufzeit_el90_min\": 2,\n        \"verzugszeit_el_min\": 10,\n        \"modulation\": true,\n        \"modulationsgrad_el\": [\n            1,\n            2,\n            3\n        ],\n        \"modulationsgrad_th\": [\n            1,\n            4,\n            2\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/components",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"components"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id/components/:id/currents",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2021-05-21T10:48:48+0000\",\n    \"current\": {\n        \"motordrehzahl\": 299,\n        \"laufzeit\": 1,\n        \"ruhezeit\": 29\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/components/:componentId/currents",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"components",
+								":componentId",
+								"currents"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								},
+								{
+									"key": "componentId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id/components/:id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"bhkw2\",\n    \"kenngroessen\": {\n        \"modulationsgrad_el\": [\n            1,\n            3\n        ],\n        \"modulationsgrad_th\": [\n            1,\n            4\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/components/:componentId",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"components",
+								":componentId"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								},
+								{
+									"key": "componentId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id/components/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/components/:componentId",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"components",
+								":componentId"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								},
+								{
+									"key": "componentId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id/components/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/components/:componentId",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"components",
+								":componentId"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								},
+								{
+									"key": "componentId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id/schedule",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/schedule",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"schedule"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id/consumptions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"2021-05-21T10:48:48+0000\",\n    \"verbrauchStrom\": 11,\n    \"verbrauchHeizung\": 44,\n    \"verbrauchBww\": 199,\n    \"aussentemperatur\": 10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/consumptions",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"consumptions"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api-url",
+			"value": "http://localhost:1337/api/v1"
+		},
+		{
+			"key": "user1",
+			"value": "1"
+		}
+	]
+}
