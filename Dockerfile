@@ -10,7 +10,6 @@ FROM node:14-alpine
 WORKDIR /usr/src/app
 
 RUN npm install pm2 -g
-COPY --from=build /srv/.env .
 COPY --from=build /srv/node_modules node_modules
 COPY --from=build /srv/dist .
 

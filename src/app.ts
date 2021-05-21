@@ -1,11 +1,13 @@
+import "express-async-errors";
 import config from "./config";
 import loaders from "./loaders";
 import express from "express";
+import { crashProcessOnExceptionOrError } from "./error";
 
 async function startServer() {
   const app = express();
 
-  await loaders();
+  await loaders(app);
 
   app
     .listen(config.port, () => {
@@ -16,4 +18,5 @@ async function startServer() {
     });
 }
 
-startServer();
+crashProcessOnExceptionOrError();
+startServer().then(() => console.log("Ready!"));
