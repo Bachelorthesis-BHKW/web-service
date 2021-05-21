@@ -1,3 +1,1 @@
-export default interface Current {
-  date: Date;
-}
+export default interface Current {}

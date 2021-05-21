@@ -3,10 +3,12 @@ import * as EnergySystemService from "../services/EnergySystemService";
 import * as ESConsumptionService from "../services/ESConsumptionService";
 import * as ESScheduleService from "../services/ESScheduleService";
 import * as ESComponentService from "../services/ESComponentService";
+import * as ESComponentcurrentService from "../services/ESComponentCurrentService";
 import respondAsJson from "../helper/respondAsJson";
 import { EnergySystemCreateAttributes } from "../models/EnergySystem";
 import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
 import { ESComponentCreateAttributes } from "../models/ESComponent";
+import { ESComponentCurrentCreateAttributes } from "../models/ESComponentCurrent";
 
 export async function postEnergySystem(
   req: express.Request,
@@ -122,4 +124,19 @@ export async function deleteEnergySystemComponent(
 
   await ESComponentService.deleteComponent(esComponentId);
   res.status(200).end();
+}
+
+export async function postEnergySystemComponentCurrent(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const esComponentId = +req.params.esComponentId;
+  const esComponentCurrentIN: ESComponentCurrentCreateAttributes = req.body;
+
+  const esComponentCurrent =
+    await ESComponentcurrentService.addESComponentCurrentToESComponent(
+      esComponentId,
+      esComponentCurrentIN
+    );
+  respondAsJson(esComponentCurrent, res);
 }

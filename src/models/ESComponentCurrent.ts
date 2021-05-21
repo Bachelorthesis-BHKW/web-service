@@ -1,13 +1,14 @@
 import { Model, Optional, Sequelize, DataTypes } from "sequelize";
+import ComponentCurrent from "../es_components/currents/Current";
 
 interface ESComponentCurrentAttributes {
   esComponentCurrentId: number;
   esComponentId: number;
   date: Date;
-  current: Record<string, unknown>;
+  current: ComponentCurrent;
 }
 
-interface ESComponentCurrentCreateAttributes
+export interface ESComponentCurrentCreateAttributes
   extends Optional<ESComponentCurrentAttributes, "esComponentCurrentId"> {}
 
 export class ESComponentCurrent
@@ -20,7 +21,7 @@ export class ESComponentCurrent
   esComponentCurrentId!: number;
   esComponentId!: number;
   date!: Date;
-  current!: Record<string, unknown>;
+  current!: ComponentCurrent;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;

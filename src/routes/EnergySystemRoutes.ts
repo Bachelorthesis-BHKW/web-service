@@ -28,7 +28,7 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
     .delete(EnergySystemController.deleteEnergySystemComponent);
   energySystemRouter
     .route("/:energySystemId/components/:esComponentId/currents")
-    .post();
+    .post(EnergySystemController.postEnergySystemComponentCurrent);
 
   mainRouter.use("/energy-systems", energySystemRouter);
 }
