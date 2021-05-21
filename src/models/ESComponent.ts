@@ -12,16 +12,17 @@ import {
 } from "sequelize";
 import { ESComponentType } from "../es_components/Type";
 import { ESComponentCurrent } from "./ESComponentCurrent";
+import Component from "../es_components/Component";
 
 interface ESComponentAttributes {
   esComponentId: number;
   energySystemId: number;
   name: string;
   type: ESComponentType;
-  kenngroessen: Record<string, unknown>;
+  kenngroessen: Component;
 }
 
-interface ESComponentCreateAttributes
+export interface ESComponentCreateAttributes
   extends Optional<ESComponentAttributes, "esComponentId"> {}
 
 export class ESComponent
@@ -32,7 +33,7 @@ export class ESComponent
   energySystemId!: number;
   name!: string;
   type!: ESComponentType;
-  kenngroessen!: Record<string, unknown>;
+  kenngroessen!: Component;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;

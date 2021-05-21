@@ -1,7 +1,5 @@
-export class HeatStorageCurrent {
-  t: number[];
+import Current from "./Current";
 
-  constructor(t: number[]) {
-    this.t = t;
-  }
+export default interface HeatStorageCurrent extends Current {
+  t: number[];
 }

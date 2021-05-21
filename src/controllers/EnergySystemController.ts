@@ -2,9 +2,11 @@ import express from "express";
 import * as EnergySystemService from "../services/EnergySystemService";
 import * as ESConsumptionService from "../services/ESConsumptionService";
 import * as ESScheduleService from "../services/ESScheduleService";
+import * as ESComponentService from "../services/ESComponentService";
 import respondAsJson from "../helper/respondAsJson";
 import { EnergySystemCreateAttributes } from "../models/EnergySystem";
 import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
+import { ESComponentCreateAttributes } from "../models/ESComponent";
 
 export async function postEnergySystem(
   req: express.Request,
@@ -75,4 +77,49 @@ export async function getEnergySystemSchedule(
     energySystemId
   );
   respondAsJson(schedule, res);
+}
+
+export async function postEnergySystemComponent(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const energySystemId = +req.params.energySystemId;
+  const esComponentIN: ESComponentCreateAttributes = req.body;
+
+  const component = await ESComponentService.addComponentToES(
+    energySystemId,
+    esComponentIN
+  );
+  respondAsJson(component, res);
+}
+
+export async function getEnergySystemComponent(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const esComponentId = +req.params.esComponentId;
+
+  const esComponent = await ESComponentService.getComponentById(esComponentId);
+  respondAsJson(esComponent, res);
+}
+
+export async function patchEnergySystemComponent(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const esComponentId = +req.params.esComponentId;
+  const esComponentIN: ESComponentCreateAttributes = req.body;
+
+  await ESComponentService.patchComponent(esComponentId, esComponentIN);
+  res.status(200).end();
+}
+
+export async function deleteEnergySystemComponent(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const esComponentId = +req.params.esComponentId;
+
+  await ESComponentService.deleteComponent(esComponentId);
+  res.status(200).end();
 }

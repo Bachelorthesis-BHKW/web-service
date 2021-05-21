@@ -1,11 +1,7 @@
-export class CHPCurrent {
+import Current from "./Current";
+
+export default interface CHPCurrent extends Current {
   motordrehzahl: number;
   laufzeit: number;
   ruhezeit: number;
-
-  constructor(motordrehzahl: number, laufzeit: number, ruhezeit: number) {
-    this.motordrehzahl = motordrehzahl;
-    this.laufzeit = laufzeit;
-    this.ruhezeit = ruhezeit;
-  }
 }
