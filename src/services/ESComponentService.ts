@@ -9,7 +9,19 @@ export async function addComponentToES(
   energySystemId: number,
   esComponent: ESComponentCreateAttributes
 ): Promise<ESComponent> {
-  return await ESComponent.create({ ...esComponent, energySystemId });
+  let circularBufferMax: number | undefined;
+  if (esComponent.maxHistoryDays && esComponent.currentsPostIntervalMin) {
+    const maxHistoryMin = esComponent.maxHistoryDays * 24 * 60;
+
+    circularBufferMax = Math.ceil(
+      maxHistoryMin / esComponent.currentsPostIntervalMin
+    );
+  }
+  return await ESComponent.create({
+    ...esComponent,
+    energySystemId,
+    circularBufferMax,
+  });
 }
 
 export async function getComponentById(

@@ -1,0 +1,3 @@
+[submodule "control-algorithm"]
+	path = control-algorithm
+	url = git@github.com:Bachelorthesis-BHKW/control-algorithm.git

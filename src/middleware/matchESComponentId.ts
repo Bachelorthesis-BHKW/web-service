@@ -13,7 +13,7 @@ export async function matchESComponentId(
     const energySystem = await EnergySystemService.getEnergySystemById(
       energySystemId
     );
-    if (!(await energySystem.hasEsComponent(esComponentId)))
+    if (!(await energySystem.hasESComponent(esComponentId)))
       throw new ExpressError(ErrorCode.FORBIDDEN_403);
   }
   next();

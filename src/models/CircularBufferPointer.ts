@@ -4,13 +4,17 @@ interface CircularBufferPointerAttributes {
   circularBufferPointerId: number;
   energySystemId: number;
   esConsumptionPointer: number;
+  maxEsConsumption: number;
   weatherForecastPointer: number;
+  maxWeatherForecast: number;
 }
 
-interface CircularBufferPointerCreateAttributes
+export interface CircularBufferPointerCreateAttributes
   extends Optional<
     CircularBufferPointerAttributes,
-    "circularBufferPointerId"
+    | "circularBufferPointerId"
+    | "esConsumptionPointer"
+    | "weatherForecastPointer"
   > {}
 
 export class CircularBufferPointer
@@ -23,7 +27,9 @@ export class CircularBufferPointer
   circularBufferPointerId!: number;
   energySystemId!: number;
   esConsumptionPointer!: number;
+  maxEsConsumption!: number;
   weatherForecastPointer!: number;
+  maxWeatherForecast!: number;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;
@@ -44,8 +50,18 @@ export default function initCircularBufferPointer(sequelize: Sequelize): void {
       esConsumptionPointer: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 0,
+      },
+      maxEsConsumption: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
       weatherForecastPointer: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      maxWeatherForecast: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

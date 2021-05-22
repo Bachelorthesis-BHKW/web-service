@@ -3,12 +3,20 @@ import {
   EnergySystemCreateAttributes,
 } from "../models/EnergySystem";
 import ExpressError, { ErrorCode } from "../error";
+import MainEventEmitter from "../subscriber/MainEventEmitter";
+
+const eventEmitter = MainEventEmitter.getInstance();
 
 export async function createEnergySystem(
   energySystem: EnergySystemCreateAttributes,
   userId: number
 ): Promise<EnergySystem> {
-  return EnergySystem.create({ ...energySystem, userId });
+  const newEnergySystem = await EnergySystem.create({
+    ...energySystem,
+    userId,
+  });
+  eventEmitter.newEnergySystem(newEnergySystem);
+  return newEnergySystem;
 }
 
 export async function getEnergySystemById(
