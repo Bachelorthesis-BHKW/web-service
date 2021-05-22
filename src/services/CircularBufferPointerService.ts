@@ -11,14 +11,9 @@ export async function createNewCircularBufferPointer(
     maxHistoryMin / energySystem.consumptionPostIntervalMin
   );
 
-  const maxWeatherForecast = Math.ceil(
-    maxHistoryMin / energySystem.consumptionPostIntervalMin
-  );
-
   return CircularBufferPointer.create({
     energySystemId: energySystem.energySystemId,
     maxEsConsumption,
-    maxWeatherForecast,
   });
 }
 

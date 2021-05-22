@@ -1,5 +1,6 @@
 import config from "../config";
 import axios from "axios";
+import OWMOneCallResponse from "./OpenWeatherMap/OWMOneCallResponse";
 
 export default class OpenWeatherMap {
   private static instance: OpenWeatherMap;
@@ -22,10 +23,10 @@ export default class OpenWeatherMap {
   public async getHourlyForecastForLocation(
     latitude: number,
     longitude: number
-  ): Promise<any> {
-    const forecast = await axios.get(
+  ): Promise<OWMOneCallResponse> {
+    const response = await axios.get(
       `${OpenWeatherMap.baseUrl}/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,daily,alerts&appid=${this.apiKey}&units=metric`
     );
-    return forecast;
+    return response.data;
   }
 }
