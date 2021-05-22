@@ -33,6 +33,8 @@ interface EnergySystemAttributes {
   qThZaehlerGesamt: boolean;
   qThZaehlerGetrennt: boolean;
 
+  maxHistoryDays: number;
+  consumptionPostIntervalMin: number;
   latitude: number;
   longitude: number;
 }
@@ -58,6 +60,8 @@ export class EnergySystem
   qThZaehlerGesamt!: boolean;
   qThZaehlerGetrennt!: boolean;
 
+  consumptionPostIntervalMin!: number;
+  maxHistoryDays!: number;
   latitude!: number;
   longitude!: number;
 
@@ -153,6 +157,15 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       qThZaehlerGetrennt: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+      },
+      consumptionPostIntervalMin: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      maxHistoryDays: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 90,
       },
       latitude: {
         type: DataTypes.DOUBLE,
