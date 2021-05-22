@@ -25,3 +25,12 @@ export async function addConsumptionToES(
   await bufferPointer.save();
   return;
 }
+
+export async function addConsumptionsToES(
+  consumptions: ESConsumptionCreateAttributes[],
+  energySystemId: number
+): Promise<void> {
+  for (const c of consumptions) {
+    await addConsumptionToES(c, energySystemId);
+  }
+}

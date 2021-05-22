@@ -9,7 +9,7 @@ export async function addComponentToES(
   energySystemId: number,
   esComponent: ESComponentCreateAttributes
 ): Promise<ESComponent> {
-  let circularBufferMax: number | undefined = undefined;
+  let circularBufferMax: number | undefined;
   if (esComponent.maxHistoryDays && esComponent.currentsPostIntervalMin) {
     const maxHistoryMin = esComponent.maxHistoryDays * 24 * 60;
 
