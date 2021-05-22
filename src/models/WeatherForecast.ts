@@ -1,6 +1,7 @@
 import { Model, Optional, Sequelize, DataTypes } from "sequelize";
+import { BufferInterface } from "./BufferInterface";
 
-interface WeatherForecastAttributes {
+interface WeatherForecastAttributes extends BufferInterface {
   weatherForecastId: number;
   energySystemId: number;
   date: Date;
@@ -19,6 +20,7 @@ export class WeatherForecast
 {
   weatherForecastId!: number;
   energySystemId!: number;
+  bufferIndex!: number;
   date!: Date;
   globalHorizontalIrradiance!: number;
   directNormalIrradiance!: number;
@@ -38,6 +40,10 @@ export default function initWeatherForecast(sequelize: Sequelize): void {
         primaryKey: true,
       },
       energySystemId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      bufferIndex: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

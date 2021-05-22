@@ -1,7 +1,7 @@
-import { Model, Optional, Sequelize, DataTypes } from "sequelize";
+import { Model, Sequelize, DataTypes } from "sequelize";
+import { BufferInterface } from "./BufferInterface";
 
-interface ESConsumptionAttributes {
-  esConsumptionId: number;
+interface ESConsumptionAttributes extends BufferInterface {
   energySystemId: number;
   date: Date;
   verbrauchStrom: number;
@@ -11,14 +11,14 @@ interface ESConsumptionAttributes {
 }
 
 export interface ESConsumptionCreateAttributes
-  extends Optional<ESConsumptionAttributes, "esConsumptionId"> {}
+  extends ESConsumptionAttributes {}
 
 export class ESConsumption
   extends Model<ESConsumptionAttributes, ESConsumptionCreateAttributes>
   implements ESConsumptionCreateAttributes
 {
-  esConsumptionId!: number;
   energySystemId!: number;
+  bufferIndex!: number;
   date!: Date;
   verbrauchStrom!: number;
   verbrauchHeizung!: number;
@@ -32,14 +32,15 @@ export class ESConsumption
 export default function initESConsumption(sequelize: Sequelize): void {
   ESConsumption.init(
     {
-      esConsumptionId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
       energySystemId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
+      },
+      bufferIndex: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
       },
       date: {
         type: DataTypes.DATE,
