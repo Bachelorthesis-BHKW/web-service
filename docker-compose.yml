@@ -18,6 +18,7 @@ services:
       DB_URI: postgres://postgres:postgres@postgres:5432
       DB_NAME: es_web_service
       JWT_SECRET: secure
+      CONTROL_ALGO_PATH: main.py
 
     depends_on:
       - postgres

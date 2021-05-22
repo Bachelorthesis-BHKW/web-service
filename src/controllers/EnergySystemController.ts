@@ -9,6 +9,7 @@ import { EnergySystemCreateAttributes } from "../models/EnergySystem";
 import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
 import { ESComponentCreateAttributes } from "../models/ESComponent";
 import { ESComponentCurrentCreateAttributes } from "../models/ESComponentCurrent";
+import ControlAlgorithmHelper from "../helper/ControlAlgorithmHelper";
 
 export async function postEnergySystem(
   req: express.Request,
@@ -92,6 +93,16 @@ export async function getEnergySystemSchedule(
     energySystemId
   );
   respondAsJson(schedule, res);
+}
+
+export async function postEnergySystemSchedule(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const energySystemId = +req.params.energySystemId;
+
+  ControlAlgorithmHelper.runWithEnergySystemId(energySystemId);
+  res.status(200).end();
 }
 
 export async function postEnergySystemComponent(

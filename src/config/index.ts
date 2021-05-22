@@ -14,4 +14,5 @@ export default {
   dbName: process.env.DB_NAME,
   nodeEnv: process.env.NODE_ENV,
   jwtSecret: process.env.JWT_SECRET,
+  controlAlgorithmPath: process.env.CONTROL_ALGO_PATH,
 };
