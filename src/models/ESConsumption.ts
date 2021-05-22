@@ -34,12 +34,10 @@ export default function initESConsumption(sequelize: Sequelize): void {
     {
       energySystemId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         primaryKey: true,
       },
       bufferIndex: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         primaryKey: true,
       },
       date: {

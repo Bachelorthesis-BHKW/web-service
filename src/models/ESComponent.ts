@@ -20,10 +20,18 @@ interface ESComponentAttributes {
   name: string;
   type: ESComponentType;
   kenngroessen: Component;
+
+  currentsPostIntervalMin: number;
+  maxHistoryDays: number;
+  circularBufferMax: number;
+  circularBufferPointer: number;
 }
 
 export interface ESComponentCreateAttributes
-  extends Optional<ESComponentAttributes, "esComponentId"> {}
+  extends Optional<
+    ESComponentAttributes,
+    "esComponentId" | "circularBufferPointer" | "circularBufferMax"
+  > {}
 
 export class ESComponent
   extends Model<ESComponentAttributes, ESComponentCreateAttributes>
@@ -34,6 +42,11 @@ export class ESComponent
   name!: string;
   type!: ESComponentType;
   kenngroessen!: Component;
+
+  currentsPostIntervalMin!: number;
+  maxHistoryDays!: number;
+  circularBufferMax!: number;
+  circularBufferPointer!: number;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;
@@ -77,6 +90,26 @@ export default function initESComponent(sequelize: Sequelize): void {
       },
       kenngroessen: {
         type: DataTypes.JSONB,
+        allowNull: false,
+      },
+      currentsPostIntervalMin: {
+        type: DataTypes.INTEGER,
+        defaultValue: 60 * 24,
+        allowNull: false,
+      },
+      maxHistoryDays: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+        allowNull: false,
+      },
+      circularBufferMax: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+        allowNull: false,
+      },
+      circularBufferPointer: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
         allowNull: false,
       },
     },

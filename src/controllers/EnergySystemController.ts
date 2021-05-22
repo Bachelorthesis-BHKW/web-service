@@ -147,10 +147,9 @@ export async function postEnergySystemComponentCurrent(
   const esComponentId = +req.params.esComponentId;
   const esComponentCurrentIN: ESComponentCurrentCreateAttributes = req.body;
 
-  const esComponentCurrent =
-    await ESComponentCurrentService.addESComponentCurrentToESComponent(
-      esComponentId,
-      esComponentCurrentIN
-    );
-  respondAsJson(esComponentCurrent, res);
+  await ESComponentCurrentService.addESComponentCurrentToESComponent(
+    esComponentId,
+    esComponentCurrentIN
+  );
+  res.status(200).end();
 }

@@ -1,16 +1,15 @@
-import { Model, Optional, Sequelize, DataTypes } from "sequelize";
+import { Model, Sequelize, DataTypes } from "sequelize";
 import ComponentCurrent from "../es_components/currents/Current";
 import { BufferInterface } from "./BufferInterface";
 
 interface ESComponentCurrentAttributes extends BufferInterface {
-  esComponentCurrentId: number;
   esComponentId: number;
   date: Date;
   current: ComponentCurrent;
 }
 
 export interface ESComponentCurrentCreateAttributes
-  extends Optional<ESComponentCurrentAttributes, "esComponentCurrentId"> {}
+  extends ESComponentCurrentAttributes {}
 
 export class ESComponentCurrent
   extends Model<
@@ -19,7 +18,6 @@ export class ESComponentCurrent
   >
   implements ESComponentCurrentCreateAttributes
 {
-  esComponentCurrentId!: number;
   esComponentId!: number;
   bufferIndex!: number;
   date!: Date;
@@ -32,18 +30,13 @@ export class ESComponentCurrent
 export default function initESComponentCurrent(sequelize: Sequelize): void {
   ESComponentCurrent.init(
     {
-      esComponentCurrentId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
       esComponentId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        primaryKey: true,
       },
       bufferIndex: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        primaryKey: true,
         defaultValue: 0,
       },
       date: {
