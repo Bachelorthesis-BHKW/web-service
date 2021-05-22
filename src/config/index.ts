@@ -15,4 +15,5 @@ export default {
   nodeEnv: process.env.NODE_ENV,
   jwtSecret: process.env.JWT_SECRET,
   controlAlgorithmPath: process.env.CONTROL_ALGO_PATH,
+  openWeatherApiKey: process.env.OPEN_WEATHER_API_KEY,
 };

@@ -1,7 +1,7 @@
 import { User, UserCreateAttributes } from "../models/User";
 import ExpressError, { ErrorCode } from "../error";
-import BcryptHelper from "../helper/BcryptHelper";
-import JWTHelper from "../helper/JWTHelper";
+import BcryptHelper from "../helpers/BcryptHelper";
+import JWTHelper from "../helpers/JWTHelper";
 
 export async function createNewUser(user: UserCreateAttributes): Promise<User> {
   user.password = await BcryptHelper.hashPassword(user.password);

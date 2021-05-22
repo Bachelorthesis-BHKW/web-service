@@ -457,6 +457,31 @@
 					"response": []
 				},
 				{
+					"name": "/energy-systems/:id/schedule",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/schedule",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"schedule"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/energy-systems/:id/consumptions",
 					"request": {
 						"method": "POST",

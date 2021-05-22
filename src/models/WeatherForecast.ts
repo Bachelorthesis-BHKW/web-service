@@ -2,23 +2,24 @@ import { Model, Optional, Sequelize, DataTypes } from "sequelize";
 import { BufferInterface } from "./BufferInterface";
 
 interface WeatherForecastAttributes extends BufferInterface {
-  weatherForecastId: number;
   energySystemId: number;
   date: Date;
-  globalHorizontalIrradiance: number;
-  directNormalIrradiance: number;
-  diffuseHorizontalIrradiance: number;
+  globalHorizontalIrradiance?: number;
+  directNormalIrradiance?: number;
+  diffuseHorizontalIrradiance?: number;
   temperature: number;
 }
 
-interface WeatherForecastCreateAttributes
-  extends Optional<WeatherForecastAttributes, "weatherForecastId"> {}
+export interface WeatherForecastCreateAttributes
+  extends Optional<
+    WeatherForecastAttributes,
+    "bufferIndex" | "energySystemId"
+  > {}
 
 export class WeatherForecast
   extends Model<WeatherForecastAttributes, WeatherForecastCreateAttributes>
   implements WeatherForecastCreateAttributes
 {
-  weatherForecastId!: number;
   energySystemId!: number;
   bufferIndex!: number;
   date!: Date;
@@ -34,18 +35,15 @@ export class WeatherForecast
 export default function initWeatherForecast(sequelize: Sequelize): void {
   WeatherForecast.init(
     {
-      weatherForecastId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
       energySystemId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
       bufferIndex: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
       },
       date: {
         type: DataTypes.DATE,
@@ -53,15 +51,12 @@ export default function initWeatherForecast(sequelize: Sequelize): void {
       },
       globalHorizontalIrradiance: {
         type: DataTypes.DOUBLE,
-        allowNull: false,
       },
       directNormalIrradiance: {
         type: DataTypes.DOUBLE,
-        allowNull: false,
       },
       diffuseHorizontalIrradiance: {
         type: DataTypes.DOUBLE,
-        allowNull: false,
       },
       temperature: {
         type: DataTypes.DOUBLE,

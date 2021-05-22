@@ -15,6 +15,7 @@ export interface CircularBufferPointerCreateAttributes
     | "circularBufferPointerId"
     | "esConsumptionPointer"
     | "weatherForecastPointer"
+    | "maxWeatherForecast"
   > {}
 
 export class CircularBufferPointer
@@ -64,6 +65,7 @@ export default function initCircularBufferPointer(sequelize: Sequelize): void {
       maxWeatherForecast: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 48,
       },
     },
     { sequelize }

@@ -1,5 +1,4 @@
 import EventEmitter from "events";
-import { EnergySystem } from "../models/EnergySystem";
 import { subscribeToNewEnergySystem } from "./NewEnergySystem";
 
 export default class MainEventEmitter extends EventEmitter {
@@ -17,8 +16,8 @@ export default class MainEventEmitter extends EventEmitter {
     return MainEventEmitter.instance;
   }
 
-  public newEnergySystem(energySystem: EnergySystem): void {
-    this.emit(Events.NEW_ENERGY_SYSTEM, energySystem);
+  public newEnergySystem(energySystemId: number): void {
+    this.emit(Events.NEW_ENERGY_SYSTEM, energySystemId);
   }
 }
 

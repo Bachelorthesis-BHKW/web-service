@@ -1,6 +1,6 @@
 import express from "express";
 import * as UserService from "../services/UserService";
-import respondAsJson from "../helper/respondAsJson";
+import respondAsJson from "../helpers/respondAsJson";
 import { UserCreateAttributes } from "../models/User";
 
 export async function postUser(

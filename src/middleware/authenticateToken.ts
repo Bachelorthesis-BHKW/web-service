@@ -1,6 +1,6 @@
 import express from "express";
 import ExpressError, { ErrorCode } from "../error";
-import JWTHelper from "../helper/JWTHelper";
+import JWTHelper from "../helpers/JWTHelper";
 import * as UserService from "../services/UserService";
 
 export async function authenticateToken(
