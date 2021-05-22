@@ -158,7 +158,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Reutlingen BHKW 1\",\n    \"nFahrplan\": 2,\n    \"untermengeNFahrplan\": 1,\n    \"optimierungshorizontMin\": 10,\n    \"optimierungsgroesse\": 22,\n    \"deltaT\": 1,\n    \"stetigkeitsfaktor\": 11,\n    \"prognosemethodeTh\": 0,\n    \"qThZaehlerGesamt\": true,\n    \"qThZaehlerGetrennt\": false,\n    \"latitude\": 2.33,\n    \"longitude\": 2.44\n}",
+							"raw": "{\n    \"name\": \"Reutlingen BHKW 1\",\n    \"nFahrplan\": 2,\n    \"untermengeNFahrplan\": 1,\n    \"optimierungshorizontMin\": 10,\n    \"optimierungsgroesse\": 22,\n    \"deltaT\": 1,\n    \"stetigkeitsfaktor\": 11,\n    \"prognosemethodeTh\": 0,\n    \"qThZaehlerGesamt\": true,\n    \"qThZaehlerGetrennt\": false,\n    \"consumptionPostIntervalMin\": 15,\n    \"maxHistoryDays\": 60,\n    \"latitude\": 2.33,\n    \"longitude\": 2.44\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -265,7 +265,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"type\": \"chp\",\n    \"name\": \"bhkw1\",\n    \"kenngroessen\": {\n        \"p_el_max_kW\": 10,\n        \"qDot_th_max_kW\": 20,\n        \"mindestlaufzeit_min\": 1,\n        \"mindestruhezeit_min\": 2,\n        \"anlaufzeit_th90_min\": 3,\n        \"verzugszeit_th_min\": 2,\n        \"anlaufzeit_el90_min\": 2,\n        \"verzugszeit_el_min\": 10,\n        \"modulation\": true,\n        \"modulationsgrad_el\": [\n            1,\n            2,\n            3\n        ],\n        \"modulationsgrad_th\": [\n            1,\n            4,\n            2\n        ]\n    }\n}",
+							"raw": "{\n    \"type\": \"chp\",\n    \"name\": \"bhkw1\",\n    \"kenngroessen\": {\n        \"p_el_max_kW\": 10,\n        \"qDot_th_max_kW\": 20,\n        \"mindestlaufzeit_min\": 1,\n        \"mindestruhezeit_min\": 2,\n        \"anlaufzeit_th90_min\": 3,\n        \"verzugszeit_th_min\": 2,\n        \"anlaufzeit_el90_min\": 2,\n        \"verzugszeit_el_min\": 10,\n        \"modulation\": true,\n        \"modulationsgrad_el\": [\n            1,\n            2,\n            3\n        ],\n        \"modulationsgrad_th\": [\n            1,\n            4,\n            2\n        ]\n    },\n    \"currentsPostIntervalMin\": 60,\n    \"maxHistoryDays\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
