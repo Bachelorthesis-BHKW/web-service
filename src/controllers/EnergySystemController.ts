@@ -4,12 +4,12 @@ import * as ESConsumptionService from "../services/ESConsumptionService";
 import * as ESScheduleService from "../services/ESScheduleService";
 import * as ESComponentService from "../services/ESComponentService";
 import * as ESComponentCurrentService from "../services/ESComponentCurrentService";
-import respondAsJson from "../helper/respondAsJson";
+import respondAsJson from "../helpers/respondAsJson";
 import { EnergySystemCreateAttributes } from "../models/EnergySystem";
 import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
 import { ESComponentCreateAttributes } from "../models/ESComponent";
 import { ESComponentCurrentCreateAttributes } from "../models/ESComponentCurrent";
-import ControlAlgorithmHelper from "../helper/ControlAlgorithmHelper";
+import ControlAlgorithmHelper from "../helpers/ControlAlgorithmHelper";
 
 export async function postEnergySystem(
   req: express.Request,

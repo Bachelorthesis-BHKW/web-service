@@ -19,6 +19,7 @@ services:
       DB_NAME: es_web_service
       JWT_SECRET: secure
       CONTROL_ALGO_PATH: main.py
+      OPEN_WEATHER_API_KEY: dfc57d64f0ddb809798fd887679e92f8
 
     depends_on:
       - postgres

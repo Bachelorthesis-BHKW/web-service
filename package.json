@@ -5,6 +5,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
