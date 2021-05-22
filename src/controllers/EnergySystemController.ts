@@ -4,6 +4,7 @@ import * as ESConsumptionService from "../services/ESConsumptionService";
 import * as ESScheduleService from "../services/ESScheduleService";
 import * as ESComponentService from "../services/ESComponentService";
 import * as ESComponentCurrentService from "../services/ESComponentCurrentService";
+import * as WeatherForecastService from "../services/WeatherForecastService";
 import respondAsJson from "../helpers/respondAsJson";
 import { EnergySystemCreateAttributes } from "../models/EnergySystem";
 import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
@@ -101,6 +102,9 @@ export async function postEnergySystemSchedule(
 ): Promise<void> {
   const energySystemId = +req.params.energySystemId;
 
+  await WeatherForecastService.fetchHourlyWeatherForEnergySystem(
+    energySystemId
+  );
   ControlAlgorithmHelper.runWithEnergySystemId(energySystemId);
   res.status(200).end();
 }
