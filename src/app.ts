@@ -1,6 +1,6 @@
 import "express-async-errors";
 import config from "./config";
-import loaders from "./loaders";
+import loaders from "./startup";
 import express from "express";
 import { crashProcessOnExceptionOrError } from "./error";
 
