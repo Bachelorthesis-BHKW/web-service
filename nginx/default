@@ -1,0 +1,15 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443;
+    server_name bhkw.informaticore.net;
+
+    location / {
+        proxy_pass         http://web-service:1337;
+    }
+}
