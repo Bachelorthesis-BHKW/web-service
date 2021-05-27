@@ -1,6 +1,6 @@
 import Component from "./Component";
 
-export default interface HeatStorage extends Component {
+export default interface ThermalEnergyStorage extends Component {
   speichertemp_leer: number[];
   speichertemp_voll: number[];
   v_Speicher_m3: number;

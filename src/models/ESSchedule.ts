@@ -1,20 +1,17 @@
-import { Model, Optional, Sequelize, DataTypes } from "sequelize";
+import { Model, Sequelize, DataTypes } from "sequelize";
 
 interface ESScheduleAttributes {
-  esScheduleId: number;
   energySystemId: number;
   timeInterval: number;
   schedule: string;
 }
 
-interface ESScheduleCreateAttributes
-  extends Optional<ESScheduleAttributes, "esScheduleId"> {}
+interface ESScheduleCreateAttributes {}
 
 export class ESSchedule
   extends Model<ESScheduleAttributes, ESScheduleCreateAttributes>
   implements ESScheduleCreateAttributes
 {
-  esScheduleId!: number;
   energySystemId!: number;
   timeInterval!: number;
   schedule!: string;
@@ -26,14 +23,9 @@ export class ESSchedule
 export default function initESSchedule(sequelize: Sequelize): void {
   ESSchedule.init(
     {
-      esScheduleId: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-      },
       energySystemId: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        primaryKey: true,
       },
       timeInterval: {
         type: DataTypes.INTEGER,
