@@ -32,7 +32,7 @@ export default function initESSchedule(sequelize: Sequelize): void {
         defaultValue: 0,
       },
       schedule: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         defaultValue: "",
       },
     },
