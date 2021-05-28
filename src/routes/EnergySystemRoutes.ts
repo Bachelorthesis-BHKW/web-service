@@ -26,6 +26,11 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
     .post(EnergySystemController.postEnergySystemSchedule);
 
   energySystemRouter
+    .route("/:energySystemId/schedule/now")
+    .all(matchEnergySystemId)
+    .get(EnergySystemController.getEnergySystemScheduleNow);
+
+  energySystemRouter
     .route("/:energySystemId/components")
     .all(matchEnergySystemId)
     .get(EnergySystemController.getEnergySystemComponents)

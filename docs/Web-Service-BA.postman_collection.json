@@ -216,12 +216,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{api-url}}/energy-system/:energySystemId",
+							"raw": "{{api-url}}/energy-systems/:energySystemId",
 							"host": [
 								"{{api-url}}"
 							],
 							"path": [
-								"energy-system",
+								"energy-systems",
 								":energySystemId"
 							],
 							"variable": [
@@ -445,6 +445,32 @@
 								"energy-systems",
 								":energySystemId",
 								"schedule"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id/schedule/now",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/schedule/now",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"schedule",
+								"now"
 							],
 							"variable": [
 								{

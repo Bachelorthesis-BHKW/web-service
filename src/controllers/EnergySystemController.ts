@@ -109,6 +109,18 @@ export async function postEnergySystemSchedule(
   res.status(200).end();
 }
 
+export async function getEnergySystemScheduleNow(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const energySystemId = +req.params.energySystemId;
+
+  const now = await ESScheduleService.getESScheduleNowByEnergySystemId(
+    energySystemId
+  );
+  respondAsJson(now, res);
+}
+
 export async function postEnergySystemComponent(
   req: express.Request,
   res: express.Response
