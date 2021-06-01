@@ -32,6 +32,7 @@ interface EnergySystemAttributes {
   prognosemethodeTh: number;
   qThZaehlerGesamt: boolean;
   qThZaehlerGetrennt: boolean;
+  gewichtungsfaktorZufall: number;
 
   maxHistoryDays: number;
   consumptionPostIntervalMin: number;
@@ -59,6 +60,7 @@ export class EnergySystem
   prognosemethodeTh!: number;
   qThZaehlerGesamt!: boolean;
   qThZaehlerGetrennt!: boolean;
+  gewichtungsfaktorZufall!: number;
 
   consumptionPostIntervalMin!: number;
   maxHistoryDays!: number;
@@ -156,6 +158,10 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       },
       qThZaehlerGetrennt: {
         type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      gewichtungsfaktorZufall: {
+        type: DataTypes.DOUBLE,
         allowNull: false,
       },
       consumptionPostIntervalMin: {

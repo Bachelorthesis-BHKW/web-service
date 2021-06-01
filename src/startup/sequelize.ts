@@ -15,7 +15,7 @@ export async function sequelizeLoader(): Promise<Sequelize> {
 
   const sequelize = new Sequelize(config.dbUri, {
     database: config.dbName,
-    sync: { alter: true },
+    sync: { force: true },
     define: { underscored: true },
     logging: false,
   });
