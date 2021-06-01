@@ -158,7 +158,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Reutlingen BHKW 1\",\n    \"nFahrplan\": 2,\n    \"untermengeNFahrplan\": 1,\n    \"optimierungshorizontMin\": 10,\n    \"optimierungsgroesse\": 22,\n    \"deltaT\": 1,\n    \"stetigkeitsfaktor\": 11,\n    \"prognosemethodeTh\": 0,\n    \"qThZaehlerGesamt\": true,\n    \"qThZaehlerGetrennt\": false,\n    \"consumptionPostIntervalMin\": 15,\n    \"maxHistoryDays\": 60,\n    \"latitude\": 2.33,\n    \"longitude\": 2.44\n}",
+							"raw": "{\n    \"name\": \"Reutlingen BHKW 1\",\n    \"nFahrplan\": 2,\n    \"untermengeNFahrplan\": 1,\n    \"optimierungshorizontMin\": 10,\n    \"optimierungsgroesse\": 22,\n    \"deltaT\": 1,\n    \"stetigkeitsfaktor\": 11,\n    \"prognosemethodeTh\": 0,\n    \"qThZaehlerGesamt\": true,\n    \"qThZaehlerGetrennt\": false,\n    \"gewichtungsfaktorZufall\": 1.5,\n    \"consumptionPostIntervalMin\": 15,\n    \"maxHistoryDays\": 60,\n    \"latitude\": 2.33,\n    \"longitude\": 2.44\n}",
 							"options": {
 								"raw": {
 									"language": "json"
