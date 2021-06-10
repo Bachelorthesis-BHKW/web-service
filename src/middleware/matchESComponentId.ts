@@ -1,6 +1,6 @@
 import express from "express";
 import ExpressError, { ErrorCode } from "../error";
-import * as EnergySystemService from "../services/EnergySystemService";
+import { getEnergySystemById } from "../services/EnergySystemService";
 
 export async function matchESComponentId(
   req: express.Request,
@@ -10,9 +10,7 @@ export async function matchESComponentId(
   const energySystemId = +req.params.energySystemId;
   const esComponentId = +req.params.esComponentId;
   if (energySystemId && esComponentId) {
-    const energySystem = await EnergySystemService.getEnergySystemById(
-      energySystemId
-    );
+    const energySystem = await getEnergySystemById(energySystemId);
     if (!(await energySystem.hasESComponent(esComponentId)))
       throw new ExpressError(ErrorCode.FORBIDDEN_403);
   }

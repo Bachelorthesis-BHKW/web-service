@@ -18,6 +18,7 @@ import { WeatherForecast } from "./WeatherForecast";
 import { ESComponent } from "./ESComponent";
 import { ESConsumption } from "./ESConsumption";
 import { CircularBufferPointer } from "./CircularBufferPointer";
+import { Region } from "feiertagejs";
 
 interface EnergySystemAttributes {
   energySystemId: number;
@@ -38,6 +39,7 @@ interface EnergySystemAttributes {
   consumptionPostIntervalMin: number;
   latitude: number;
   longitude: number;
+  region: Region;
 }
 
 export interface EnergySystemCreateAttributes
@@ -66,6 +68,7 @@ export class EnergySystem
   maxHistoryDays!: number;
   latitude!: number;
   longitude!: number;
+  region!: Region;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -180,6 +183,11 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       longitude: {
         type: DataTypes.DOUBLE,
         allowNull: false,
+      },
+      region: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "BUND",
       },
     },
     {

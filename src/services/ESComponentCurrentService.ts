@@ -2,13 +2,13 @@ import {
   ESComponentCurrent,
   ESComponentCurrentCreateAttributes,
 } from "../models/ESComponentCurrent";
-import * as ESComponentService from "./ESComponentService";
+import { getComponentById } from "./ESComponentService";
 
 export async function addESComponentCurrentToESComponent(
   esComponentId: number,
   esComponentCurrent: ESComponentCurrentCreateAttributes
 ): Promise<void> {
-  const component = await ESComponentService.getComponentById(esComponentId);
+  const component = await getComponentById(esComponentId);
   if (component.circularBufferPointer >= component.circularBufferMax)
     component.circularBufferPointer = 0;
 

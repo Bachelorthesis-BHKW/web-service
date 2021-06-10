@@ -2,16 +2,18 @@ import {
   ESConsumption,
   ESConsumptionCreateAttributes,
 } from "../models/ESConsumption";
-import * as CircularBufferPointerService from "./CircularBufferPointerService";
+import isWeekendOrHoliday from "../helpers/isWeekendOrHoliday";
+import { getCircularBufferPointerForEnergySystem } from "./CircularBufferPointerService";
+import { getEnergySystemById } from "./EnergySystemService";
 
 export async function addConsumptionToES(
   consumption: ESConsumptionCreateAttributes,
   energySystemId: number
 ): Promise<void> {
-  const bufferPointer =
-    await CircularBufferPointerService.getCircularBufferPointerForEnergySystem(
-      energySystemId
-    );
+  const energySystem = await getEnergySystemById(energySystemId);
+  const bufferPointer = await getCircularBufferPointerForEnergySystem(
+    energySystemId
+  );
   if (bufferPointer.esConsumptionPointer >= bufferPointer.maxEsConsumption)
     bufferPointer.esConsumptionPointer = 0;
 
@@ -19,6 +21,10 @@ export async function addConsumptionToES(
     ...consumption,
     energySystemId: energySystemId,
     bufferIndex: bufferPointer.esConsumptionPointer,
+    holiday: isWeekendOrHoliday(
+      new Date(consumption.date),
+      energySystem.region
+    ),
   });
 
   bufferPointer.esConsumptionPointer++;
