@@ -1,6 +1,6 @@
-import config from "../config";
+import config from "../../config";
 import axios from "axios";
-import OWMOneCallResponse from "./OpenWeatherMap/OWMOneCallResponse";
+import OWMOneCallResponse from "./OWMOneCallResponse";
 
 export default class OpenWeatherMap {
   private static instance: OpenWeatherMap;

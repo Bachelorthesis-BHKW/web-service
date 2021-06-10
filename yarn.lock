@@ -959,6 +959,11 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
+feiertagejs@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/feiertagejs/-/feiertagejs-1.3.0.tgz#0cb87f80fe72abe7f09a12b03b56826fa5039458"
+  integrity sha512-tVaZqvfmRy0AlP8ogb8arTKHoSGTG0Uuq1xmt85fHYx1DEl94vIv0HwUv1WvkMzd+6gnH4+UjkeIw1s04VERIw==
+
 figures@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-3.2.0.tgz#625c18bd293c604dc4a8ddb2febf0c88341746af"

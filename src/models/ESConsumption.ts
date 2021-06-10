@@ -4,6 +4,7 @@ import { BufferInterface } from "./BufferInterface";
 interface ESConsumptionAttributes extends BufferInterface {
   energySystemId: number;
   date: Date;
+  holiday: boolean;
   verbrauchStrom: number;
   verbrauchHeizung: number;
   verbrauchBww: number;
@@ -20,6 +21,7 @@ export class ESConsumption
   energySystemId!: number;
   bufferIndex!: number;
   date!: Date;
+  holiday!: boolean;
   verbrauchStrom!: number;
   verbrauchHeizung!: number;
   verbrauchBww!: number;
@@ -42,6 +44,10 @@ export default function initESConsumption(sequelize: Sequelize): void {
       },
       date: {
         type: DataTypes.DATE,
+        allowNull: false,
+      },
+      holiday: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
       },
       verbrauchStrom: {

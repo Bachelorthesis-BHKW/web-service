@@ -1,7 +1,7 @@
 import express from "express";
 import ExpressError, { ErrorCode } from "../error";
 import JWTHelper from "../helpers/JWTHelper";
-import * as UserService from "../services/UserService";
+import { getUserById } from "../services/UserService";
 
 export async function authenticateToken(
   req: express.Request,
@@ -14,7 +14,7 @@ export async function authenticateToken(
   let userId: number;
   try {
     userId = JWTHelper.getInstance().verifyJWT(token);
-    req.user = await UserService.getUserById(userId);
+    req.user = await getUserById(userId);
   } catch (e) {
     throw new ExpressError(ErrorCode.UNAUTHORIZED_401);
   }
