@@ -5,9 +5,9 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=UTC
-      - URL=bhkw.informaticore.net
+      - URL=rri-flexbetrieb.fh-reutlingen.de
       - VALIDATION=http
-      - EMAIL=janik.steegmueller@student.uni-tuebingen.de
+      - EMAIL=janik.steegmueller@gast.reutlingen-university.de
       - STAGING=true
     ports:
       - "80:80"
