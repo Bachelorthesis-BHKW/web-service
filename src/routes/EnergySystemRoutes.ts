@@ -14,7 +14,10 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
     .get(EnergySystemController.getEnergySystem)
     .patch(EnergySystemController.patchEnergySystem)
     .delete(EnergySystemController.deleteEnergySystem);
-  energySystemRouter.route("/").post(EnergySystemController.postEnergySystem);
+  energySystemRouter
+    .route("/")
+    .all(authenticateToken)
+    .post(EnergySystemController.postEnergySystem);
 
   energySystemRouter
     .route("/:energySystemId/consumptions")
