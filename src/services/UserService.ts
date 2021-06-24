@@ -47,3 +47,13 @@ export async function getJWTForUser(
     throw new ExpressError(ErrorCode.UNAUTHORIZED_401);
   return JWTHelper.getInstance().generateJWT(user.userId);
 }
+
+export async function getUserByEmailAndPassword(
+  email: string,
+  password: string
+): Promise<User> {
+  const user = await User.findOne({ where: { email } });
+  if (!user || !(await BcryptHelper.comparePassword(password, user.password)))
+    throw new ExpressError(ErrorCode.NOT_FOUND_404);
+  return user;
+}
