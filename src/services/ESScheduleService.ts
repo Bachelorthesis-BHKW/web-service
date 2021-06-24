@@ -5,7 +5,8 @@ export async function getESScheduleByEnergySystemId(
   energySystemId: number
 ): Promise<ESSchedule> {
   const esSchedule = await ESSchedule.findOne({ where: { energySystemId } });
-  if (!esSchedule) throw new ExpressError(ErrorCode.NOT_FOUND_404);
+  if (!esSchedule || esSchedule.updatedAt.getDate() != new Date().getDate())
+    throw new ExpressError(ErrorCode.NOT_FOUND_404);
   return esSchedule;
 }
 
