@@ -27,14 +27,14 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
 
   energySystemRouter
     .route("/:energySystemId/schedule")
-    .all(authenticateToken)
+    .all(authenticateBasicAuth)
     .all(matchEnergySystemId)
     .get(EnergySystemController.getEnergySystemSchedule)
     .post(EnergySystemController.postEnergySystemSchedule);
 
   energySystemRouter
     .route("/:energySystemId/schedule/now")
-    .all(authenticateToken)
+    .all(authenticateBasicAuth)
     .all(matchEnergySystemId)
     .get(EnergySystemController.getEnergySystemScheduleNow);
 
