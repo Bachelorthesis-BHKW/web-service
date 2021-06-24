@@ -6,5 +6,5 @@ export default function routesLoader(app: Express): void {
   const router: Router = express.Router();
   setUserRoutes(router);
   setEnergySystemRoutes(router);
-  app.use("/api/v1", router);
+  app.use("/", router);
 }
