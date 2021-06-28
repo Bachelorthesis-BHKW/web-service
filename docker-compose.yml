@@ -16,6 +16,7 @@ services:
       NODE_ENV: production
       PORT: 1337
       DB_URI: postgres://postgres:postgres@postgres:5432
+      DB_HOST: postgres
       DB_NAME: es_web_service
       JWT_SECRET: secure
       CONTROL_ALGO_PATH: main.py
