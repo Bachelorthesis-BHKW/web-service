@@ -4,5 +4,5 @@ export enum ESComponentType {
   Battery = "battery",
   PV = "pv",
   TES = "tes",
-  PeakBoiler = "peakBoiler",
+  SLK = "slk",
 }
