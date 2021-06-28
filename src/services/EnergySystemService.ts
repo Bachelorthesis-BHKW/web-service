@@ -15,7 +15,7 @@ export async function createEnergySystem(
     ...energySystem,
     userId,
   });
-  eventEmitter.newEnergySystem(newEnergySystem.energySystemId);
+  eventEmitter.newEnergySystem(newEnergySystem);
   return newEnergySystem;
 }
 

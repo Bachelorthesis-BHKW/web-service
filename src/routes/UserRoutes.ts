@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import * as UserController from "../controllers/UserController";
-import { authenticateToken } from "../middleware/authenticateToken";
 import { matchUserId } from "../middleware/matchUserId";
+import { authenticateJWT } from "../middleware/authentification";
 
 export function setUserRoutes(mainRouter: Router): void {
   const userRouter = express.Router();
@@ -10,7 +10,7 @@ export function setUserRoutes(mainRouter: Router): void {
 
   userRouter
     .route("/:userId")
-    .all(authenticateToken)
+    .all(authenticateJWT)
     .all(matchUserId)
     .get(UserController.getUserId)
     .patch(UserController.patchUserId)

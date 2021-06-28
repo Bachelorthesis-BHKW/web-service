@@ -1,13 +1,12 @@
 import Nominatim from "../apis/Nominatim/Nominatim";
-import { getEnergySystemById } from "./EnergySystemService";
 import { Region } from "feiertagejs";
+import { EnergySystem } from "../models/EnergySystem";
 
 const nominatim = Nominatim.getInstance();
 
 export async function addRegionToEnergySystem(
-  energySystemId: number
+  energySystem: EnergySystem
 ): Promise<void> {
-  const energySystem = await getEnergySystemById(energySystemId);
   const nominatimResponse = await nominatim.reverseLatLong(
     energySystem.latitude,
     energySystem.longitude

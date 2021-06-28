@@ -1,24 +1,22 @@
 import express from "express";
-import ExpressError, { ErrorCode } from "../error";
-import JWTHelper from "../helpers/JWTHelper";
-import { getUserById } from "../services/UserService";
+import ExpressError, { ErrorCode } from "../../error";
+import JWTHelper from "../../helpers/JWTHelper";
+import { getUserById } from "../../services/UserService";
+import { User } from "../../models/User";
 
-export async function authenticateToken(
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-): Promise<void> {
+export async function getUserForToken(req: express.Request): Promise<User> {
   const authorization = req.get("authorization");
   if (!authorization) throw new ExpressError(ErrorCode.UNAUTHORIZED_401);
   const token = getTokenFromBearer(authorization);
   let userId: number;
+  let user: User;
   try {
     userId = JWTHelper.getInstance().verifyJWT(token);
-    req.user = await getUserById(userId);
+    user = await getUserById(userId);
   } catch (e) {
     throw new ExpressError(ErrorCode.UNAUTHORIZED_401);
   }
-  next();
+  return user;
 }
 
 function getTokenFromBearer(bearer: string): string {

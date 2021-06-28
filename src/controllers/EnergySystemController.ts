@@ -101,11 +101,12 @@ export async function postEnergySystemSchedule(
   res: express.Response
 ): Promise<void> {
   const energySystemId = +req.params.energySystemId;
-
-  await WeatherForecastService.fetchHourlyWeatherForEnergySystem(
+  const energySystem = await EnergySystemService.getEnergySystemById(
     energySystemId
   );
-  ControlAlgorithmHelper.runWithEnergySystemId(energySystemId);
+
+  await WeatherForecastService.fetchHourlyWeatherForEnergySystem(energySystem);
+  ControlAlgorithmHelper.runWithEnergySystem(energySystem);
   res.status(200).end();
 }
 

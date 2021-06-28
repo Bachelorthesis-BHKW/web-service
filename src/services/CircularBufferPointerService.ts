@@ -1,11 +1,10 @@
 import { CircularBufferPointer } from "../models/CircularBufferPointer";
 import ExpressError, { ErrorCode } from "../error";
-import { getEnergySystemById } from "./EnergySystemService";
+import { EnergySystem } from "../models/EnergySystem";
 
 export async function createNewCircularBufferPointer(
-  energySystemId: number
+  energySystem: EnergySystem
 ): Promise<CircularBufferPointer> {
-  const energySystem = await getEnergySystemById(energySystemId);
   const maxHistoryMin = energySystem.maxHistoryDays * 24 * 60;
 
   const maxEsConsumption = Math.ceil(

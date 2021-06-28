@@ -4,7 +4,7 @@ import {
 } from "../models/WeatherForecast";
 import OpenWeatherMap from "../apis/OpenWeatherMap/OpenWeatherMap";
 import { getCircularBufferPointerForEnergySystem } from "./CircularBufferPointerService";
-import { getEnergySystemById } from "./EnergySystemService";
+import { EnergySystem } from "../models/EnergySystem";
 
 const openWeatherClient = OpenWeatherMap.getInstance();
 
@@ -30,9 +30,8 @@ async function createWeatherForecast(
 }
 
 export async function fetchHourlyWeatherForEnergySystem(
-  energySystemId: number
+  energySystem: EnergySystem
 ): Promise<void> {
-  const energySystem = await getEnergySystemById(energySystemId);
   const hourlyForecast = await openWeatherClient.getHourlyForecastForLocation(
     energySystem.longitude,
     energySystem.longitude

@@ -3,6 +3,6 @@ export enum ESComponentType {
   CHP = "chp",
   Battery = "battery",
   PV = "pv",
-  TES = "thermalEnergyStorage",
+  TES = "tes",
   PeakBoiler = "peakBoiler",
 }
