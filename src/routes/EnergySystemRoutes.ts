@@ -1,4 +1,5 @@
 import express, { Router } from "express";
+import * as ESComponentController from "../controllers/ESComponentController";
 import * as EnergySystemController from "../controllers/EnergySystemController";
 import { matchEnergySystemId } from "../middleware/matchEnergySystemId";
 import { matchESComponentId } from "../middleware/matchESComponentId";
@@ -41,22 +42,22 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
     .route("/:energySystemId/components")
     .all(authenticateJWT)
     .all(matchEnergySystemId)
-    .get(EnergySystemController.getEnergySystemComponents)
-    .post(EnergySystemController.postEnergySystemComponent);
+    .get(ESComponentController.getEnergySystemComponents)
+    .post(ESComponentController.postEnergySystemComponent);
   energySystemRouter
     .route("/:energySystemId/components/:esComponentId")
     .all(authenticateJWT)
     .all(matchEnergySystemId)
     .all(matchESComponentId)
-    .get(EnergySystemController.getEnergySystemComponentId)
-    .patch(EnergySystemController.patchEnergySystemComponent)
-    .delete(EnergySystemController.deleteEnergySystemComponent);
+    .get(ESComponentController.getEnergySystemComponentId)
+    .patch(ESComponentController.patchEnergySystemComponent)
+    .delete(ESComponentController.deleteEnergySystemComponent);
   energySystemRouter
     .route("/:energySystemId/components/:esComponentId/currents")
     .all(authenticate)
     .all(matchEnergySystemId)
     .all(matchESComponentId)
-    .post(EnergySystemController.postEnergySystemComponentCurrent);
+    .post(ESComponentController.postEnergySystemComponentCurrent);
 
   mainRouter.use("/energy-systems", energySystemRouter);
 }
