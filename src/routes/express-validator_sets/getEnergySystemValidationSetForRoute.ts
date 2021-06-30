@@ -51,7 +51,7 @@ export function getEnergySystemValidationSetForRoute(
   return set;
 }
 
-const energySystemIdSet = [param("energySystemId").exists().isInt()];
+export const energySystemIdSet = [param("energySystemId").exists().isInt()];
 
 const esConsumptionCreateSet = [
   body(nameOfESConsumption((esc) => esc.date))
