@@ -19,6 +19,7 @@ import { ESComponent } from "./ESComponent";
 import { ESConsumption } from "./ESConsumption";
 import { CircularBufferPointer } from "./CircularBufferPointer";
 import { Region } from "feiertagejs";
+import { nameof } from "ts-simple-nameof";
 
 interface EnergySystemAttributes {
   energySystemId: number;
@@ -195,3 +196,7 @@ export default function initEnergySystem(sequelize: Sequelize): void {
     }
   );
 }
+
+export const nameOfEnergySystem = (
+  selector: (es: EnergySystemCreateAttributes) => unknown
+): string => nameof<EnergySystemCreateAttributes>(selector);
