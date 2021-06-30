@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import { body, param } from "express-validator";
 import { validate } from "../../middleware/validate";
+import { nameOfUser } from "../../models/User";
 
 export enum UserRoutes {
   post,
@@ -40,12 +41,20 @@ export function getUserValidationSetForRoute(
 const userIdSet = [param("userId").exists().isInt()];
 
 const userLoginSet = [
-  body("email").exists().isEmail(),
-  body("password").exists().isString(),
+  body(nameOfUser((u) => u.email))
+    .exists()
+    .isEmail(),
+  body(nameOfUser((u) => u.password))
+    .exists()
+    .isString(),
 ];
 
 const userCreateSet = [
   ...userLoginSet,
-  body("name").exists().isString(),
-  body("company").optional().isString(),
+  body(nameOfUser((u) => u.name))
+    .exists()
+    .isString(),
+  body(nameOfUser((u) => u.name))
+    .optional()
+    .isString(),
 ];
