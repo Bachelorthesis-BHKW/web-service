@@ -5,4 +5,6 @@ export enum ESComponentType {
   PV = "pv",
   TES = "tes",
   SLK = "slk",
+  ST = "st",
+  GS = "gs",
 }

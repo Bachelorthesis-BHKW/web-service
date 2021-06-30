@@ -10,9 +10,10 @@ import {
   HasManyCreateAssociationMixin,
   Association,
 } from "sequelize";
-import { ESComponentType } from "../es_components/Type";
+import { ESComponentType } from "../es_components/ESComponentType";
 import { ESComponentCurrent } from "./ESComponentCurrent";
 import Component from "../es_components/Component";
+import { nameof } from "ts-simple-nameof";
 
 interface ESComponentAttributes {
   esComponentId: number;
@@ -116,3 +117,7 @@ export default function initESComponent(sequelize: Sequelize): void {
     { sequelize }
   );
 }
+
+export const nameOfESComponent = (
+  selector: (esc: ESComponentCreateAttributes) => unknown
+): string => nameof<ESComponentCreateAttributes>(selector);

@@ -24,9 +24,12 @@ export function crashProcessOnExceptionOrError(): void {
 
 export default class ExpressError extends Error {
   status: ErrorCode;
-  constructor(status: ErrorCode) {
+  constructor(status: ErrorCode, message?: string) {
     super();
     this.status = status;
+    if (typeof message === "string") {
+      this.message = message;
+    }
   }
 }
 

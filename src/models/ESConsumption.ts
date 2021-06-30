@@ -1,5 +1,6 @@
 import { Model, Sequelize, DataTypes } from "sequelize";
 import { BufferInterface } from "./BufferInterface";
+import { nameof } from "ts-simple-nameof";
 
 interface ESConsumptionAttributes extends BufferInterface {
   energySystemId: number;
@@ -69,3 +70,7 @@ export default function initESConsumption(sequelize: Sequelize): void {
     { sequelize }
   );
 }
+
+export const nameOfESConsumption = (
+  selector: (esc: ESConsumptionCreateAttributes) => unknown
+): string => nameof<ESConsumptionCreateAttributes>(selector);

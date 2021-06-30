@@ -1,6 +1,7 @@
 import { Model, Sequelize, DataTypes } from "sequelize";
 import ComponentCurrent from "../es_components/currents/Current";
 import { BufferInterface } from "./BufferInterface";
+import { nameof } from "ts-simple-nameof";
 
 interface ESComponentCurrentAttributes extends BufferInterface {
   esComponentId: number;
@@ -50,3 +51,7 @@ export default function initESComponentCurrent(sequelize: Sequelize): void {
     { sequelize }
   );
 }
+
+export const nameOfESComponentCurrent = (
+  selector: (esc: ESComponentCurrentCreateAttributes) => unknown
+): string => nameof<ESComponentCurrentCreateAttributes>(selector);

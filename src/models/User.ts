@@ -11,6 +11,7 @@ import {
   Association,
 } from "sequelize";
 import { EnergySystem } from "./EnergySystem";
+import { nameof } from "ts-simple-nameof";
 
 interface UserAttributes {
   userId: number;
@@ -79,3 +80,7 @@ export default function initUser(sequelize: Sequelize): void {
     }
   );
 }
+
+export const nameOfUser = (
+  selector: (u: UserCreateAttributes) => unknown
+): string => nameof<UserCreateAttributes>(selector);
