@@ -1,4 +1,6 @@
 import { RequestHandler } from "express";
+import { body, param } from "express-validator";
+import { validate } from "../../middleware/validate";
 
 export enum UserRoutes {
   post,
@@ -14,22 +16,36 @@ export function getUserValidationSetForRoute(
   let set: RequestHandler[];
   switch (route) {
     case UserRoutes.post:
-      set = [];
+      set = [...userCreateSet];
       break;
     case UserRoutes.postLogin:
-      set = [];
+      set = [...userLoginSet];
       break;
     case UserRoutes.idGet:
-      set = [];
+      set = [...userIdSet];
       break;
     case UserRoutes.idPatch:
-      set = [];
+      set = [...userIdSet, ...userCreateSet];
       break;
     case UserRoutes.idDelete:
-      set = [];
+      set = [...userIdSet];
       break;
     default:
       set = [];
   }
+  set.push(validate);
   return set;
 }
+
+const userIdSet = [param("userId").exists().isInt()];
+
+const userLoginSet = [
+  body("email").exists().isEmail(),
+  body("password").exists().isString(),
+];
+
+const userCreateSet = [
+  ...userLoginSet,
+  body("name").exists().isString(),
+  body("company").optional().isString(),
+];
