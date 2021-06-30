@@ -9,6 +9,9 @@ export function validate(
 ): void {
   const validationErrors = validationResult(req);
   if (!validationErrors.isEmpty())
-    throw new ExpressError(ErrorCode.BAD_REQUEST_400);
+    throw new ExpressError(
+      ErrorCode.BAD_REQUEST_400,
+      JSON.stringify(validationErrors.array())
+    );
   next();
 }
