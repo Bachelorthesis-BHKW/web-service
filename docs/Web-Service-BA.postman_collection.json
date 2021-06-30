@@ -265,7 +265,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"type\": \"TES\",\n    \"name\": \"SenerTec 750\",\n    \"kenngroessen\": {\n        \"speichertemp_leer\": [\n            31,\n            41,\n            51\n        ],\n        \"speichertemp_voll\": [\n            77,\n            80,\n            80\n        ],\n        \"v_Speicher_m3\": 0.75,\n        \"h_Speicher_m\": 1.698,\n        \"rho\": 1000,\n        \"cp\": 4.182,\n        \"uA_Speicher\": 0.0065,\n        \"h_sensoren_m\": [\n            0.42,\n            0.78,\n            1.14\n        ],\n        \"t_Raum\": 24,\n        \"ruecklauftemp_Speicher\": 30,\n        \"vorlauftemp_max_waermeerzeuger\": 80,\n        \"bodentemp_leer\": 30,\n        \"bodentemp_voll\": 60,\n        \"deckeltemp_leer\": 80,\n        \"deckeltemp_voll\": 80\n    },\n    \"currentsPostIntervalMin\": 15,\n    \"maxHistoryDays\": 14\n}",
+							"raw": "{\n    \"type\": \"tes\",\n    \"name\": \"SenerTec 750\",\n    \"kenngroessen\": {\n        \"speichertemp_leer\": [\n            31,\n            41,\n            51\n        ],\n        \"speichertemp_voll\": [\n            77,\n            80,\n            80\n        ],\n        \"v_Speicher_m3\": 0.75,\n        \"h_Speicher_m\": 1.698,\n        \"rho\": 1000,\n        \"cp\": 4.182,\n        \"uA_Speicher\": 0.0065,\n        \"h_sensoren_m\": [\n            0.42,\n            0.78,\n            1.14\n        ],\n        \"t_Raum\": 24,\n        \"ruecklauftemp_Speicher\": 30,\n        \"vorlauftemp_max_waermeerzeuger\": 80,\n        \"bodentemp_leer\": 30,\n        \"bodentemp_voll\": 60,\n        \"deckeltemp_leer\": 80,\n        \"deckeltemp_voll\": 80\n    },\n    \"currentsPostIntervalMin\": 15,\n    \"maxHistoryDays\": 14\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -325,7 +325,7 @@
 								},
 								{
 									"key": "componentId",
-									"value": "3"
+									"value": "1"
 								}
 							]
 						}
