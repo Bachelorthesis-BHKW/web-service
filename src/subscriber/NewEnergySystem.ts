@@ -10,6 +10,6 @@ export function subscribeToNewEnergySystem(emitter: MainEventEmitter): void {
     await createNewCircularBufferPointer(energySystem);
     await fetchHourlyWeatherForEnergySystem(energySystem);
     await addRegionToEnergySystem(energySystem);
-    await setTimingForEnergySystem(energySystem);
+    setTimingForEnergySystem(energySystem);
   });
 }

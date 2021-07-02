@@ -6,6 +6,7 @@ import {
   nameOfEnergySystem,
 } from "../../models/EnergySystem";
 import { nameOfESConsumption } from "../../models/ESConsumption";
+import { makeAllOptional } from "../../helpers/makeAllOptional";
 
 export enum EnergySystemRoutes {
   post,
@@ -30,7 +31,7 @@ export function getEnergySystemValidationSetForRoute(
       set = [...energySystemIdSet];
       break;
     case EnergySystemRoutes.idPatch:
-      set = [...energySystemIdSet, ...energySystemCreateSet];
+      set = [...energySystemIdSet, ...energySystemPatchSet];
       break;
     case EnergySystemRoutes.idDelete:
       set = [...energySystemIdSet];
@@ -129,3 +130,5 @@ const energySystemCreateSet = [
     .exists()
     .isNumeric(),
 ];
+
+const energySystemPatchSet = makeAllOptional(energySystemCreateSet);
