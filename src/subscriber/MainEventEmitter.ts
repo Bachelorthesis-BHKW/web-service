@@ -2,6 +2,10 @@ import EventEmitter from "events";
 import { subscribeToNewEnergySystem } from "./NewEnergySystem";
 import { EnergySystem } from "../models/EnergySystem";
 import { subscribeToRunAlgorithm } from "./RunAlgorithm";
+import {
+  ESPatchTasks,
+  subscribeToPatchEnergySystem,
+} from "./PatchEnergySystem";
 
 export default class MainEventEmitter extends EventEmitter {
   private static instance: MainEventEmitter;
@@ -15,6 +19,7 @@ export default class MainEventEmitter extends EventEmitter {
       MainEventEmitter.instance = new MainEventEmitter();
       subscribeToNewEnergySystem(MainEventEmitter.instance);
       subscribeToRunAlgorithm(MainEventEmitter.instance);
+      subscribeToPatchEnergySystem(MainEventEmitter.instance);
     }
     return MainEventEmitter.instance;
   }
@@ -26,9 +31,17 @@ export default class MainEventEmitter extends EventEmitter {
   public runAlgorithm(energySystem: EnergySystem): void {
     this.emit(Events.RUN_ALGORITHM, energySystem);
   }
+
+  public patchEnergySystem(
+    energySystem: EnergySystem,
+    tasks: ESPatchTasks
+  ): void {
+    this.emit(Events.PATCH_ENERGY_SYSTEM, energySystem, tasks);
+  }
 }
 
 export enum Events {
   NEW_ENERGY_SYSTEM = "new_es",
   RUN_ALGORITHM = "run_algo",
+  PATCH_ENERGY_SYSTEM = "patch_es",
 }

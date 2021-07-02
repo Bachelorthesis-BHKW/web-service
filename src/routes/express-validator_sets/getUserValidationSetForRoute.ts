@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { body, param } from "express-validator";
 import { validate } from "../../middleware/validate";
 import { nameOfUser } from "../../models/User";
+import { makeAllOptional } from "../../helpers/makeAllOptional";
 
 export enum UserRoutes {
   post,
@@ -26,7 +27,7 @@ export function getUserValidationSetForRoute(
       set = [...userIdSet];
       break;
     case UserRoutes.idPatch:
-      set = [...userIdSet, ...userCreateSet];
+      set = [...userIdSet, ...userPatchSet];
       break;
     case UserRoutes.idDelete:
       set = [...userIdSet];
@@ -58,3 +59,5 @@ const userCreateSet = [
     .optional()
     .isString(),
 ];
+
+const userPatchSet = makeAllOptional(userCreateSet);

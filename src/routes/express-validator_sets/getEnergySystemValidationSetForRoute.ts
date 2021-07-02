@@ -6,6 +6,7 @@ import {
   nameOfEnergySystem,
 } from "../../models/EnergySystem";
 import { nameOfESConsumption } from "../../models/ESConsumption";
+import { makeAllOptional } from "../../helpers/makeAllOptional";
 
 export enum EnergySystemRoutes {
   post,
@@ -30,7 +31,7 @@ export function getEnergySystemValidationSetForRoute(
       set = [...energySystemIdSet];
       break;
     case EnergySystemRoutes.idPatch:
-      set = [...energySystemIdSet, ...energySystemCreateSet];
+      set = [...energySystemIdSet, ...energySystemPatchSet];
       break;
     case EnergySystemRoutes.idDelete:
       set = [...energySystemIdSet];
@@ -56,20 +57,22 @@ export function getEnergySystemValidationSetForRoute(
 
 export const energySystemIdSet = [param("energySystemId").exists().isInt()];
 
+const arrayWildcard = "*.";
 const esConsumptionCreateSet = [
-  body(nameOfESConsumption((esc) => esc.date))
+  body().isArray({ min: 1 }),
+  body(arrayWildcard + nameOfESConsumption((esc) => esc.date))
     .exists()
     .isISO8601(),
-  body(nameOfESConsumption((esc) => esc.verbrauchStrom))
+  body(arrayWildcard + nameOfESConsumption((esc) => esc.verbrauchStrom))
     .exists()
     .isNumeric(),
-  body(nameOfESConsumption((esc) => esc.verbrauchHeizung))
+  body(arrayWildcard + nameOfESConsumption((esc) => esc.verbrauchHeizung))
     .exists()
     .isNumeric(),
-  body(nameOfESConsumption((esc) => esc.verbrauchBww))
+  body(arrayWildcard + nameOfESConsumption((esc) => esc.verbrauchBww))
     .exists()
     .isNumeric(),
-  body(nameOfESConsumption((esc) => esc.aussentemperatur))
+  body(arrayWildcard + nameOfESConsumption((esc) => esc.aussentemperatur))
     .exists()
     .isNumeric(),
 ];
@@ -127,3 +130,5 @@ const energySystemCreateSet = [
     .exists()
     .isNumeric(),
 ];
+
+const energySystemPatchSet = makeAllOptional(energySystemCreateSet);

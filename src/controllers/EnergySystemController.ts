@@ -61,20 +61,9 @@ export async function postEnergySystemConsumption(
   res: express.Response
 ): Promise<void> {
   const energySystemId = +req.params.energySystemId;
-  const consumptionIN:
-    | ESConsumptionCreateAttributes
-    | ESConsumptionCreateAttributes[] = req.body;
+  const consumptionIN: ESConsumptionCreateAttributes[] = req.body;
 
-  if (Array.isArray(consumptionIN))
-    await ESConsumptionService.addConsumptionsToES(
-      consumptionIN,
-      energySystemId
-    );
-  else
-    await ESConsumptionService.addConsumptionToES(
-      consumptionIN,
-      energySystemId
-    );
+  await ESConsumptionService.addConsumptionsToES(consumptionIN, energySystemId);
   res.status(200).end();
 }
 

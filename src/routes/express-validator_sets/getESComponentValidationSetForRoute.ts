@@ -5,6 +5,7 @@ import { nameOfESComponent } from "../../models/ESComponent";
 import { ESComponentType } from "../../es_components/ESComponentType";
 import { energySystemIdSet } from "./getEnergySystemValidationSetForRoute";
 import { nameOfESComponentCurrent } from "../../models/ESComponentCurrent";
+import { makeAllOptional } from "../../helpers/makeAllOptional";
 
 export enum ESComponentRoutes {
   post,
@@ -30,11 +31,7 @@ export function getESComponentValidationSetForRoute(
       set = [...energySystemIdSet, ...esComponentIdSet];
       break;
     case ESComponentRoutes.idPatch:
-      set = [
-        ...energySystemIdSet,
-        ...esComponentIdSet,
-        ...esComponentCreateSet,
-      ];
+      set = [...energySystemIdSet, ...esComponentIdSet, ...esComponentPatchSet];
       break;
     case ESComponentRoutes.idDelete:
       set = [...energySystemIdSet, ...esComponentIdSet];
@@ -70,6 +67,8 @@ const esComponentCreateSet = [
     .exists()
     .isInt(),
 ];
+
+const esComponentPatchSet = makeAllOptional(esComponentCreateSet);
 
 const esComponentCurrentCreateSet = [
   body(nameOfESComponentCurrent((cc) => cc.date))

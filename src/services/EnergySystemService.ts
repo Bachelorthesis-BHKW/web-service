@@ -5,6 +5,7 @@ import {
 } from "../models/EnergySystem";
 import ExpressError, { ErrorCode } from "../error";
 import MainEventEmitter from "../subscriber/MainEventEmitter";
+import { ESPatchTasks } from "../subscriber/PatchEnergySystem";
 
 const eventEmitter = MainEventEmitter.getInstance();
 
@@ -32,10 +33,21 @@ export async function patchEnergySystemById(
   energySystemId: number,
   energySystem: EnergySystemCreateAttributes
 ): Promise<void> {
-  const [updateCount] = await EnergySystem.update(energySystem, {
+  const tasks: ESPatchTasks = { region: false, buffer: false, timing: false };
+  tasks.region =
+    energySystem.latitude != null || energySystem.longitude != null;
+  tasks.timing =
+    energySystem.cronTriggerTime != null ||
+    energySystem.algorithmTrigger != null;
+  tasks.buffer =
+    energySystem.maxHistoryDays != null ||
+    energySystem.consumptionPostIntervalMin != null;
+  const [updateCount, es] = await EnergySystem.update(energySystem, {
     where: { energySystemId },
+    returning: true,
   });
   if (!updateCount) throw new ExpressError(ErrorCode.NOT_FOUND_404);
+  eventEmitter.patchEnergySystem(es[0], tasks);
   return;
 }
 
