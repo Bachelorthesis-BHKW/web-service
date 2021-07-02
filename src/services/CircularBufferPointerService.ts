@@ -5,12 +5,7 @@ import { EnergySystem } from "../models/EnergySystem";
 export async function createNewCircularBufferPointer(
   energySystem: EnergySystem
 ): Promise<CircularBufferPointer> {
-  const maxHistoryMin = energySystem.maxHistoryDays * 24 * 60;
-
-  const maxEsConsumption = Math.ceil(
-    maxHistoryMin / energySystem.consumptionPostIntervalMin
-  );
-
+  const maxEsConsumption = calculateMaxEsConsumption(energySystem);
   return CircularBufferPointer.create({
     energySystemId: energySystem.energySystemId,
     maxEsConsumption,
@@ -20,10 +15,11 @@ export async function createNewCircularBufferPointer(
 export async function updateCircularBufferPointer(
   energySystem: EnergySystem
 ): Promise<void> {
-  await CircularBufferPointer.destroy({
-    where: { energySystemId: energySystem.energySystemId },
-  });
-  await createNewCircularBufferPointer(energySystem);
+  const maxEsConsumption = calculateMaxEsConsumption(energySystem);
+  await CircularBufferPointer.update(
+    { maxEsConsumption: maxEsConsumption, esConsumptionPointer: 0 },
+    { where: { energySystemId: energySystem.energySystemId } }
+  );
 }
 
 export async function getCircularBufferPointerForEnergySystem(
@@ -34,4 +30,9 @@ export async function getCircularBufferPointerForEnergySystem(
   });
   if (!circularBufferPointer) throw new ExpressError(ErrorCode.NOT_FOUND_404);
   return circularBufferPointer;
+}
+
+function calculateMaxEsConsumption(energySystem: EnergySystem): number {
+  const maxHistoryMin = energySystem.maxHistoryDays * 24 * 60;
+  return Math.ceil(maxHistoryMin / energySystem.consumptionPostIntervalMin);
 }
