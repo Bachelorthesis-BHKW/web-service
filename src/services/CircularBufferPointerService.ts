@@ -17,6 +17,15 @@ export async function createNewCircularBufferPointer(
   });
 }
 
+export async function updateCircularBufferPointer(
+  energySystem: EnergySystem
+): Promise<void> {
+  await CircularBufferPointer.destroy({
+    where: { energySystemId: energySystem.energySystemId },
+  });
+  await createNewCircularBufferPointer(energySystem);
+}
+
 export async function getCircularBufferPointerForEnergySystem(
   energySystemId: number
 ): Promise<CircularBufferPointer> {

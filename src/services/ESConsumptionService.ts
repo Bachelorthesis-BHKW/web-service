@@ -5,6 +5,7 @@ import {
 import isWeekendOrHoliday from "../helpers/isWeekendOrHoliday";
 import { getCircularBufferPointerForEnergySystem } from "./CircularBufferPointerService";
 import { getEnergySystemById } from "./EnergySystemService";
+import { EnergySystem } from "../models/EnergySystem";
 
 export async function addConsumptionToES(
   consumption: ESConsumptionCreateAttributes,
@@ -39,4 +40,12 @@ export async function addConsumptionsToES(
   for (const c of consumptions) {
     await addConsumptionToES(c, energySystemId);
   }
+}
+
+export async function deleteAllConsumptionsOfES(
+  energySystem: EnergySystem
+): Promise<void> {
+  await ESConsumption.destroy({
+    where: { energySystemId: energySystem.energySystemId },
+  });
 }
