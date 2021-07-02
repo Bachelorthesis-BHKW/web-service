@@ -158,7 +158,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Reutlingen BHKW 1\",\n    \"nFahrplan\": 2000,\n    \"untermengeNFahrplan\": 10,\n    \"optimierungshorizontMin\": 1440,\n    \"optimierungsgroesse\": 0,\n    \"deltaT\": 15,\n    \"stetigkeitsfaktor\": 5,\n    \"prognosemethodeTh\": 1,\n    \"qThZaehlerGesamt\": true,\n    \"qThZaehlerGetrennt\": false,\n    \"gewichtungsfaktorZufall\": 0.25,\n    \"consumptionPostIntervalMin\": 15,\n    \"maxHistoryDays\": 14,\n    \"latitude\": 48.483334,\n    \"longitude\": 9.216667\n}",
+							"raw": "{\n    \"name\": \"Reutlingen BHKW 1\",\n    \"nFahrplan\": 2000,\n    \"untermengeNFahrplan\": 10,\n    \"optimierungshorizontMin\": 1440,\n    \"optimierungsgroesse\": 0,\n    \"deltaT\": 15,\n    \"stetigkeitsfaktor\": 5,\n    \"prognosemethodeTh\": 1,\n    \"qThZaehlerGesamt\": true,\n    \"qThZaehlerGetrennt\": false,\n    \"gewichtungsfaktorZufall\": 0.25,\n    \"algorithmTrigger\": \"manual\",\n    \"cronTriggerTime\": \"\",\n    \"consumptionPostIntervalMin\": 15,\n    \"maxHistoryDays\": 14,\n    \"latitude\": 48.483334,\n    \"longitude\": 9.216667\n}",
 							"options": {
 								"raw": {
 									"language": "json"
