@@ -56,20 +56,22 @@ export function getEnergySystemValidationSetForRoute(
 
 export const energySystemIdSet = [param("energySystemId").exists().isInt()];
 
+const arrayWildcard = "*.";
 const esConsumptionCreateSet = [
-  body(nameOfESConsumption((esc) => esc.date))
+  body().isArray({ min: 1 }),
+  body(arrayWildcard + nameOfESConsumption((esc) => esc.date))
     .exists()
     .isISO8601(),
-  body(nameOfESConsumption((esc) => esc.verbrauchStrom))
+  body(arrayWildcard + nameOfESConsumption((esc) => esc.verbrauchStrom))
     .exists()
     .isNumeric(),
-  body(nameOfESConsumption((esc) => esc.verbrauchHeizung))
+  body(arrayWildcard + nameOfESConsumption((esc) => esc.verbrauchHeizung))
     .exists()
     .isNumeric(),
-  body(nameOfESConsumption((esc) => esc.verbrauchBww))
+  body(arrayWildcard + nameOfESConsumption((esc) => esc.verbrauchBww))
     .exists()
     .isNumeric(),
-  body(nameOfESConsumption((esc) => esc.aussentemperatur))
+  body(arrayWildcard + nameOfESConsumption((esc) => esc.aussentemperatur))
     .exists()
     .isNumeric(),
 ];
