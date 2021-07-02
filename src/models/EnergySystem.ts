@@ -23,7 +23,7 @@ import { nameof } from "ts-simple-nameof";
 
 export enum AlgorithmTrigger {
   time = "time",
-  manual = "manual",
+  post = "post",
 }
 
 interface EnergySystemAttributes {
@@ -180,7 +180,7 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       algorithmTrigger: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: AlgorithmTrigger.manual,
+        defaultValue: AlgorithmTrigger.post,
       },
       cronTriggerTime: {
         type: DataTypes.STRING,
