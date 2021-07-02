@@ -1,7 +1,10 @@
 import { RequestHandler } from "express";
 import { validate } from "../../middleware/validate";
 import { body, param } from "express-validator";
-import { nameOfEnergySystem } from "../../models/EnergySystem";
+import {
+  AlgorithmTrigger,
+  nameOfEnergySystem,
+} from "../../models/EnergySystem";
 import { nameOfESConsumption } from "../../models/ESConsumption";
 
 export enum EnergySystemRoutes {
@@ -105,6 +108,12 @@ const energySystemCreateSet = [
   body(nameOfEnergySystem((es) => es.gewichtungsfaktorZufall))
     .exists()
     .isNumeric(),
+  body(nameOfEnergySystem((es) => es.algorithmTrigger))
+    .exists()
+    .isIn(Object.values(AlgorithmTrigger)),
+  body(nameOfEnergySystem((es) => es.cronTriggerTime))
+    .optional()
+    .isString(),
   body(nameOfEnergySystem((es) => es.consumptionPostIntervalMin))
     .exists()
     .isInt(),

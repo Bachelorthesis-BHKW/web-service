@@ -21,6 +21,11 @@ import { CircularBufferPointer } from "./CircularBufferPointer";
 import { Region } from "feiertagejs";
 import { nameof } from "ts-simple-nameof";
 
+export enum AlgorithmTrigger {
+  time = "time",
+  post = "post",
+}
+
 interface EnergySystemAttributes {
   energySystemId: number;
   userId: number;
@@ -36,6 +41,8 @@ interface EnergySystemAttributes {
   qThZaehlerGetrennt: boolean;
   gewichtungsfaktorZufall: number;
 
+  algorithmTrigger: AlgorithmTrigger;
+  cronTriggerTime: string;
   maxHistoryDays: number;
   consumptionPostIntervalMin: number;
   latitude: number;
@@ -65,6 +72,8 @@ export class EnergySystem
   qThZaehlerGetrennt!: boolean;
   gewichtungsfaktorZufall!: number;
 
+  algorithmTrigger!: AlgorithmTrigger;
+  cronTriggerTime!: string;
   consumptionPostIntervalMin!: number;
   maxHistoryDays!: number;
   latitude!: number;
@@ -167,6 +176,17 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       gewichtungsfaktorZufall: {
         type: DataTypes.DOUBLE,
         allowNull: false,
+      },
+      algorithmTrigger: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: AlgorithmTrigger.post,
+      },
+      cronTriggerTime: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        // https://crontab.guru
+        defaultValue: "5 00 * * *",
       },
       consumptionPostIntervalMin: {
         type: DataTypes.INTEGER,

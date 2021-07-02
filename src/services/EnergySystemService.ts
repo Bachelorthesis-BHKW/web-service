@@ -1,4 +1,5 @@
 import {
+  AlgorithmTrigger,
   EnergySystem,
   EnergySystemCreateAttributes,
 } from "../models/EnergySystem";
@@ -44,4 +45,10 @@ export async function deleteEnergySystemById(
   const deleteCount = await EnergySystem.destroy({ where: { energySystemId } });
   if (!deleteCount) throw new ExpressError(ErrorCode.NOT_FOUND_404);
   return;
+}
+
+export async function getEnergySystemsWithTiming(): Promise<EnergySystem[]> {
+  return EnergySystem.findAll({
+    where: { algorithmTrigger: AlgorithmTrigger.time },
+  });
 }

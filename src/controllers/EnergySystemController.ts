@@ -2,11 +2,9 @@ import express from "express";
 import * as EnergySystemService from "../services/EnergySystemService";
 import * as ESConsumptionService from "../services/ESConsumptionService";
 import * as ESScheduleService from "../services/ESScheduleService";
-import * as WeatherForecastService from "../services/WeatherForecastService";
 import respondAsJson from "../helpers/respondAsJson";
 import { EnergySystemCreateAttributes } from "../models/EnergySystem";
 import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
-import ControlAlgorithmHelper from "../helpers/ControlAlgorithmHelper";
 
 export async function postEnergySystem(
   req: express.Request,
@@ -101,8 +99,7 @@ export async function postEnergySystemSchedule(
     energySystemId
   );
 
-  await WeatherForecastService.fetchHourlyWeatherForEnergySystem(energySystem);
-  ControlAlgorithmHelper.runWithEnergySystem(energySystem);
+  ESScheduleService.runControlAlgorithm(energySystem);
   res.status(200).end();
 }
 

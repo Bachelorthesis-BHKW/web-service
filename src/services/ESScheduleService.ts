@@ -1,5 +1,9 @@
 import ExpressError, { ErrorCode } from "../error";
 import { ESSchedule } from "../models/ESSchedule";
+import { EnergySystem } from "../models/EnergySystem";
+import MainEventEmitter from "../subscriber/MainEventEmitter";
+
+const eventEmitter = MainEventEmitter.getInstance();
 
 export async function getESScheduleByEnergySystemId(
   energySystemId: number
@@ -23,4 +27,8 @@ export async function getESScheduleNowByEnergySystemId(
     throw new ExpressError(ErrorCode.INTERNAL_SERVER_ERROR_500);
 
   return timeArray[index];
+}
+
+export function runControlAlgorithm(energySystem: EnergySystem): void {
+  eventEmitter.runAlgorithm(energySystem);
 }
