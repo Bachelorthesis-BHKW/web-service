@@ -10,7 +10,7 @@ FROM node:14-alpine
 WORKDIR /usr/src/app
 
 RUN apk add python3 py3-numpy py3-psycopg2
-COPY control-algorithm/main.py .
+COPY control-algorithm/*.py .
 
 RUN npm install pm2 -g
 COPY --from=build /srv/node_modules node_modules
