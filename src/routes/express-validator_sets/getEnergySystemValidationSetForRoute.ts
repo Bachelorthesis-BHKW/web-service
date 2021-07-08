@@ -6,7 +6,6 @@ import {
   nameOfEnergySystem,
 } from "../../models/EnergySystem";
 import { nameOfESConsumption } from "../../models/ESConsumption";
-import { makeAllOptional } from "../../helpers/makeAllOptional";
 
 export enum EnergySystemRoutes {
   post,
@@ -131,4 +130,56 @@ const energySystemCreateSet = [
     .isNumeric(),
 ];
 
-const energySystemPatchSet = makeAllOptional(energySystemCreateSet);
+const energySystemPatchSet = [
+  body(nameOfEnergySystem((es) => es.name))
+    .optional()
+    .isString(),
+  body(nameOfEnergySystem((es) => es.nFahrplan))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.untermengeNFahrplan))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.optimierungshorizontMin))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.optimierungsgroesse))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.deltaT))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.stetigkeitsfaktor))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.prognosemethodeTh))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.qThZaehlerGesamt))
+    .optional()
+    .isBoolean(),
+  body(nameOfEnergySystem((es) => es.qThZaehlerGetrennt))
+    .optional()
+    .isBoolean(),
+  body(nameOfEnergySystem((es) => es.gewichtungsfaktorZufall))
+    .optional()
+    .isNumeric(),
+  body(nameOfEnergySystem((es) => es.algorithmTrigger))
+    .optional()
+    .isIn(Object.values(AlgorithmTrigger)),
+  body(nameOfEnergySystem((es) => es.cronTriggerTime))
+    .optional()
+    .isString(),
+  body(nameOfEnergySystem((es) => es.consumptionPostIntervalMin))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.maxHistoryDays))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.latitude))
+    .optional()
+    .isNumeric(),
+  body(nameOfEnergySystem((es) => es.longitude))
+    .optional()
+    .isNumeric(),
+];
