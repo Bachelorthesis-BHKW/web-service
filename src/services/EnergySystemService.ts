@@ -6,6 +6,7 @@ import {
 import ExpressError, { ErrorCode } from "../error";
 import MainEventEmitter from "../subscriber/MainEventEmitter";
 import { ESPatchTasks } from "../subscriber/PatchEnergySystem";
+import { User } from "../models/User";
 
 const eventEmitter = MainEventEmitter.getInstance();
 
@@ -27,6 +28,12 @@ export async function getEnergySystemById(
   const energySystem = await EnergySystem.findByPk(energySystemId);
   if (!energySystem) throw new ExpressError(ErrorCode.NOT_FOUND_404);
   return energySystem;
+}
+
+export async function getEnergySystemsForUser(
+  user: User
+): Promise<EnergySystem[]> {
+  return user.getEnergySystems();
 }
 
 export async function patchEnergySystemById(

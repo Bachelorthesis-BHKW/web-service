@@ -32,6 +32,16 @@ export async function getEnergySystem(
   respondAsJson(energySystem, res);
 }
 
+export async function getEnergySystems(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const user = req.user;
+
+  const energySystems = await EnergySystemService.getEnergySystemsForUser(user);
+  respondAsJson(energySystems, res);
+}
+
 export async function patchEnergySystem(
   req: express.Request,
   res: express.Response
