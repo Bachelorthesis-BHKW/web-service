@@ -17,6 +17,7 @@ export function setUserRoutes(mainRouter: Router): void {
     );
   userRouter
     .route("/")
+    .get(authenticateJWT, UserController.getCurrentUser)
     .post(
       getUserValidationSetForRoute(UserRoutes.post),
       UserController.postUser
