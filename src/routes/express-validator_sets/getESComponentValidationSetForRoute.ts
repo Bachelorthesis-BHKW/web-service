@@ -61,10 +61,10 @@ const esComponentCreateSet = [
   body(nameOfESComponent((esc) => esc.kenngroessen)).exists(),
   body(nameOfESComponent((esc) => esc.currentsPostIntervalMin))
     .exists()
-    .isInt(),
+    .isInt({ min: 1 }),
   body(nameOfESComponent((esc) => esc.maxHistoryDays))
     .exists()
-    .isInt(),
+    .isInt({ min: 1 }),
 ];
 
 const esComponentPatchSet = [
@@ -77,10 +77,10 @@ const esComponentPatchSet = [
   body(nameOfESComponent((esc) => esc.kenngroessen)).exists(),
   body(nameOfESComponent((esc) => esc.currentsPostIntervalMin))
     .optional()
-    .isInt(),
+    .isInt({ min: 1 }),
   body(nameOfESComponent((esc) => esc.maxHistoryDays))
     .optional()
-    .isInt(),
+    .isInt({ min: 1 }),
 ];
 
 const esComponentCurrentCreateSet = [

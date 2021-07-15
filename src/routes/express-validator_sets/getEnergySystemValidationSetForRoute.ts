@@ -118,10 +118,10 @@ const energySystemCreateSet = [
     .isString(),
   body(nameOfEnergySystem((es) => es.consumptionPostIntervalMin))
     .exists()
-    .isInt(),
+    .isInt({ min: 1 }),
   body(nameOfEnergySystem((es) => es.maxHistoryDays))
     .exists()
-    .isInt(),
+    .isInt({ min: 1 }),
   body(nameOfEnergySystem((es) => es.latitude))
     .exists()
     .isNumeric(),
@@ -172,10 +172,10 @@ const energySystemPatchSet = [
     .isString(),
   body(nameOfEnergySystem((es) => es.consumptionPostIntervalMin))
     .optional()
-    .isInt(),
+    .isInt({ min: 1 }),
   body(nameOfEnergySystem((es) => es.maxHistoryDays))
     .optional()
-    .isInt(),
+    .isInt({ min: 1 }),
   body(nameOfEnergySystem((es) => es.latitude))
     .optional()
     .isNumeric(),
