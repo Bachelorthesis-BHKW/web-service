@@ -24,11 +24,7 @@ export async function getEnergySystem(
   req: express.Request,
   res: express.Response
 ): Promise<void> {
-  const energySystemId = +req.params.energySystemId;
-
-  const energySystem = await EnergySystemService.getEnergySystemById(
-    energySystemId
-  );
+  const energySystem = req.energySystem;
   respondAsJson(energySystem, res);
 }
 
@@ -64,6 +60,18 @@ export async function deleteEnergySystem(
 
   await EnergySystemService.deleteEnergySystemById(energySystemId);
   res.status(200).end();
+}
+
+export async function getEnergySystemConsumption(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  const energySystem = req.energySystem;
+
+  const consumptions = await ESConsumptionService.getAllConsumptionsForES(
+    energySystem
+  );
+  respondAsJson(consumptions, res);
 }
 
 export async function postEnergySystemConsumption(

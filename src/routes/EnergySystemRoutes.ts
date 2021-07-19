@@ -45,6 +45,10 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
     .route("/:energySystemId/consumptions")
     .all(authenticate)
     .all(matchEnergySystemId)
+    .get(
+      getEnergySystemValidationSetForRoute(EnergySystemRoutes.idGet),
+      EnergySystemController.getEnergySystemConsumption
+    )
     .post(
       getEnergySystemValidationSetForRoute(
         EnergySystemRoutes.idConsumptionsPost

@@ -49,3 +49,9 @@ export async function deleteAllConsumptionsOfES(
     where: { energySystemId: energySystem.energySystemId },
   });
 }
+
+export async function getAllConsumptionsForES(
+  energySystem: EnergySystem
+): Promise<ESConsumption[]> {
+  return energySystem.getESConsumptions();
+}
