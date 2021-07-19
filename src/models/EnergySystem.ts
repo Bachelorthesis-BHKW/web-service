@@ -106,11 +106,11 @@ export class EnergySystem
   countESComponents!: HasManyCountAssociationsMixin;
   createESComponent!: HasManyCreateAssociationMixin<ESComponent>;
 
-  getEsConsumptions!: HasManyGetAssociationsMixin<ESConsumption>;
-  addEsConsumption!: HasManyAddAssociationsMixin<ESConsumption, number>;
-  hasEsConsumption!: HasManyHasAssociationMixin<ESConsumption, number>;
-  countEsConsumptions!: HasManyCountAssociationsMixin;
-  createEsConsumption!: HasManyCreateAssociationMixin<ESConsumption>;
+  getESConsumptions!: HasManyGetAssociationsMixin<ESConsumption>;
+  addESConsumption!: HasManyAddAssociationsMixin<ESConsumption, number>;
+  hasESConsumption!: HasManyHasAssociationMixin<ESConsumption, number>;
+  countESConsumptions!: HasManyCountAssociationsMixin;
+  createESConsumption!: HasManyCreateAssociationMixin<ESConsumption>;
 
   static associations: {
     esConsumptions: Association<EnergySystem, ESConsumption>;
