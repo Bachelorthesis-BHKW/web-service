@@ -11,7 +11,7 @@ interface ESScheduleCreateAttributes {}
 
 export class ESSchedule
   extends Model<ESScheduleAttributes, ESScheduleCreateAttributes>
-  implements ESScheduleCreateAttributes
+  implements ESScheduleAttributes
 {
   energySystemId!: number;
   esComponentId!: number;

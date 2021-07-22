@@ -18,7 +18,7 @@ export interface WeatherForecastCreateAttributes
 
 export class WeatherForecast
   extends Model<WeatherForecastAttributes, WeatherForecastCreateAttributes>
-  implements WeatherForecastCreateAttributes
+  implements WeatherForecastAttributes
 {
   energySystemId!: number;
   bufferIndex!: number;

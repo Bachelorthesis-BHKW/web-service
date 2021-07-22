@@ -17,7 +17,7 @@ export class ESComponentCurrent
     ESComponentCurrentAttributes,
     ESComponentCurrentCreateAttributes
   >
-  implements ESComponentCurrentCreateAttributes
+  implements ESComponentCurrentAttributes
 {
   esComponentId!: number;
   bufferIndex!: number;

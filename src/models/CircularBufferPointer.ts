@@ -23,7 +23,7 @@ export class CircularBufferPointer
     CircularBufferPointerAttributes,
     CircularBufferPointerCreateAttributes
   >
-  implements CircularBufferPointerCreateAttributes
+  implements CircularBufferPointerAttributes
 {
   circularBufferPointerId!: number;
   energySystemId!: number;

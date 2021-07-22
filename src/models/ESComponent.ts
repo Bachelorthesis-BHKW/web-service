@@ -36,7 +36,7 @@ export interface ESComponentCreateAttributes
 
 export class ESComponent
   extends Model<ESComponentAttributes, ESComponentCreateAttributes>
-  implements ESComponentCreateAttributes
+  implements ESComponentAttributes
 {
   esComponentId!: number;
   energySystemId!: number;

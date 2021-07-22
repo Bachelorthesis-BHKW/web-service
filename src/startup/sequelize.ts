@@ -9,6 +9,10 @@ import initESComponent from "../models/ESComponent";
 import initESConsumption from "../models/ESConsumption";
 import initCircularBufferPointer from "../models/CircularBufferPointer";
 import initESComponentCurrent from "../models/ESComponentCurrent";
+import initESConsumptionHistoric from "../models/historic/ESConsumptionsHistoric";
+import initESComponentCurrentHistoric from "../models/historic/ESComponentCurrentHistoric";
+import initESScheduleHistoric from "../models/historic/ESScheduleHistoric";
+import initESForecastHistoric from "../models/historic/ESForecastHistoric";
 
 export async function sequelizeLoader(): Promise<Sequelize> {
   if (config.dbUri == undefined) throw new Error("No DB URI defined!");
@@ -16,7 +20,7 @@ export async function sequelizeLoader(): Promise<Sequelize> {
   const sequelize = new Sequelize(config.dbUri, {
     database: config.dbName,
     sync: {
-      alter: true,
+      force: true,
     },
     define: { underscored: true },
     logging: false,
@@ -37,5 +41,10 @@ function initializeModels(sequelize: Sequelize): void {
   initESComponent(sequelize);
   initESComponentCurrent(sequelize);
   initESConsumption(sequelize);
+
+  initESConsumptionHistoric(sequelize);
+  initESComponentCurrentHistoric(sequelize);
+  initESScheduleHistoric(sequelize);
+  initESForecastHistoric(sequelize);
   setupAssociations();
 }
