@@ -154,6 +154,23 @@
 				{
 					"name": "/energy-systems",
 					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/energy-systems",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems",
+					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -432,12 +449,37 @@
 					"response": []
 				},
 				{
+					"name": "/energy-systems/:id/components",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/components",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"components"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/energy-systems/:id/schedule",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{api-url}}/energy-systems/:energySystemId/schedule",
+							"raw": "{{api-url}}/energy-systems/:energySystemId/schedule?componentId={{user1}}",
 							"host": [
 								"{{api-url}}"
 							],
@@ -445,6 +487,12 @@
 								"energy-systems",
 								":energySystemId",
 								"schedule"
+							],
+							"query": [
+								{
+									"key": "componentId",
+									"value": "{{user1}}"
+								}
 							],
 							"variable": [
 								{
@@ -515,6 +563,43 @@
 						"body": {
 							"mode": "raw",
 							"raw": "[{\n    \"date\": \"2021-05-21T10:48:48+0000\",\n    \"verbrauchStrom\": 11,\n    \"verbrauchHeizung\": 44,\n    \"verbrauchBww\": 199,\n    \"aussentemperatur\": 10\n}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api-url}}/energy-systems/:energySystemId/consumptions",
+							"host": [
+								"{{api-url}}"
+							],
+							"path": [
+								"energy-systems",
+								":energySystemId",
+								"consumptions"
+							],
+							"variable": [
+								{
+									"key": "energySystemId",
+									"value": "{{user1}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/energy-systems/:id/consumptions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
