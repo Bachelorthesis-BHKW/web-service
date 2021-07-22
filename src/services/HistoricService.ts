@@ -44,7 +44,7 @@ async function archiveESComponentCurrentsForEnergySystem(
   await ESComponentCurrentHistoric.bulkCreate(currentsData);
 }
 
-export async function archiveESSchedulesForEnergySystem(
+async function archiveESSchedulesForEnergySystem(
   energySystem: EnergySystem
 ): Promise<void> {
   const schedules = await energySystem.getESSchedules();
@@ -61,5 +61,20 @@ export async function archiveESSchedulesForEnergySystem(
         ),
       });
     }
+  }
+}
+
+async function archiveDataForEnergySystem(
+  energySystem: EnergySystem
+): Promise<void> {
+  await archiveESConsumptionsForEnergySystem(energySystem);
+  await archiveESComponentCurrentsForEnergySystem(energySystem);
+  await archiveESSchedulesForEnergySystem(energySystem);
+}
+
+export async function archiveEnergySystemData(): Promise<void> {
+  const energySystems = await EnergySystem.findAll();
+  for (const energySystem of energySystems) {
+    await archiveDataForEnergySystem(energySystem);
   }
 }
