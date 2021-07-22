@@ -106,10 +106,7 @@ export async function postEnergySystemSchedule(
   req: express.Request,
   res: express.Response
 ): Promise<void> {
-  const energySystemId = +req.params.energySystemId;
-  const energySystem = await EnergySystemService.getEnergySystemById(
-    energySystemId
-  );
+  const energySystem = req.energySystem;
 
   ESScheduleService.runControlAlgorithm(energySystem);
   res.status(200).end();
