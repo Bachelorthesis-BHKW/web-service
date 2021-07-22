@@ -3,6 +3,8 @@ import {
   ESComponentCurrentCreateAttributes,
 } from "../models/ESComponentCurrent";
 import { getComponentById } from "./ESComponentService";
+import { ESComponent } from "../models/ESComponent";
+import { Op } from "sequelize";
 
 export async function addESComponentCurrentToESComponent(
   esComponentId: number,
@@ -21,4 +23,22 @@ export async function addESComponentCurrentToESComponent(
   component.circularBufferPointer++;
   await component.save();
   return;
+}
+
+export async function getAllCurrentsBetweenDateInterval(
+  interval: [Date, Date],
+  component: ESComponent
+): Promise<ESComponentCurrent[]> {
+  return ESComponentCurrent.findAll({
+    where: {
+      [Op.and]: [
+        { esComponentId: component.esComponentId },
+        {
+          createdAt: {
+            [Op.between]: interval,
+          },
+        },
+      ],
+    },
+  });
 }

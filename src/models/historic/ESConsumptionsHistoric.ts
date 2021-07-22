@@ -8,7 +8,7 @@ export default function initESConsumptionHistoric(sequelize: Sequelize): void {
     {
       energySystemId: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
+        allowNull: false,
       },
       bufferIndex: {
         type: DataTypes.INTEGER,

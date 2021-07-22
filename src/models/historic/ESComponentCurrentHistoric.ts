@@ -6,11 +6,11 @@ export class ESComponentCurrentHistoric extends ESComponentCurrent {}
 export default function initESComponentCurrentHistoric(
   sequelize: Sequelize
 ): void {
-  ESComponentCurrent.init(
+  ESComponentCurrentHistoric.init(
     {
       esComponentId: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
+        allowNull: false,
       },
       bufferIndex: {
         type: DataTypes.INTEGER,

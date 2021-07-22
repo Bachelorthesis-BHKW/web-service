@@ -10,6 +10,9 @@ interface ESConsumptionAttributes extends BufferInterface {
   verbrauchHeizung: number;
   verbrauchBww: number;
   aussentemperatur: number;
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ESConsumptionCreateAttributes
