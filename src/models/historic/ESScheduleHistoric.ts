@@ -4,9 +4,11 @@ interface ESScheduleHistoricAttributes {
   energySystemId: number;
   esComponentId: number;
   scheduleStep: number;
+  date: Date;
 }
 
-interface ESScheduleHistoricCreateAttributes {}
+interface ESScheduleHistoricCreateAttributes
+  extends ESScheduleHistoricAttributes {}
 
 export class ESScheduleHistoric
   extends Model<
@@ -18,6 +20,7 @@ export class ESScheduleHistoric
   energySystemId!: number;
   esComponentId!: number;
   scheduleStep!: number;
+  date!: Date;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;
@@ -36,6 +39,10 @@ export default function initESScheduleHistoric(sequelize: Sequelize): void {
       },
       scheduleStep: {
         type: DataTypes.DOUBLE,
+        allowNull: false,
+      },
+      date: {
+        type: DataTypes.DATE,
         allowNull: false,
       },
     },

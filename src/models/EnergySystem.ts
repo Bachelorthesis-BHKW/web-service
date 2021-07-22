@@ -40,6 +40,7 @@ interface EnergySystemAttributes {
   qThZaehlerGesamt: boolean;
   qThZaehlerGetrennt: boolean;
   gewichtungsfaktorZufall: number;
+  uaGeb: number;
 
   algorithmTrigger: AlgorithmTrigger;
   cronTriggerTime: string;
@@ -71,6 +72,7 @@ export class EnergySystem
   qThZaehlerGesamt!: boolean;
   qThZaehlerGetrennt!: boolean;
   gewichtungsfaktorZufall!: number;
+  uaGeb!: number;
 
   algorithmTrigger!: AlgorithmTrigger;
   cronTriggerTime!: string;
@@ -107,6 +109,8 @@ export class EnergySystem
   hasESConsumption!: HasManyHasAssociationMixin<ESConsumption, number>;
   countESConsumptions!: HasManyCountAssociationsMixin;
   createESConsumption!: HasManyCreateAssociationMixin<ESConsumption>;
+
+  getESSchedules!: HasManyGetAssociationsMixin<ESSchedule>;
 
   static associations: {
     esConsumptions: Association<EnergySystem, ESConsumption>;
@@ -172,6 +176,11 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       gewichtungsfaktorZufall: {
         type: DataTypes.DOUBLE,
         allowNull: false,
+      },
+      uaGeb: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+        defaultValue: 0.3,
       },
       algorithmTrigger: {
         type: DataTypes.STRING,

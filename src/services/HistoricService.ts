@@ -9,6 +9,7 @@ import {
 } from "../models/ESComponentCurrent";
 import { ESComponentCurrentHistoric } from "../models/historic/ESComponentCurrentHistoric";
 import { getAllCurrentsBetweenDateInterval } from "./ESComponentCurrentService";
+import { ESScheduleHistoric } from "../models/historic/ESScheduleHistoric";
 
 async function archiveESConsumptionsForEnergySystem(
   energySystem: EnergySystem
@@ -23,7 +24,7 @@ async function archiveESConsumptionsForEnergySystem(
   await ESConsumptionHistoric.bulkCreate(consumptionData);
 }
 
-export async function archiveESComponentCurrentsForEnergySystem(
+async function archiveESComponentCurrentsForEnergySystem(
   energySystem: EnergySystem
 ): Promise<void> {
   const components = await energySystem.getESComponents();
@@ -41,4 +42,24 @@ export async function archiveESComponentCurrentsForEnergySystem(
     (current) => current.toJSON() as ESComponentCurrentCreateAttributes
   );
   await ESComponentCurrentHistoric.bulkCreate(currentsData);
+}
+
+export async function archiveESSchedulesForEnergySystem(
+  energySystem: EnergySystem
+): Promise<void> {
+  const schedules = await energySystem.getESSchedules();
+  for (const schedule of schedules) {
+    const startDate = schedule.updatedAt;
+    const scheduleArray: number[] = JSON.parse(schedule.schedule);
+    for (let i = 0; i < scheduleArray.length; i++) {
+      await ESScheduleHistoric.create({
+        energySystemId: energySystem.energySystemId,
+        esComponentId: schedule.esComponentId,
+        scheduleStep: scheduleArray[i],
+        date: new Date(
+          startDate.getTime() + schedule.timeIntervalMin * 60 * 1000 * i
+        ),
+      });
+    }
+  }
 }

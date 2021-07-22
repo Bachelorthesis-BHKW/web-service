@@ -7,7 +7,7 @@ interface ESScheduleAttributes {
   schedule: string;
 }
 
-interface ESScheduleCreateAttributes {}
+interface ESScheduleCreateAttributes extends ESScheduleAttributes {}
 
 export class ESSchedule
   extends Model<ESScheduleAttributes, ESScheduleCreateAttributes>
