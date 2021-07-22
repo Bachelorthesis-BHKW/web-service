@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { validate } from "../../middleware/validate";
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 import {
   AlgorithmTrigger,
   nameOfEnergySystem,
@@ -42,7 +42,7 @@ export function getEnergySystemValidationSetForRoute(
       set = [...energySystemIdSet];
       break;
     case EnergySystemRoutes.idScheduleGet:
-      set = [...energySystemIdSet];
+      set = [...energySystemIdSet, ...scheduleSet];
       break;
     case EnergySystemRoutes.idScheduleNowGet:
       set = [...energySystemIdSet];
@@ -55,6 +55,8 @@ export function getEnergySystemValidationSetForRoute(
 }
 
 export const energySystemIdSet = [param("energySystemId").exists().isInt()];
+
+const scheduleSet = [query("componentId").exists().isInt()];
 
 const arrayWildcard = "*.";
 const esConsumptionCreateSet = [

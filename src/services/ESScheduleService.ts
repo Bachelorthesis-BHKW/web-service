@@ -6,9 +6,12 @@ import MainEventEmitter from "../subscriber/MainEventEmitter";
 const eventEmitter = MainEventEmitter.getInstance();
 
 export async function getESScheduleByEnergySystemId(
-  energySystemId: number
+  energySystemId: number,
+  esComponentId: number
 ): Promise<ESSchedule> {
-  const esSchedule = await ESSchedule.findOne({ where: { energySystemId } });
+  const esSchedule = await ESSchedule.findOne({
+    where: { energySystemId, esComponentId },
+  });
   if (!esSchedule || esSchedule.updatedAt.getDate() != new Date().getDate())
     throw new ExpressError(ErrorCode.NOT_FOUND_404);
   return esSchedule;

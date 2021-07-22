@@ -2,6 +2,7 @@ import { Model, Sequelize, DataTypes } from "sequelize";
 
 interface ESScheduleAttributes {
   energySystemId: number;
+  esComponentId: number;
   timeIntervalMin: number;
   schedule: string;
 }
@@ -13,6 +14,7 @@ export class ESSchedule
   implements ESScheduleCreateAttributes
 {
   energySystemId!: number;
+  esComponentId!: number;
   timeIntervalMin!: number;
   schedule!: string;
 
@@ -25,6 +27,11 @@ export default function initESSchedule(sequelize: Sequelize): void {
     {
       energySystemId: {
         type: DataTypes.INTEGER,
+        primaryKey: true,
+      },
+      esComponentId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
         primaryKey: true,
       },
       timeIntervalMin: {

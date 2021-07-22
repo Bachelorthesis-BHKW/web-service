@@ -83,10 +83,6 @@ export class EnergySystem
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  getEsSchedule!: HasOneGetAssociationMixin<ESSchedule>;
-  addEsSchedule!: HasOneSetAssociationMixin<ESSchedule, number>;
-  createEsSchedule!: HasOneCreateAssociationMixin<ESSchedule>;
-
   getCircularBufferPointer!: HasOneGetAssociationMixin<CircularBufferPointer>;
   addCircularBufferPointer!: HasOneSetAssociationMixin<
     CircularBufferPointer,

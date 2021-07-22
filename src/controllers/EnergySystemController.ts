@@ -5,6 +5,7 @@ import * as ESScheduleService from "../services/ESScheduleService";
 import respondAsJson from "../helpers/respondAsJson";
 import { EnergySystemCreateAttributes } from "../models/EnergySystem";
 import { ESConsumptionCreateAttributes } from "../models/ESConsumption";
+import ExpressError, { ErrorCode } from "../error";
 
 export async function postEnergySystem(
   req: express.Request,
@@ -90,9 +91,13 @@ export async function getEnergySystemSchedule(
   res: express.Response
 ): Promise<void> {
   const energySystemId = +req.params.energySystemId;
+  const componentIdQuery = req.query.componentId;
+  if (!componentIdQuery) throw new ExpressError(ErrorCode.BAD_REQUEST_400);
+  const componentId = +componentIdQuery;
 
   const schedule = await ESScheduleService.getESScheduleByEnergySystemId(
-    energySystemId
+    energySystemId,
+    componentId
   );
   respondAsJson(schedule, res);
 }
