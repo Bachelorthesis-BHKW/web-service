@@ -10,4 +10,10 @@ export default interface ThermalEnergyStorage extends Component {
   uA_Speicher: number;
   h_Sensoren_m: number;
   t_Raum: number;
+  ruecklauftemp_Speicher: number;
+  vorlauftemp_max_waermeerzeiger: number;
+  bodentemp_leer: number;
+  bodentemp_voll: number;
+  deckeltemp_leer: number;
+  deckeltemp_voll: number;
 }
