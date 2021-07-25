@@ -1,12 +1,11 @@
 import { RequestHandler } from "express";
 import { validate } from "../../middleware/validate";
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 import {
   AlgorithmTrigger,
   nameOfEnergySystem,
 } from "../../models/EnergySystem";
 import { nameOfESConsumption } from "../../models/ESConsumption";
-import { makeAllOptional } from "../../helpers/makeAllOptional";
 
 export enum EnergySystemRoutes {
   post,
@@ -43,7 +42,7 @@ export function getEnergySystemValidationSetForRoute(
       set = [...energySystemIdSet];
       break;
     case EnergySystemRoutes.idScheduleGet:
-      set = [...energySystemIdSet];
+      set = [...energySystemIdSet, ...scheduleSet];
       break;
     case EnergySystemRoutes.idScheduleNowGet:
       set = [...energySystemIdSet];
@@ -56,6 +55,8 @@ export function getEnergySystemValidationSetForRoute(
 }
 
 export const energySystemIdSet = [param("energySystemId").exists().isInt()];
+
+const scheduleSet = [query("componentId").exists().isInt()];
 
 const arrayWildcard = "*.";
 const esConsumptionCreateSet = [
@@ -102,6 +103,9 @@ const energySystemCreateSet = [
   body(nameOfEnergySystem((es) => es.prognosemethodeTh))
     .exists()
     .isInt(),
+  body(nameOfEnergySystem((es) => es.prognosemethodeEl))
+    .exists()
+    .isInt(),
   body(nameOfEnergySystem((es) => es.qThZaehlerGesamt))
     .exists()
     .isBoolean(),
@@ -111,6 +115,9 @@ const energySystemCreateSet = [
   body(nameOfEnergySystem((es) => es.gewichtungsfaktorZufall))
     .exists()
     .isNumeric(),
+  body(nameOfEnergySystem((es) => es.uaGeb))
+    .exists()
+    .isDecimal(),
   body(nameOfEnergySystem((es) => es.algorithmTrigger))
     .exists()
     .isIn(Object.values(AlgorithmTrigger)),
@@ -119,10 +126,10 @@ const energySystemCreateSet = [
     .isString(),
   body(nameOfEnergySystem((es) => es.consumptionPostIntervalMin))
     .exists()
-    .isInt(),
+    .isInt({ min: 1 }),
   body(nameOfEnergySystem((es) => es.maxHistoryDays))
     .exists()
-    .isInt(),
+    .isInt({ min: 1 }),
   body(nameOfEnergySystem((es) => es.latitude))
     .exists()
     .isNumeric(),
@@ -131,4 +138,56 @@ const energySystemCreateSet = [
     .isNumeric(),
 ];
 
-const energySystemPatchSet = makeAllOptional(energySystemCreateSet);
+const energySystemPatchSet = [
+  body(nameOfEnergySystem((es) => es.name))
+    .optional()
+    .isString(),
+  body(nameOfEnergySystem((es) => es.nFahrplan))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.untermengeNFahrplan))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.optimierungshorizontMin))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.optimierungsgroesse))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.deltaT))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.stetigkeitsfaktor))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.prognosemethodeTh))
+    .optional()
+    .isInt(),
+  body(nameOfEnergySystem((es) => es.qThZaehlerGesamt))
+    .optional()
+    .isBoolean(),
+  body(nameOfEnergySystem((es) => es.qThZaehlerGetrennt))
+    .optional()
+    .isBoolean(),
+  body(nameOfEnergySystem((es) => es.gewichtungsfaktorZufall))
+    .optional()
+    .isNumeric(),
+  body(nameOfEnergySystem((es) => es.algorithmTrigger))
+    .optional()
+    .isIn(Object.values(AlgorithmTrigger)),
+  body(nameOfEnergySystem((es) => es.cronTriggerTime))
+    .optional()
+    .isString(),
+  body(nameOfEnergySystem((es) => es.consumptionPostIntervalMin))
+    .optional()
+    .isInt({ min: 1 }),
+  body(nameOfEnergySystem((es) => es.maxHistoryDays))
+    .optional()
+    .isInt({ min: 1 }),
+  body(nameOfEnergySystem((es) => es.latitude))
+    .optional()
+    .isNumeric(),
+  body(nameOfEnergySystem((es) => es.longitude))
+    .optional()
+    .isNumeric(),
+];

@@ -33,6 +33,8 @@ export async function getCircularBufferPointerForEnergySystem(
 }
 
 function calculateMaxEsConsumption(energySystem: EnergySystem): number {
+  if (energySystem.consumptionPostIntervalMin < 1)
+    throw new ExpressError(ErrorCode.INTERNAL_SERVER_ERROR_500);
   const maxHistoryMin = energySystem.maxHistoryDays * 24 * 60;
   return Math.ceil(maxHistoryMin / energySystem.consumptionPostIntervalMin);
 }

@@ -14,7 +14,7 @@ export default function setupAssociations(): void {
     onDelete: "cascade",
   });
 
-  EnergySystem.hasOne(ESSchedule, {
+  EnergySystem.hasMany(ESSchedule, {
     sourceKey: "energySystemId",
     foreignKey: "energySystemId",
     onDelete: "cascade",
@@ -46,6 +46,12 @@ export default function setupAssociations(): void {
   });
 
   ESComponent.hasMany(ESComponentCurrent, {
+    sourceKey: "esComponentId",
+    foreignKey: "esComponentId",
+    onDelete: "cascade",
+  });
+
+  ESComponent.hasOne(ESSchedule, {
     sourceKey: "esComponentId",
     foreignKey: "esComponentId",
     onDelete: "cascade",

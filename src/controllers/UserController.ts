@@ -23,6 +23,13 @@ export async function getUserId(
   respondAsJson(user, res);
 }
 
+export async function getCurrentUser(
+  req: express.Request,
+  res: express.Response
+): Promise<void> {
+  respondAsJson(req.user, res);
+}
+
 export async function patchUserId(
   req: express.Request,
   res: express.Response

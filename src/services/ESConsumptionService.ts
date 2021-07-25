@@ -6,6 +6,7 @@ import isWeekendOrHoliday from "../helpers/isWeekendOrHoliday";
 import { getCircularBufferPointerForEnergySystem } from "./CircularBufferPointerService";
 import { getEnergySystemById } from "./EnergySystemService";
 import { EnergySystem } from "../models/EnergySystem";
+import { Op } from "sequelize";
 
 export async function addConsumptionToES(
   consumption: ESConsumptionCreateAttributes,
@@ -47,5 +48,29 @@ export async function deleteAllConsumptionsOfES(
 ): Promise<void> {
   await ESConsumption.destroy({
     where: { energySystemId: energySystem.energySystemId },
+  });
+}
+
+export async function getAllConsumptionsForES(
+  energySystem: EnergySystem
+): Promise<ESConsumption[]> {
+  return energySystem.getESConsumptions();
+}
+
+export async function getAllConsumptionsBetweenDateInterval(
+  interval: [Date, Date],
+  energySystem: EnergySystem
+): Promise<ESConsumption[]> {
+  return ESConsumption.findAll({
+    where: {
+      [Op.and]: [
+        { energySystemId: energySystem.energySystemId },
+        {
+          createdAt: {
+            [Op.between]: interval,
+          },
+        },
+      ],
+    },
   });
 }

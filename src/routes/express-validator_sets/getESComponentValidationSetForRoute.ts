@@ -5,7 +5,6 @@ import { nameOfESComponent } from "../../models/ESComponent";
 import { ESComponentType } from "../../es_components/ESComponentType";
 import { energySystemIdSet } from "./getEnergySystemValidationSetForRoute";
 import { nameOfESComponentCurrent } from "../../models/ESComponentCurrent";
-import { makeAllOptional } from "../../helpers/makeAllOptional";
 
 export enum ESComponentRoutes {
   post,
@@ -62,13 +61,27 @@ const esComponentCreateSet = [
   body(nameOfESComponent((esc) => esc.kenngroessen)).exists(),
   body(nameOfESComponent((esc) => esc.currentsPostIntervalMin))
     .exists()
-    .isInt(),
+    .isInt({ min: 1 }),
   body(nameOfESComponent((esc) => esc.maxHistoryDays))
     .exists()
-    .isInt(),
+    .isInt({ min: 1 }),
 ];
 
-const esComponentPatchSet = makeAllOptional(esComponentCreateSet);
+const esComponentPatchSet = [
+  body(nameOfESComponent((esc) => esc.type))
+    .optional()
+    .isIn(Object.values(ESComponentType)),
+  body(nameOfESComponent((esc) => esc.name))
+    .optional()
+    .isString(),
+  body(nameOfESComponent((esc) => esc.kenngroessen)).exists(),
+  body(nameOfESComponent((esc) => esc.currentsPostIntervalMin))
+    .optional()
+    .isInt({ min: 1 }),
+  body(nameOfESComponent((esc) => esc.maxHistoryDays))
+    .optional()
+    .isInt({ min: 1 }),
+];
 
 const esComponentCurrentCreateSet = [
   body(nameOfESComponentCurrent((cc) => cc.date))

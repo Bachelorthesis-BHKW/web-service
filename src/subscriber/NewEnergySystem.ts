@@ -7,9 +7,14 @@ import { setTimingForEnergySystem } from "../services/AlgorithmTimingService";
 
 export function subscribeToNewEnergySystem(emitter: MainEventEmitter): void {
   emitter.on(Events.NEW_ENERGY_SYSTEM, async (energySystem: EnergySystem) => {
-    await createNewCircularBufferPointer(energySystem);
-    await fetchHourlyWeatherForEnergySystem(energySystem);
-    await addRegionToEnergySystem(energySystem);
-    setTimingForEnergySystem(energySystem);
+    try {
+      await createNewCircularBufferPointer(energySystem);
+      await fetchHourlyWeatherForEnergySystem(energySystem);
+      await addRegionToEnergySystem(energySystem);
+      await setTimingForEnergySystem(energySystem);
+    } catch (e) {
+      console.warn(e);
+      await energySystem.destroy();
+    }
   });
 }

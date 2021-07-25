@@ -2,7 +2,6 @@ import { RequestHandler } from "express";
 import { body, param } from "express-validator";
 import { validate } from "../../middleware/validate";
 import { nameOfUser } from "../../models/User";
-import { makeAllOptional } from "../../helpers/makeAllOptional";
 
 export enum UserRoutes {
   post,
@@ -60,4 +59,21 @@ const userCreateSet = [
     .isString(),
 ];
 
-const userPatchSet = makeAllOptional(userCreateSet);
+const userLoginSetOptional = [
+  body(nameOfUser((u) => u.email))
+    .optional()
+    .isEmail(),
+  body(nameOfUser((u) => u.password))
+    .optional()
+    .isString(),
+];
+
+const userPatchSet = [
+  ...userLoginSet,
+  body(nameOfUser((u) => u.name))
+    .optional()
+    .isString(),
+  body(nameOfUser((u) => u.name))
+    .optional()
+    .isString(),
+];

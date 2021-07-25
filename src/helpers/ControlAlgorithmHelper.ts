@@ -1,7 +1,7 @@
 import { PythonShell } from "python-shell";
 import config from "../config";
-import isWeekendOrHoliday from "./isWeekendOrHoliday";
 import { EnergySystem } from "../models/EnergySystem";
+import { getWeekendOrHolidayForNextNDays } from "./isWeekendOrHoliday";
 
 export default class ControlAlgorithmHelper {
   static runWithEnergySystem(energySystem: EnergySystem): void {
@@ -12,7 +12,7 @@ export default class ControlAlgorithmHelper {
       {
         args: [
           energySystem.energySystemId.toString(10),
-          String(isWeekendOrHoliday(new Date(), energySystem.region)),
+          String(getWeekendOrHolidayForNextNDays(14, energySystem.region)),
         ],
       },
       (err, result) => {

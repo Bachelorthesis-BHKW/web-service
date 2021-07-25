@@ -35,6 +35,7 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
   energySystemRouter
     .route("/")
     .all(authenticateJWT)
+    .get(EnergySystemController.getEnergySystems)
     .post(
       getEnergySystemValidationSetForRoute(EnergySystemRoutes.post),
       EnergySystemController.postEnergySystem
@@ -44,6 +45,10 @@ export function setEnergySystemRoutes(mainRouter: Router): void {
     .route("/:energySystemId/consumptions")
     .all(authenticate)
     .all(matchEnergySystemId)
+    .get(
+      getEnergySystemValidationSetForRoute(EnergySystemRoutes.idGet),
+      EnergySystemController.getEnergySystemConsumption
+    )
     .post(
       getEnergySystemValidationSetForRoute(
         EnergySystemRoutes.idConsumptionsPost

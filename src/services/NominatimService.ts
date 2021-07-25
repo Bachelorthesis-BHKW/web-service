@@ -11,7 +11,7 @@ export async function addRegionToEnergySystem(
     energySystem.latitude,
     energySystem.longitude
   );
-  const region = nominatimResponse.extratags.state_code;
+  const region = nominatimResponse.extratags?.state_code;
   energySystem.region = region ? (region as Region) : "BUND";
   await energySystem.save();
 }

@@ -37,9 +37,11 @@ interface EnergySystemAttributes {
   deltaT: number;
   stetigkeitsfaktor: number;
   prognosemethodeTh: number;
+  prognosemethodeEl: number;
   qThZaehlerGesamt: boolean;
   qThZaehlerGetrennt: boolean;
   gewichtungsfaktorZufall: number;
+  uaGeb: number;
 
   algorithmTrigger: AlgorithmTrigger;
   cronTriggerTime: string;
@@ -68,9 +70,11 @@ export class EnergySystem
   deltaT!: number;
   stetigkeitsfaktor!: number;
   prognosemethodeTh!: number;
+  prognosemethodeEl!: number;
   qThZaehlerGesamt!: boolean;
   qThZaehlerGetrennt!: boolean;
   gewichtungsfaktorZufall!: number;
+  uaGeb!: number;
 
   algorithmTrigger!: AlgorithmTrigger;
   cronTriggerTime!: string;
@@ -82,10 +86,6 @@ export class EnergySystem
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
-
-  getEsSchedule!: HasOneGetAssociationMixin<ESSchedule>;
-  addEsSchedule!: HasOneSetAssociationMixin<ESSchedule, number>;
-  createEsSchedule!: HasOneCreateAssociationMixin<ESSchedule>;
 
   getCircularBufferPointer!: HasOneGetAssociationMixin<CircularBufferPointer>;
   addCircularBufferPointer!: HasOneSetAssociationMixin<
@@ -106,11 +106,13 @@ export class EnergySystem
   countESComponents!: HasManyCountAssociationsMixin;
   createESComponent!: HasManyCreateAssociationMixin<ESComponent>;
 
-  getEsConsumptions!: HasManyGetAssociationsMixin<ESConsumption>;
-  addEsConsumption!: HasManyAddAssociationsMixin<ESConsumption, number>;
-  hasEsConsumption!: HasManyHasAssociationMixin<ESConsumption, number>;
-  countEsConsumptions!: HasManyCountAssociationsMixin;
-  createEsConsumption!: HasManyCreateAssociationMixin<ESConsumption>;
+  getESConsumptions!: HasManyGetAssociationsMixin<ESConsumption>;
+  addESConsumption!: HasManyAddAssociationsMixin<ESConsumption, number>;
+  hasESConsumption!: HasManyHasAssociationMixin<ESConsumption, number>;
+  countESConsumptions!: HasManyCountAssociationsMixin;
+  createESConsumption!: HasManyCreateAssociationMixin<ESConsumption>;
+
+  getESSchedules!: HasManyGetAssociationsMixin<ESSchedule>;
 
   static associations: {
     esConsumptions: Association<EnergySystem, ESConsumption>;
@@ -165,6 +167,10 @@ export default function initEnergySystem(sequelize: Sequelize): void {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      prognosemethodeEl: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       qThZaehlerGesamt: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -176,6 +182,11 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       gewichtungsfaktorZufall: {
         type: DataTypes.DOUBLE,
         allowNull: false,
+      },
+      uaGeb: {
+        type: DataTypes.DOUBLE,
+        allowNull: false,
+        defaultValue: 0.3,
       },
       algorithmTrigger: {
         type: DataTypes.STRING,
