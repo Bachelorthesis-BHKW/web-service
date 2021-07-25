@@ -103,6 +103,9 @@ const energySystemCreateSet = [
   body(nameOfEnergySystem((es) => es.prognosemethodeTh))
     .exists()
     .isInt(),
+  body(nameOfEnergySystem((es) => es.prognosemethodeEl))
+    .exists()
+    .isInt(),
   body(nameOfEnergySystem((es) => es.qThZaehlerGesamt))
     .exists()
     .isBoolean(),
@@ -112,6 +115,9 @@ const energySystemCreateSet = [
   body(nameOfEnergySystem((es) => es.gewichtungsfaktorZufall))
     .exists()
     .isNumeric(),
+  body(nameOfEnergySystem((es) => es.uaGeb))
+    .exists()
+    .isDecimal(),
   body(nameOfEnergySystem((es) => es.algorithmTrigger))
     .exists()
     .isIn(Object.values(AlgorithmTrigger)),
