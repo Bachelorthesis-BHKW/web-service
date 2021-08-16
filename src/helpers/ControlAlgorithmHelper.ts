@@ -12,7 +12,7 @@ export default class ControlAlgorithmHelper {
       {
         args: [
           energySystem.energySystemId.toString(10),
-          String(getWeekendOrHolidayForNextNDays(14, energySystem.region)),
+          String(getWeekendOrHolidayForNextNDays(14, energySystem.region, 15)),
         ],
       },
       (err, result) => {

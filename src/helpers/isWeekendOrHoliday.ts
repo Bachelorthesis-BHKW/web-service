@@ -9,11 +9,13 @@ export default function isWeekendOrHoliday(
 
 export function getWeekendOrHolidayForNextNDays(
   n: number,
-  region: Region
+  region: Region,
+  offsetInMin = 0
 ): boolean[] {
   const dates: Date[] = [];
+  const currentDateWithOffset = new Date().getTime() + offsetInMin * 60 * 1000;
   for (let i = 0; i < n; i++) {
-    dates.push(new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * i));
+    dates.push(new Date(currentDateWithOffset + 1000 * 60 * 60 * 24 * i));
   }
   return dates.map((date) => isWeekendOrHoliday(date, region));
 }
