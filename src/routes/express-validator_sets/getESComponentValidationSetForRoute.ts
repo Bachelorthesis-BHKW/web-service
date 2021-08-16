@@ -83,9 +83,11 @@ const esComponentPatchSet = [
     .isInt({ min: 1 }),
 ];
 
+const arrayWildcard = "*.";
 const esComponentCurrentCreateSet = [
-  body(nameOfESComponentCurrent((cc) => cc.date))
+  body().isArray({ min: 1 }),
+  body(arrayWildcard + nameOfESComponentCurrent((cc) => cc.date))
     .exists()
     .isISO8601(),
-  body(nameOfESComponentCurrent((cc) => cc.current)).exists(),
+  body(arrayWildcard + nameOfESComponentCurrent((cc) => cc.current)).exists(),
 ];

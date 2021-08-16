@@ -6,23 +6,32 @@ import { getComponentById } from "./ESComponentService";
 import { ESComponent } from "../models/ESComponent";
 import { Op } from "sequelize";
 
-export async function addESComponentCurrentToESComponent(
-  esComponentId: number,
+async function addESComponentCurrentToESComponent(
+  component: ESComponent,
   esComponentCurrent: ESComponentCurrentCreateAttributes
 ): Promise<void> {
-  const component = await getComponentById(esComponentId);
   if (component.circularBufferPointer >= component.circularBufferMax)
     component.circularBufferPointer = 0;
 
   await ESComponentCurrent.upsert({
     ...esComponentCurrent,
-    esComponentId,
+    esComponentId: component.esComponentId,
     bufferIndex: component.circularBufferPointer,
   });
 
   component.circularBufferPointer++;
   await component.save();
   return;
+}
+
+export async function addESComponentCurrentsToESComponent(
+  esComponentId: number,
+  esComponentCurrent: ESComponentCurrentCreateAttributes[]
+): Promise<void> {
+  const component = await getComponentById(esComponentId);
+  for (const current of esComponentCurrent) {
+    await addESComponentCurrentToESComponent(component, current);
+  }
 }
 
 export async function getAllCurrentsBetweenDateInterval(

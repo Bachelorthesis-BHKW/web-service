@@ -67,11 +67,11 @@ export async function postEnergySystemComponentCurrent(
   res: express.Response
 ): Promise<void> {
   const esComponentId = +req.params.esComponentId;
-  const esComponentCurrentIN: ESComponentCurrentCreateAttributes = req.body;
+  const esComponentCurrentsIN: ESComponentCurrentCreateAttributes[] = req.body;
 
-  await ESComponentCurrentService.addESComponentCurrentToESComponent(
+  await ESComponentCurrentService.addESComponentCurrentsToESComponent(
     esComponentId,
-    esComponentCurrentIN
+    esComponentCurrentsIN
   );
   res.status(200).end();
 }
