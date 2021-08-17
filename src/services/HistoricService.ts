@@ -31,9 +31,7 @@ async function archiveESComponentCurrentsForEnergySystem(
   const combinedCurrents: ESComponentCurrent[] = [];
   for (const component of components) {
     const currents = await getAllCurrentsBetweenDateInterval(
-      getPreviousDayIntervalForDate(
-        new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
-      ),
+      getPreviousDayIntervalForDate(new Date(new Date().getTime())),
       component
     );
     combinedCurrents.push(...currents);
