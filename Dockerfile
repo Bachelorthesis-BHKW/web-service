@@ -9,7 +9,7 @@ RUN yarn install --prod --frozen-lockfile
 FROM node:14-alpine
 WORKDIR /usr/src/app
 
-RUN apk add python3 py3-numpy py3-psycopg2 py3-matplotlib
+RUN apk add python3 py3-numpy py3-psycopg2
 COPY control-algorithm/*.py .
 
 RUN npm install pm2 -g
