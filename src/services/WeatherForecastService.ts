@@ -33,7 +33,7 @@ export async function fetchHourlyWeatherForEnergySystem(
   energySystem: EnergySystem
 ): Promise<void> {
   const hourlyForecast = await openWeatherClient.getHourlyForecastForLocation(
-    energySystem.longitude,
+    energySystem.latitude,
     energySystem.longitude
   );
   for (const hour of hourlyForecast.hourly)
