@@ -1,6 +1,7 @@
 import { AlgorithmTrigger, EnergySystem } from "../models/EnergySystem";
 import { CronHelper } from "../helpers/CronHelper";
 import ControlAlgorithmHelper from "../helpers/ControlAlgorithmHelper";
+import { writeMailDataIntoDB } from "./writeMailDataIntoDBService";
 
 export function setTimingForEnergySystem(energySystem: EnergySystem): void {
   if (energySystem.algorithmTrigger == AlgorithmTrigger.time) {
@@ -18,7 +19,7 @@ function addAlgorithmTimeTriggerForEnergySystem(
     energySystem.energySystemId,
     () => {
       if (energySystem.mailTrigger == true) {
-        await(writeMailDataIntoDBService())
+        await(writeMailDataIntoDB())
       }
       ControlAlgorithmHelper.runWithEnergySystem(energySystem);
     }
