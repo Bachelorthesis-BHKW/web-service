@@ -17,6 +17,9 @@ function addAlgorithmTimeTriggerForEnergySystem(
     energySystem.cronTriggerTime,
     energySystem.energySystemId,
     () => {
+      if (energySystem.mailTrigger == true) {
+        await(writeMailDataIntoDBService())
+      }
       ControlAlgorithmHelper.runWithEnergySystem(energySystem);
     }
   );
