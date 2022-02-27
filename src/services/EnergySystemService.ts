@@ -45,7 +45,9 @@ export async function patchEnergySystemById(
     energySystem.latitude != null || energySystem.longitude != null;
   tasks.timing =
     energySystem.cronTriggerTime != null ||
-    energySystem.algorithmTrigger != null;
+    energySystem.algorithmTrigger != null ||
+    energySystem.ftpInputTrigger != null ||
+    energySystem.mailInputTrigger != null;
   tasks.buffer =
     energySystem.maxHistoryDays != null ||
     energySystem.consumptionPostIntervalMin != null;

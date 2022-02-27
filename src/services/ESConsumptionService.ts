@@ -7,6 +7,7 @@ import { getCircularBufferPointerForEnergySystem } from "./CircularBufferPointer
 import { getEnergySystemById } from "./EnergySystemService";
 import { EnergySystem } from "../models/EnergySystem";
 import { Op } from "sequelize";
+import { writeMailOrFtpDataIntoDB } from "./writeMailOrFtpDataIntoDBService";
 
 export async function addConsumptionToES(
   consumption: ESConsumptionCreateAttributes,
@@ -54,6 +55,10 @@ export async function deleteAllConsumptionsOfES(
 export async function getAllConsumptionsForES(
   energySystem: EnergySystem
 ): Promise<ESConsumption[]> {
+
+  // Aufruf Mail-Service zur Erprobung todo: Nach Erprobung entfernen!!!
+  await writeMailOrFtpDataIntoDB(energySystem);
+
   return energySystem.getESConsumptions();
 }
 

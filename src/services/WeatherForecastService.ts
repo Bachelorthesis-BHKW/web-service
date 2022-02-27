@@ -8,7 +8,7 @@ import { EnergySystem } from "../models/EnergySystem";
 
 const openWeatherClient = OpenWeatherMap.getInstance();
 
-async function createWeatherForecast(
+export async function createWeatherForecast(
   weatherForecast: WeatherForecastCreateAttributes,
   energySystemId: number
 ): Promise<void> {

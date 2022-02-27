@@ -45,6 +45,26 @@ interface EnergySystemAttributes {
 
   algorithmTrigger: AlgorithmTrigger;
   cronTriggerTime: string;
+  inputFilename: string;
+  outputFilename: string;
+  mailInputTrigger: boolean;
+  mailOutputTrigger: boolean;
+  mailAddress: string;
+  ftpInputTrigger: boolean;
+  ftpOutputTrigger: boolean;
+  ftpServer: string;
+  ftpUser: string;
+  ftpPassword: string;
+  ftpInputPath: string;
+  ftpOutputPath: string;
+  zellbereich_date: string;
+  zellbereich_consumptions: string;
+  zelle_chp1_id: string;
+  zellbereich_chp1: string;
+  zelle_tes_id: string;
+  zellbereich_tes: string;
+  output_column: string;
+
   maxHistoryDays: number;
   consumptionPostIntervalMin: number;
   latitude: number;
@@ -78,6 +98,26 @@ export class EnergySystem
 
   algorithmTrigger!: AlgorithmTrigger;
   cronTriggerTime!: string;
+  inputFilename!: string;
+  outputFilename!: string;
+  mailInputTrigger!: boolean;
+  mailOutputTrigger!: boolean;
+  mailAddress!: string;
+  ftpInputTrigger!: boolean;
+  ftpOutputTrigger!: boolean;
+  ftpServer!: string;
+  ftpUser!: string;
+  ftpPassword!: string;
+  ftpInputPath!: string;
+  ftpOutputPath!: string;
+  zellbereich_date!: string;
+  zellbereich_consumptions!: string;
+  zelle_chp1_id!: string;
+  zellbereich_chp1!: string;
+  zelle_tes_id!: string;
+  zellbereich_tes!: string;
+  output_column!: string;
+
   consumptionPostIntervalMin!: number;
   maxHistoryDays!: number;
   latitude!: number;
@@ -198,6 +238,82 @@ export default function initEnergySystem(sequelize: Sequelize): void {
         allowNull: false,
         // https://crontab.guru
         defaultValue: "5 00 * * *",
+      },
+      inputFilename: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      outputFilename: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      mailInputTrigger: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      mailOutputTrigger: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      mailAddress: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ftpInputTrigger: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      ftpOutputTrigger: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      ftpServer: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ftpUser: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ftpPassword: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ftpInputPath: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ftpOutputPath: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      zellbereich_date: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      zellbereich_consumptions: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      zelle_chp1_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      zellbereich_chp1: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      zelle_tes_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      zellbereich_tes: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      output_column: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       consumptionPostIntervalMin: {
         type: DataTypes.INTEGER,
