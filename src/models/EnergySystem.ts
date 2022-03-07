@@ -241,79 +241,83 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       },
       inputFilename: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       outputFilename: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       mailInputTrigger: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
       mailOutputTrigger: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
       mailAddress: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       ftpInputTrigger: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
       ftpOutputTrigger: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
       ftpServer: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       ftpUser: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       ftpPassword: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       ftpInputPath: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       ftpOutputPath: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       zellbereich_date: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       zellbereich_consumptions: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       zelle_chp1_id: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       zellbereich_chp1: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       zelle_tes_id: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       zellbereich_tes: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       output_column: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       consumptionPostIntervalMin: {
         type: DataTypes.INTEGER,

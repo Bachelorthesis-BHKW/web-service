@@ -57,7 +57,7 @@ export async function getAllConsumptionsForES(
 ): Promise<ESConsumption[]> {
 
   // Aufruf Mail-Service zur Erprobung todo: Nach Erprobung entfernen!!!
-  await writeMailOrFtpDataIntoDB(energySystem);
+  // await writeMailOrFtpDataIntoDB(energySystem);
 
   return energySystem.getESConsumptions();
 }
