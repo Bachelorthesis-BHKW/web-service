@@ -46,6 +46,8 @@ export async function writeMailOrFtpDataIntoDB(energySystem: EnergySystem): Prom
       const cellrange_consumptions = energySystem.zellbereich_consumptions
       const cell_chp1_id = energySystem.zelle_chp1_id
       const cellrange_chp1 = energySystem.zellbereich_chp1
+      const cell_chp2_id = energySystem.zelle_chp2_id
+      const cellrange_chp2 = energySystem.zellbereich_chp2
       const cell_tes_id = energySystem.zelle_tes_id
       const cellrange_tes = energySystem.zellbereich_tes
 
@@ -93,10 +95,8 @@ export async function writeMailOrFtpDataIntoDB(energySystem: EnergySystem): Prom
           cellrange_chp1, ["component_id"], ["betriebszustand"])
 
         // BHKW 2
-        try {await writeComponentCurrentsFromMailToDB(xlsx_data, 'component_currents_chp2', 'A2',
-          'A10:B110', 'C10:F110',
-          ["component_id"],
-          ["betriebszustand"])
+        try {await writeComponentCurrentsFromMailToDB(xlsx_data, 'Tabelle1', cell_chp2_id, cellrange_date,
+          cellrange_chp2, ["component_id"], ["betriebszustand"])
         } catch {
           console.log('no second chp')
         }

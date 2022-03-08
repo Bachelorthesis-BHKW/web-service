@@ -61,6 +61,8 @@ interface EnergySystemAttributes {
   zellbereich_consumptions: string;
   zelle_chp1_id: string;
   zellbereich_chp1: string;
+  zelle_chp2_id: string;
+  zellbereich_chp2: string;
   zelle_tes_id: string;
   zellbereich_tes: string;
   output_column: string;
@@ -114,6 +116,8 @@ export class EnergySystem
   zellbereich_consumptions!: string;
   zelle_chp1_id!: string;
   zellbereich_chp1!: string;
+  zelle_chp2_id!: string;
+  zellbereich_chp2!: string;
   zelle_tes_id!: string;
   zellbereich_tes!: string;
   output_column!: string;
@@ -304,6 +308,14 @@ export default function initEnergySystem(sequelize: Sequelize): void {
         allowNull: true,
       },
       zellbereich_chp1: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      zelle_chp2_id: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      zellbereich_chp2: {
         type: DataTypes.STRING,
         allowNull: true,
       },
