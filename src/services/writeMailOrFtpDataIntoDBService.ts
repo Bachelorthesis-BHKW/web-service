@@ -33,6 +33,7 @@ export async function writeMailOrFtpDataIntoDB(
     const day = String(dateObj.getDate()).padStart(2, "0");
     const year = String(dateObj.getFullYear());
     const file_date = String(day + month + year[2] + year[3]);
+    console.log(file_date);
 
     // Lösche temporäre Datei aus Verzeichnis
     try {
