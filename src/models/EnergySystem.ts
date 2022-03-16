@@ -66,6 +66,7 @@ interface EnergySystemAttributes {
   zelle_tes_id: string;
   zellbereich_tes: string;
   output_column: string;
+  sommerzeit: boolean;
 
   maxHistoryDays: number;
   consumptionPostIntervalMin: number;
@@ -121,6 +122,7 @@ export class EnergySystem
   zelle_tes_id!: string;
   zellbereich_tes!: string;
   output_column!: string;
+  sommerzeit!: boolean;
 
   consumptionPostIntervalMin!: number;
   maxHistoryDays!: number;
@@ -330,6 +332,11 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       output_column: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      sommerzeit: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       },
       consumptionPostIntervalMin: {
         type: DataTypes.INTEGER,
