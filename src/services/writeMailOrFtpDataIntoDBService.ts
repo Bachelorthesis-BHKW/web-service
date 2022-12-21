@@ -29,7 +29,7 @@ export async function writeMailOrFtpDataIntoDB(
     ];
     const today = new Date();
     const dateObj = new Date(today);
-    dateObj.setDate(dateObj.getDate() - 1);
+    dateObj.setDate(dateObj.getDate() + 1);
     const month = String(monthNames[dateObj.getMonth()]);
     const day = String(dateObj.getDate()).padStart(2, "0");
     const year = String(dateObj.getFullYear());
