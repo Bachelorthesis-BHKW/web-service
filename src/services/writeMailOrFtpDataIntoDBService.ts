@@ -211,16 +211,7 @@ export async function writeMailOrFtpDataIntoDB(
         } catch {
           console.log("no slk");
         }
-
-        // Lösche temporäre Datei aus Verzeichnis
-        try {
-          const filePath =
-            "./tmp/" + file_date + "_" + energySystem.inputFilename + ".xlsx";
-          fs.unlinkSync(filePath);
-          console.log("attachments deleted");
-        } catch {
-          console.log("no need for delete");
-        }
+        
         resolve();
       } catch (err: any) {
         console.log("error writing mail attachments in DB");
