@@ -2,7 +2,7 @@ import { EnergySystem } from "../models/EnergySystem";
 import fs from "fs";
 import {Error} from "sequelize";
 
-export async function saveFtpAttachments(energySystem: EnergySystem, file_date: string) : Promise<void> {
+export async function saveFtpAttachments(energySystem: EnergySystem, file_date: string) : Promise<string> {
   return new Promise((resolve, reject)=>{
     try {
 
@@ -13,23 +13,24 @@ export async function saveFtpAttachments(energySystem: EnergySystem, file_date: 
       const c = new ftpClient();
       c.on('ready', function() {
         console.log("connected to ftp server")
+        const generatedFilename = file_date+ '_' + energySystem.inputFilename + '.xlsx';
 
-              c.get(energySystem.ftpInputPath + "/" + file_date+ '_' + energySystem.inputFilename + '.xlsx', function(err: Error, stream: { once: (arg0: string, arg1: () => void) => void; pipe: (arg0: fs.WriteStream) => void; }) {
-                try{
-                  if (err){
-                    throw err;
-                  }
-                  stream.once('close', function() {
-                    c.end();
-                    resolve();
-                  });
-                  stream.pipe(fs.createWriteStream('tmp/'+ file_date+ '_' + energySystem.inputFilename + '.xlsx'));
-                }
-                catch (e: any){
-                  console.error(e);
-                  reject();
-                }
-              });
+        c.get(energySystem.ftpInputPath + "/" + file_date+ '_' + energySystem.inputFilename + '.xlsx', function(err: Error, stream: { once: (arg0: string, arg1: () => void) => void; pipe: (arg0: fs.WriteStream) => void; }) {
+          try{
+            if (err){
+              throw err;
+            }
+            stream.once('close', function() {
+              c.end();
+              resolve(generatedFilename);
+            });
+            stream.pipe(fs.createWriteStream('tmp/'+ generatedFilename));
+          }
+          catch (e: any){
+            console.error(e);
+            reject();
+          }
+        });
 
       });
       const config = {

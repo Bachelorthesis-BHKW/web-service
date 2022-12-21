@@ -6,6 +6,7 @@ import { XlsxToJson, XlsxToJsonTimestamp } from "../helpers/XlsxToJsonHelper";
 import { addConsumptionsToES } from "./ESConsumptionService";
 import { addESComponentCurrentsToESComponent } from "./ESComponentCurrentService";
 import * as fs from "fs";
+import moment from "moment";
 
 export async function writeMailOrFtpDataIntoDB(
   energySystem: EnergySystem
@@ -28,12 +29,12 @@ export async function writeMailOrFtpDataIntoDB(
     ];
     const today = new Date();
     const dateObj = new Date(today);
-    dateObj.setDate(dateObj.getDate() + 1);
+    dateObj.setDate(dateObj.getDate() - 1);
     const month = String(monthNames[dateObj.getMonth()]);
     const day = String(dateObj.getDate()).padStart(2, "0");
     const year = String(dateObj.getFullYear());
     const file_date = String(day + month + year[2] + year[3]);
-    console.log(file_date);
+    // console.log(file_date);
 
     // Lösche temporäre Datei aus Verzeichnis
     try {
@@ -46,11 +47,15 @@ export async function writeMailOrFtpDataIntoDB(
     }
 
     // Mail-/FTP-Daten von heute abrufen und Anhänge speichern
+    const filenameExpression = new RegExp(energySystem.inputFilename+".*.xlsx?$")
+    const downloadsinceDate = moment().format('YYYY-MM-DD'); // seit heute
     if (energySystem.mailInputTrigger) {
-      saveMailAttachments()
-        .then(function () {
-          console.log("Mail attachments saved: Successful");
-          onAttachmentsSaved();
+      saveMailAttachments(filenameExpression, downloadsinceDate)
+        .then(function(filenames: string[]) {
+          for (let i = 0; i<filenames.length; i++){
+            console.log("Mail attachments saved as "+filenames[i]);
+            onAttachmentsSaved(filenames[i]);
+          }
         })
         .catch(function () {
           reject();
@@ -58,9 +63,9 @@ export async function writeMailOrFtpDataIntoDB(
         });
     } else if (energySystem.ftpInputTrigger) {
       saveFtpAttachments(energySystem, file_date)
-        .then(function () {
+        .then(function(filename: string) {
           console.log("FTP data saved: Successful");
-          onAttachmentsSaved();
+          onAttachmentsSaved(filename);
         })
         .catch(function () {
           reject();
@@ -71,16 +76,14 @@ export async function writeMailOrFtpDataIntoDB(
       reject();
     }
 
-    async function onAttachmentsSaved() {
+    async function onAttachmentsSaved(filename: string) {
       const xlsx_weather_data =
         "./tmp/" +
-        file_date +
-        "_" +
-        energySystem.inputFilename +
         "_weather_data" +
+        filename +
         ".xlsx";
       const xlsx_data =
-        "./tmp/" + file_date + "_" + energySystem.inputFilename + ".xlsx";
+        "./tmp/" + filename;
 
       const cellrange_date = energySystem.zellbereich_date;
       const cellrange_consumptions = energySystem.zellbereich_consumptions;
@@ -209,11 +212,29 @@ export async function writeMailOrFtpDataIntoDB(
           console.log("no slk");
         }
 
+        // Lösche temporäre Datei aus Verzeichnis
+        try {
+          const filePath =
+            "./tmp/" + file_date + "_" + energySystem.inputFilename + ".xlsx";
+          fs.unlinkSync(filePath);
+          console.log("attachments deleted");
+        } catch {
+          console.log("no need for delete");
+        }
         resolve();
       } catch (err: any) {
         console.log("error writing mail attachments in DB");
         console.log(err);
         reject();
+      } finally {
+        // Lösche temporäre Datei aus Verzeichnis
+        try {
+          const filePath = "./tmp/" + filename;
+          fs.unlinkSync(filePath);
+          console.log("temporary mail attachments deleted");
+        } catch {
+          console.error("temporary file "+filename+" could not be deleted");
+        }
       }
     }
   });

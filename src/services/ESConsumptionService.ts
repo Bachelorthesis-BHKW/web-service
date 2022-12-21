@@ -44,6 +44,21 @@ export async function addConsumptionsToES(
   }
 }
 
+export async function updateConsumption(
+  consumption: ESConsumptionCreateAttributes,
+  energySystemId: number,
+  bufferIndex: number
+):Promise<void>{
+  await ESConsumption.update(
+    { verbrauchStrom: consumption.verbrauchStrom,
+    verbrauchBww: consumption.verbrauchBww,
+    verbrauchHeizung: consumption.verbrauchHeizung,
+    aussentemperatur: consumption.aussentemperatur,
+    holiday: consumption.holiday},
+    { where: { energySystemId: energySystemId, bufferIndex: bufferIndex} }
+  );
+}
+
 export async function deleteAllConsumptionsOfES(
   energySystem: EnergySystem
 ): Promise<void> {
@@ -55,10 +70,6 @@ export async function deleteAllConsumptionsOfES(
 export async function getAllConsumptionsForES(
   energySystem: EnergySystem
 ): Promise<ESConsumption[]> {
-
-  // Aufruf Mail-Service zur Erprobung todo: Nach Erprobung entfernen!!!
-  // await writeMailOrFtpDataIntoDB(energySystem);
-
   return energySystem.getESConsumptions();
 }
 

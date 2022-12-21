@@ -47,6 +47,7 @@ interface EnergySystemAttributes {
   cronTriggerTime: string;
   inputFilename: string;
   outputFilename: string;
+  electricityPriceForecastFilename: string;
   mailInputTrigger: boolean;
   mailOutputTrigger: boolean;
   mailAddress: string;
@@ -103,6 +104,7 @@ export class EnergySystem
   cronTriggerTime!: string;
   inputFilename!: string;
   outputFilename!: string;
+  electricityPriceForecastFilename!: string;
   mailInputTrigger!: boolean;
   mailOutputTrigger!: boolean;
   mailAddress!: string;
@@ -250,6 +252,10 @@ export default function initEnergySystem(sequelize: Sequelize): void {
         allowNull: true,
       },
       outputFilename: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      electricityPriceForecastFilename: {
         type: DataTypes.STRING,
         allowNull: true,
       },

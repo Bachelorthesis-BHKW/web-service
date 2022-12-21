@@ -2,6 +2,7 @@ import { AlgorithmTrigger, EnergySystem } from "../models/EnergySystem";
 import { CronHelper } from "../helpers/CronHelper";
 import ControlAlgorithmHelper from "../helpers/ControlAlgorithmHelper";
 import { writeMailOrFtpDataIntoDB } from "./writeMailOrFtpDataIntoDBService"
+import { writeElectricityPriceForecastIntoDB } from "./ElectricityPriceForecastService";
 
 export function setTimingForEnergySystem(energySystem: EnergySystem): void {
   if (energySystem.algorithmTrigger == AlgorithmTrigger.time) {
@@ -17,13 +18,20 @@ function addAlgorithmTimeTriggerForEnergySystem(
   CronHelper.upsertJob(
     energySystem.cronTriggerTime,
     energySystem.energySystemId,
-    async () => {
+    async function() {
       if (energySystem.mailInputTrigger || energySystem.ftpInputTrigger) {
-        await writeMailOrFtpDataIntoDB(energySystem).then(function(){console.log('starting algorithm');
-          ControlAlgorithmHelper.runWithEnergySystem(energySystem)}).catch(function(){console.log('no mail data available')});
-      } else {
-        ControlAlgorithmHelper.runWithEnergySystem(energySystem);
+        await writeMailOrFtpDataIntoDB(energySystem).catch(function() {
+          console.log('no mail data available');
+        })
       }
+
+      if (energySystem.prognosemethodeEl == 2) {
+        await writeElectricityPriceForecastIntoDB(energySystem).catch(function() {
+          console.log('no electricity price forecast available');
+        })
+      }
+      console.log('starting algorithm');
+      ControlAlgorithmHelper.runWithEnergySystem(energySystem);
     }
   );
 }
