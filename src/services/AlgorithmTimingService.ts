@@ -19,6 +19,8 @@ function addAlgorithmTimeTriggerForEnergySystem(
     energySystem.cronTriggerTime,
     energySystem.energySystemId,
     async function() {
+      energySystem = await getEnergySystemById(energySystem.energySystemId)
+      
       if (energySystem.mailInputTrigger || energySystem.ftpInputTrigger) {
         await writeMailOrFtpDataIntoDB(energySystem).catch(function() {
           console.log('no mail data available');
