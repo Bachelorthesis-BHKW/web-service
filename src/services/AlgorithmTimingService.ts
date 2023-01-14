@@ -3,6 +3,7 @@ import { CronHelper } from "../helpers/CronHelper";
 import ControlAlgorithmHelper from "../helpers/ControlAlgorithmHelper";
 import { writeMailOrFtpDataIntoDB } from "./writeMailOrFtpDataIntoDBService"
 import { writeElectricityPriceForecastIntoDB } from "./ElectricityPriceForecastService";
+import { getEnergySystemById } from "./EnergySystemService";
 
 export function setTimingForEnergySystem(energySystem: EnergySystem): void {
   if (energySystem.algorithmTrigger == AlgorithmTrigger.time) {
