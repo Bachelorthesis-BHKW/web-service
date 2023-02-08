@@ -23,7 +23,7 @@ export async function getESScheduleNowByEnergySystemId(
 ): Promise<number> {
   const esSchedule = await ESSchedule.findOne({ where: { energySystemId } });
   if (!esSchedule) throw new ExpressError(ErrorCode.NOT_FOUND_404);
-  const timeArray = JSON.parse(esSchedule.schedule) as number[];
+  const timeArray = esSchedule.schedule as number[];
   const date = new Date();
   const timeInMinutes = date.getMinutes() + date.getHours() * 60;
   const index = Math.floor(timeInMinutes / esSchedule.timeIntervalMin);

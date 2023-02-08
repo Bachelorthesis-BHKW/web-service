@@ -48,7 +48,7 @@ async function archiveESSchedulesForEnergySystem(
   const schedules = await energySystem.getESSchedules();
   for (const schedule of schedules) {
     const startDate = schedule.updatedAt;
-    const scheduleArray: number[] = JSON.parse(schedule.schedule);
+    const scheduleArray: number[] = schedule.schedule as number[];
     for (let i = 0; i < scheduleArray.length; i++) {
       await ESScheduleHistoric.create({
         energySystemId: energySystem.energySystemId,

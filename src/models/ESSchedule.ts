@@ -1,10 +1,11 @@
 import { Model, Sequelize, DataTypes } from "sequelize";
+import Schedule from "../es_components/Schedule";
 
 interface ESScheduleAttributes {
   energySystemId: number;
   esComponentId: number;
   timeIntervalMin: number;
-  schedule: string;
+  schedule: Schedule;
 }
 
 interface ESScheduleCreateAttributes extends ESScheduleAttributes {}
@@ -16,7 +17,7 @@ export class ESSchedule
   energySystemId!: number;
   esComponentId!: number;
   timeIntervalMin!: number;
-  schedule!: string;
+  schedule!: Schedule;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;
@@ -39,8 +40,7 @@ export default function initESSchedule(sequelize: Sequelize): void {
         defaultValue: 0,
       },
       schedule: {
-        type: DataTypes.TEXT,
-        defaultValue: "",
+        type: DataTypes.JSONB,
       },
     },
     { sequelize }
