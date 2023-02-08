@@ -7,7 +7,6 @@ import { getCircularBufferPointerForEnergySystem } from "./CircularBufferPointer
 import { getEnergySystemById } from "./EnergySystemService";
 import { EnergySystem } from "../models/EnergySystem";
 import { Op } from "sequelize";
-import { writeMailOrFtpDataIntoDB } from "./writeMailOrFtpDataIntoDBService";
 
 export async function addConsumptionToES(
   consumption: ESConsumptionCreateAttributes,
@@ -48,14 +47,16 @@ export async function updateConsumption(
   consumption: ESConsumptionCreateAttributes,
   energySystemId: number,
   bufferIndex: number
-):Promise<void>{
+): Promise<void> {
   await ESConsumption.update(
-    { verbrauchStrom: consumption.verbrauchStrom,
-    verbrauchBww: consumption.verbrauchBww,
-    verbrauchHeizung: consumption.verbrauchHeizung,
-    aussentemperatur: consumption.aussentemperatur,
-    holiday: consumption.holiday},
-    { where: { energySystemId: energySystemId, bufferIndex: bufferIndex} }
+    {
+      verbrauchStrom: consumption.verbrauchStrom,
+      verbrauchBww: consumption.verbrauchBww,
+      verbrauchHeizung: consumption.verbrauchHeizung,
+      aussentemperatur: consumption.aussentemperatur,
+      holiday: consumption.holiday,
+    },
+    { where: { energySystemId: energySystemId, bufferIndex: bufferIndex } }
   );
 }
 
@@ -82,7 +83,7 @@ export async function getAllConsumptionsBetweenDateInterval(
       [Op.and]: [
         { energySystemId: energySystem.energySystemId },
         {
-          createdAt: {
+          date: {
             [Op.between]: interval,
           },
         },
