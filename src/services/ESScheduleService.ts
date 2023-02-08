@@ -12,7 +12,8 @@ export async function getESScheduleByEnergySystemId(
   const esSchedule = await ESSchedule.findOne({
     where: { energySystemId, esComponentId },
   });
-  if (!esSchedule || esSchedule.updatedAt.getDate() != new Date().getDate())
+  const oneDayAgo = new Date(new Date().getTime() - 1000 * 60 * 60 * 24);
+  if (!esSchedule || esSchedule.updatedAt < oneDayAgo)
     throw new ExpressError(ErrorCode.NOT_FOUND_404);
   return esSchedule;
 }
