@@ -6,6 +6,7 @@ interface ESScheduleAttributes {
   esComponentId: number;
   timeIntervalMin: number;
   schedule: Schedule;
+  updatedAtMez: Date;
 }
 
 interface ESScheduleCreateAttributes extends ESScheduleAttributes {}
@@ -18,6 +19,7 @@ export class ESSchedule
   esComponentId!: number;
   timeIntervalMin!: number;
   schedule!: Schedule;
+  updatedAtMez!: Date;
 
   readonly createdAt!: Date;
   readonly updatedAt!: Date;
@@ -41,6 +43,9 @@ export default function initESSchedule(sequelize: Sequelize): void {
       },
       schedule: {
         type: DataTypes.JSONB,
+      },
+      updatedAtMez: {
+        type: DataTypes.DATE,
       },
     },
     { sequelize }
