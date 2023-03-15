@@ -64,8 +64,9 @@ export async function writeElectricityPriceForecastIntoDB(
             }
 
             //consumptions der letzten 24 Stunden aus Datenbank laden:
-            const intervalEnd = new Date()
-            const intervalStart = new Date(intervalEnd.getTime() - 1000 * 60 * 60 * 24);
+            const now = new Date();
+            const intervalEnd = new Date(now.getTime() + 1000 * 60 * 60 * 24)
+            const intervalStart = new Date(now.getTime() - 1000 * 60 * 60 * 24);
             const consumptions: ESConsumption[] = await getAllConsumptionsBetweenDateInterval(
               [intervalStart, intervalEnd],
               energySystem
