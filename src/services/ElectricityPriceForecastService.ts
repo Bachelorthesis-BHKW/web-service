@@ -12,8 +12,8 @@ export async function writeElectricityPriceForecastIntoDB(
 ): Promise<void> {
   return new Promise((resolve, reject) => {
     const dateObj = new Date();
-    dateObj.setDate(dateObj.getDate()  - 1);
-    const downloadsinceDate = moment(dateObj).format('YYYY-MM-DD'); // seit gestern
+    dateObj.setDate(dateObj.getDate());
+    const downloadsinceDate = moment(dateObj).format('YYYY-MM-DD'); // seit heute
     const filenameExpression = new RegExp(energySystem.electricityPriceForecastFilename +".*.csv?$")
 
     // Mail von heute abrufen und Anhänge speichern
