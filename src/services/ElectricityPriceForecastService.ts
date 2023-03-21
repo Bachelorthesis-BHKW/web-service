@@ -75,9 +75,10 @@ export async function writeElectricityPriceForecastIntoDB(
             //Stromverbrauch mit Strompreisprognose überschreiben:
             for (const consumption of consumptions) {
               for (const forecast of forecasts){
-                if (consumption.date.getHours() == forecast.date.getHours() &&
-                  consumption.date.getDate() == forecast.date.getDate()&&
-                  consumption.date.getMonth() == forecast.date.getMonth()){
+                const forecastDate = new Date (consumption.date.getTime() + 1000 * 60 * 60 * 24);
+                if (forecastDate.getHours() == forecast.date.getHours() &&
+                  forecastDate.getDate() == forecast.date.getDate()&&
+                  forecastDate.getMonth() == forecast.date.getMonth()){
                   consumption.verbrauchStrom = forecast.price;
                   await updateConsumption(consumption, consumption.energySystemId, consumption.bufferIndex);
                 }
