@@ -15,7 +15,7 @@ export async function getESScheduleByEnergySystemId(
   const oneDayAgo = new Date(new Date().getTime() - 1000 * 60 * 60 * 24);
   if (!esSchedule || esSchedule.updatedAt < oneDayAgo)
     throw new ExpressError(ErrorCode.NOT_FOUND_404);
-  const timeCorrection = 1; // TODO: Zeitzone händisch anpassen
+  const timeCorrection = 2; // TODO: Zeitzone händisch anpassen
                             // mitteleuropäische Winterzeit: timeCorrection = 1
                             // mitteleuropäische Sommerzeit: timeCorrection = 2
   const timeInTimeZone = new Date(esSchedule.updatedAt.getTime() + 1000 * 60 * 60 * timeCorrection) ;
