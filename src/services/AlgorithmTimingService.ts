@@ -33,6 +33,7 @@ function addAlgorithmTimeTriggerForEnergySystem(
           console.log('no electricity price forecast available');
         })
       }
+      await new Promise(r => setTimeout(r, 2000));  // Pause for 2 sec.
       console.log('starting algorithm');
       ControlAlgorithmHelper.runWithEnergySystem(energySystem);
     }
