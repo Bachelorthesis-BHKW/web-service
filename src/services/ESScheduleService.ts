@@ -15,9 +15,13 @@ export async function getESScheduleByEnergySystemId(
   const oneDayAgo = new Date(new Date().getTime() - 1000 * 60 * 60 * 24);
   if (!esSchedule || esSchedule.updatedAt < oneDayAgo)
     throw new ExpressError(ErrorCode.NOT_FOUND_404);
-  const timeCorrection = 2; // TODO: Zeitzone händisch anpassen
-                            // mitteleuropäische Winterzeit: timeCorrection = 1
-                            // mitteleuropäische Sommerzeit: timeCorrection = 2
+                                                      
+  const energySystem = await getEnergySystemById(energySystemId);
+  let timeCorrection = 1;
+  if (energySystem.sommerzeit){
+    timeCorrection = 2; // mitteleuropäische Winterzeit: timeCorrection = 1
+                        // mitteleuropäische Sommerzeit: timeCorrection = 2
+  }
   const timeInTimeZone = new Date(esSchedule.updatedAt.getTime() + 1000 * 60 * 60 * timeCorrection) ;
   esSchedule.updatedAtMez = timeInTimeZone;
   return esSchedule;
