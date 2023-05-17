@@ -4,6 +4,7 @@ import ControlAlgorithmHelper from "../helpers/ControlAlgorithmHelper";
 import { writeMailOrFtpDataIntoDB } from "./writeMailOrFtpDataIntoDBService"
 import { writeElectricityPriceForecastIntoDB } from "./ElectricityPriceForecastService";
 import { getEnergySystemById } from "./EnergySystemService";
+import { fetchHourlyWeatherForEnergySystem } from "./WeatherForecastService";
 
 export function setTimingForEnergySystem(energySystem: EnergySystem): void {
   if (energySystem.algorithmTrigger == AlgorithmTrigger.time) {
@@ -34,6 +35,9 @@ function addAlgorithmTimeTriggerForEnergySystem(
         })
       }
       await new Promise(r => setTimeout(r, 2000));  // Pause for 2 sec.
+
+      console.log('fetching weather forecast');
+      await fetchHourlyWeatherForEnergySystem(energySystem);
       console.log('starting algorithm');
       ControlAlgorithmHelper.runWithEnergySystem(energySystem);
     }
