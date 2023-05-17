@@ -2,6 +2,7 @@ import ExpressError, { ErrorCode } from "../error";
 import { ESSchedule } from "../models/ESSchedule";
 import { EnergySystem } from "../models/EnergySystem";
 import MainEventEmitter from "../subscriber/MainEventEmitter";
+import { getEnergySystemById } from "./EnergySystemService";
 
 const eventEmitter = MainEventEmitter.getInstance();
 
