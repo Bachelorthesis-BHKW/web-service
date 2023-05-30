@@ -3,6 +3,7 @@ import { ESSchedule } from "../models/ESSchedule";
 import { EnergySystem } from "../models/EnergySystem";
 import MainEventEmitter from "../subscriber/MainEventEmitter";
 import { getEnergySystemById } from "./EnergySystemService";
+import { time } from "cron";
 
 const eventEmitter = MainEventEmitter.getInstance();
 
@@ -16,15 +17,33 @@ export async function getESScheduleByEnergySystemId(
   const oneDayAgo = new Date(new Date().getTime() - 1000 * 60 * 60 * 24);
   if (!esSchedule || esSchedule.updatedAt < oneDayAgo)
     throw new ExpressError(ErrorCode.NOT_FOUND_404);
-                                                      
+
   const energySystem = await getEnergySystemById(energySystemId);
   let timeCorrection = 1;
-  if (energySystem.sommerzeit){
+  if (energySystem.sommerzeit) {
     timeCorrection = 2; // mitteleuropäische Winterzeit: timeCorrection = 1
-                        // mitteleuropäische Sommerzeit: timeCorrection = 2
+    // mitteleuropäische Sommerzeit: timeCorrection = 2
   }
-  const timeInTimeZone = new Date(esSchedule.updatedAt.getTime() + 1000 * 60 * 60 * timeCorrection) ;
+  const timeInTimeZone = new Date(
+    esSchedule.updatedAt.getTime() + 1000 * 60 * 60 * timeCorrection
+  );
   esSchedule.updatedAtMez = timeInTimeZone;
+  esSchedule.validFrom = timeInTimeZone;
+
+  // always return last 24 hours of schedule only
+  const timeArray = esSchedule.schedule as number[];
+  const maxSize = Math.ceil(1440 / esSchedule.timeIntervalMin);
+  if (timeArray.length > maxSize) {
+    const firstIndex = timeArray.length - maxSize;
+    const lastIndex = timeArray.length - 1;
+    esSchedule.schedule = timeArray.splice(firstIndex, lastIndex);
+    const validFrom = new Date(
+      esSchedule.updatedAtMez.getTime() +
+        1000 * 60 * firstIndex * esSchedule.timeIntervalMin
+    );
+    esSchedule.validFrom = validFrom;
+  }
+
   return esSchedule;
 }
 
