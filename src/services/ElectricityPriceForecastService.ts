@@ -77,7 +77,7 @@ export async function writeElectricityPriceForecastIntoDB(
             );
             const offset = 1000 * 60 * 60 * 24 * offsetDays;
             const now = new Date();
-            const intervalEnd = new Date(now.getTime());
+            const intervalEnd = new Date(now.getTime() + 1000 * 60 * 60 * 24); // Zeitpunkt jetzt plus 24 Stunden für ggf. Zeitzonenversatz
             const intervalStart = new Date(now.getTime() - offset);
             const consumptions: ESConsumption[] =
               await getAllConsumptionsBetweenDateInterval(
