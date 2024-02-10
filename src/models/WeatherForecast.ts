@@ -4,6 +4,7 @@ import { BufferInterface } from "./BufferInterface";
 interface WeatherForecastAttributes extends BufferInterface {
   energySystemId: number;
   date: Date;
+  pvPower?: number;
   globalHorizontalIrradiance?: number;
   directNormalIrradiance?: number;
   diffuseHorizontalIrradiance?: number;
@@ -23,6 +24,7 @@ export class WeatherForecast
   energySystemId!: number;
   bufferIndex!: number;
   date!: Date;
+  pvPower!: number;
   globalHorizontalIrradiance!: number;
   directNormalIrradiance!: number;
   diffuseHorizontalIrradiance!: number;
@@ -48,6 +50,9 @@ export default function initWeatherForecast(sequelize: Sequelize): void {
       date: {
         type: DataTypes.DATE,
         allowNull: false,
+      },
+      pvPower: {
+        type: DataTypes.DOUBLE,
       },
       globalHorizontalIrradiance: {
         type: DataTypes.DOUBLE,
