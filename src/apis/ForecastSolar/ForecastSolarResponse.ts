@@ -1,5 +1,10 @@
 export default interface ForecastSolarResponse {
-  result: Record<string, number>;
+  result: {
+    watts: Record<string, number>;
+    watt_hours_period: Record<string, number>;
+    watt_hours: Record<string, number>;
+    watt_hours_day: Record<string, number>;
+  };
   message: {
     code: number;
     type: string;

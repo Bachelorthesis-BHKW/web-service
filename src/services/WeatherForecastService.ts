@@ -87,7 +87,7 @@ function getPVPowerForDate(
   date: Date
 ) {
   let maxPVPower = 0;
-  const pvDates = Object.keys(hourlyPVForecast.result);
+  const pvDates = Object.keys(hourlyPVForecast.result.watt_hours_period);
   pvDates.forEach((pvDate) => {
     const [year, month, day, hour, minute, second] = pvDate.split(/[- :]/);
     const pvDateObject = new Date(
@@ -104,7 +104,7 @@ function getPVPowerForDate(
     );
     //console.log("difference in minutes:", differenceInMinutes);
     if (differenceInMinutes < 60 && differenceInMinutes >= 0) {
-      const pvPower = hourlyPVForecast.result[pvDate];
+      const pvPower = hourlyPVForecast.result.watt_hours_period[pvDate];
       if (pvPower > maxPVPower) {
         maxPVPower = pvPower;
       }

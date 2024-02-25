@@ -24,7 +24,7 @@ export default class ForecastSolar {
     powerKWP: number
   ): Promise<ForecastSolarResponse> {
     const response = await axios.get(
-      `${ForecastSolar.baseUrl}/estimate/watts/${latitude}/${longitude}/${declination}/${azimuth}/${powerKWP}`
+      `${ForecastSolar.baseUrl}/estimate/${latitude}/${longitude}/${declination}/${azimuth}/${powerKWP}`
     );
     return response.data;
   }
