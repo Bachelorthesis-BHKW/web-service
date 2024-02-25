@@ -1,9 +1,9 @@
 import Component from "./Component";
 
 export default interface PV extends Component {
-  kollpower_W: number;
+  kollpower_kW: number;
   kollsteigung: number;
-  kolllazi: number;
+  kollazi: number;
   deltaWp: number;
   etakoll: number;
   albedo: number;
