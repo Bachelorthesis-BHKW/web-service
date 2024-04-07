@@ -12,4 +12,6 @@ export interface CHP extends Component {
   modulation: boolean;
   modulationsgrad_el: number[];
   modulationsgrad_th: number[];
+  grenzkosten: number;
+  straferloes: number;
 }
