@@ -25,7 +25,7 @@ export default class OpenWeatherMap {
     longitude: number
   ): Promise<OWMOneCallResponse> {
     const response = await axios.get(
-      `${OpenWeatherMap.baseUrl}/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=current,daily,alerts&appid=${this.apiKey}&units=metric`
+      `${OpenWeatherMap.baseUrl}/data/3.0/onecall?lat=${latitude}&lon=${longitude}&exclude=current,daily,alerts&appid=${this.apiKey}&units=metric`
     );
     return response.data;
   }
