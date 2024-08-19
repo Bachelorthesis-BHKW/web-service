@@ -219,7 +219,7 @@ export default function initEnergySystem(sequelize: Sequelize): void {
       },
       prognosemethodeEl: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       prognosemethodePv: {
         type: DataTypes.INTEGER,
