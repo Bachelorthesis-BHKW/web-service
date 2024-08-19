@@ -5,4 +5,5 @@ export default interface SLK extends Component {
   eingriffsgrenze: number;
   modulation_min: number;
   mindestlaufzeit_min: number;
+  betriebsweise: number;
 }

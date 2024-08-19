@@ -38,6 +38,7 @@ interface EnergySystemAttributes {
   stetigkeitsfaktor: number;
   prognosemethodeTh: number;
   prognosemethodeEl: number;
+  prognosemethodePv: number;
   qThZaehlerGesamt: boolean;
   qThZaehlerGetrennt: boolean;
   gewichtungsfaktorZufall: number;
@@ -95,6 +96,7 @@ export class EnergySystem
   stetigkeitsfaktor!: number;
   prognosemethodeTh!: number;
   prognosemethodeEl!: number;
+  prognosemethodePv!: number;
   qThZaehlerGesamt!: boolean;
   qThZaehlerGetrennt!: boolean;
   gewichtungsfaktorZufall!: number;
@@ -216,6 +218,10 @@ export default function initEnergySystem(sequelize: Sequelize): void {
         allowNull: false,
       },
       prognosemethodeEl: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      prognosemethodePv: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
