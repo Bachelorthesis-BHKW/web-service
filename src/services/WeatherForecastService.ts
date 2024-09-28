@@ -9,7 +9,6 @@ import { EnergySystem } from "../models/EnergySystem";
 import { ESComponentType } from "../es_components/ESComponentType";
 import PV from "../es_components/PV";
 import ForecastSolarResponse from "../apis/ForecastSolar/ForecastSolarResponse";
-import { time } from "cron";
 
 const openWeatherClient = OpenWeatherMap.getInstance();
 const forecastSolarClient = ForecastSolar.getInstance();
